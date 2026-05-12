@@ -1,0 +1,31 @@
+flowchart TD
+  home["i 六院<br/>index.html"]
+  registration["预约挂号<br/>registration/index.html"]
+  campus_select["选择院区<br/>registration/campus-select/index.html"]
+  campus_yuancun["金融城·员村<br/>registration/campus-select/yuancun/index.html"]
+  sleep_memory_clinic["睡眠、记忆障碍专科门诊<br/>registration/campus-select/yuancun/sleep-memory-clinic/index.html"]
+  doctor_source["医生号源<br/>registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html"]
+  appointment_confirm["挂号确认<br/>registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html"]
+  campus_north["北院区<br/>registration/campus-select/north/index.html"]
+  campus_knowledge["知识城<br/>registration/campus-select/knowledge/index.html"]
+  home -->|"+ 预约挂号"| registration
+  registration -.->|"返回首页"| home
+  registration -->|"按院区挂号 / 去挂号"| campus_select
+  campus_select -.->|"返回预约挂号"| registration
+  campus_select -->|"金融城·员村 / 去挂号"| campus_yuancun
+  campus_select -->|"北院区 / 去挂号"| campus_north
+  campus_select -->|"知识城 / 去挂号"| campus_knowledge
+  campus_yuancun -.->|"返回选择院区"| campus_select
+  campus_yuancun -->|"睡眠、记忆障碍专科门诊"| sleep_memory_clinic
+  sleep_memory_clinic -.->|"返回金融城员村"| campus_yuancun
+  sleep_memory_clinic -->|"✓ 预约挂号"| doctor_source
+  doctor_source -.->|"返回专科门诊"| sleep_memory_clinic
+  doctor_source -->|"14:30~15:00 ¥ 25 余1"| appointment_confirm
+  appointment_confirm -.->|"返回医生号源"| doctor_source
+  appointment_confirm -.->|"上一步"| doctor_source
+  campus_north -.->|"返回选择院区"| campus_select
+  campus_knowledge -.->|"返回选择院区"| campus_select
+  classDef page fill:#ecfbf3,stroke:#28a271,color:#14201b,stroke-width:1px;
+  classDef confirm fill:#fff6e8,stroke:#e69a2d,color:#24170b,stroke-width:1px;
+  class home,registration,campus_select,campus_yuancun,sleep_memory_clinic,doctor_source,campus_north,campus_knowledge page;
+  class appointment_confirm confirm;

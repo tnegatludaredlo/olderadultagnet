@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>北院区</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <script src="../../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="北院区">
+      <section class="app-page is-active sub-page" data-screen="campus-north" aria-label="北院区挂号页面">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>8:50</span>
+            <span class="status-icons">▮▮▮ 5G <b>29</b></span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回选择院区" data-nav-back-target="campus-select">
+              <span></span>
+            </button>
+            <h1>北院区</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="clinic-page">
+          <button class="recent-doctor" type="button">
+            <span>最近就诊的医生</span>
+            <span class="recent-arrow" aria-hidden="true"></span>
+          </button>
+          <div class="clinic-layout">
+            <aside class="clinic-sidebar clinic-sidebar--short">
+              <button class="clinic-dept is-active" type="button">妇产科</button>
+              <button class="clinic-dept" type="button">生殖医学中心</button>
+            </aside>
+            <section class="clinic-main">
+              <button class="clinic-item clinic-item--single" type="button">产科</button>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>选择院区</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script src="../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="选择院区">
+      <section class="app-page is-active sub-page" data-screen="campus-select" aria-label="选择院区页面">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>8:40</span>
+            <span class="status-icons">▮▮▮ 5G <b>31</b></span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回预约挂号" data-nav-back-target="registration">
+              <span></span>
+            </button>
+            <h1>选择院区</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="sub-content campus-content">
+          <div class="campus-list">
+            <article class="campus-card">
+              <div class="campus-card__text">
+                <h2>金融城·员村</h2>
+                <p>
+                  <span class="campus-location-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 21s6-4.5 6-10a6 6 0 0 0-12 0c0 5.5 6 10 6 10zM12 13.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" /></svg>
+                  </span>
+                  广州市天河区员村二横路26号
+                </p>
+              </div>
+              <button class="go-button" type="button" data-nav-target="campus-yuancun">去挂号</button>
+            </article>
+
+            <article class="campus-card">
+              <div class="campus-card__text">
+                <h2>北院区</h2>
+                <p>
+                  <span class="campus-location-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 21s6-4.5 6-10a6 6 0 0 0-12 0c0 5.5 6 10 6 10zM12 13.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" /></svg>
+                  </span>
+                  广州市天河区瘦狗岭17号
+                </p>
+              </div>
+              <button class="go-button" type="button" data-nav-target="campus-north">去挂号</button>
+            </article>
+
+            <article class="campus-card">
+              <div class="campus-card__text">
+                <h2>知识城</h2>
+                <p>
+                  <span class="campus-location-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 21s6-4.5 6-10a6 6 0 0 0-12 0c0 5.5 6 10 6 10zM12 13.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" /></svg>
+                  </span>
+                  广州市黄埔区知明路688号
+                </p>
+              </div>
+              <button class="go-button" type="button" data-nav-target="campus-knowledge">去挂号</button>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

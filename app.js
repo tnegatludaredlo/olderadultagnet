@@ -3,7 +3,33 @@ const navButtons = Array.from(document.querySelectorAll("[data-nav-target]"));
 const backButtons = Array.from(document.querySelectorAll("[data-nav-back], [data-nav-back-target]"));
 const clinicTabs = Array.from(document.querySelectorAll("[data-clinic-target]"));
 
+const pageRoutes = {
+  home: "index.html",
+  registration: "registration/index.html",
+  "campus-select": "registration/campus-select/index.html",
+  "campus-yuancun": "registration/campus-select/yuancun/index.html",
+  "sleep-memory-clinic": "registration/campus-select/yuancun/sleep-memory-clinic/index.html",
+  "doctor-source": "registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html",
+  "appointment-confirm": "registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html",
+  "campus-north": "registration/campus-select/north/index.html",
+  "campus-knowledge": "registration/campus-select/knowledge/index.html",
+};
+
+function getCurrentRouteDepth() {
+  const currentScreen = document.querySelector(".app-page[data-screen]")?.dataset.screen;
+  const currentRoute = pageRoutes[currentScreen] || pageRoutes.home;
+
+  return currentRoute.split("/").length - 1;
+}
+
 function showScreen(target) {
+  const route = pageRoutes[target];
+
+  if (route) {
+    window.location.href = `${"../".repeat(getCurrentRouteDepth())}${route}`;
+    return;
+  }
+
   pages.forEach((page) => {
     page.classList.toggle("is-active", page.dataset.screen === target);
   });

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app name="i 六院" root="index.html">
+  <routes>
+    <route screen="home" file="index.html" title="i 六院" />
+    <route screen="registration" file="registration/index.html" title="预约挂号" />
+    <route screen="campus-select" file="registration/campus-select/index.html" title="选择院区" />
+    <route screen="campus-yuancun" file="registration/campus-select/yuancun/index.html" title="金融城·员村" />
+    <route screen="sleep-memory-clinic" file="registration/campus-select/yuancun/sleep-memory-clinic/index.html" title="睡眠、记忆障碍专科门诊" />
+    <route screen="doctor-source" file="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" title="医生号源" />
+    <route screen="appointment-confirm" file="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html" title="挂号确认" />
+    <route screen="campus-north" file="registration/campus-select/north/index.html" title="北院区" />
+    <route screen="campus-knowledge" file="registration/campus-select/knowledge/index.html" title="知识城" />
+  </routes>
+  <pages>
+    <page screen="home" file="index.html" title="i 六院">
+      <buttons>
+        <button id="home-button-1" label="•••" type="action" />
+        <button id="home-button-2" label="◎" type="action" />
+        <button id="home-button-3" label="医疗电子票据及清单领取指南 查看公告" type="action" />
+        <button id="home-button-4" label="+ 预约挂号" type="page-link" targetScreen="registration" targetFile="registration/index.html" />
+        <button id="home-button-5" label="•• 在线门诊" type="action" />
+        <button id="home-button-6" label="门诊报到" type="action" />
+        <button id="home-button-7" label="门诊缴费" type="action" />
+        <button id="home-button-8" label="报告查询" type="action" />
+        <button id="home-button-9" label="检查预约" type="action" />
+        <button id="home-button-10" label="门诊" type="action" />
+        <button id="home-button-11" label="住院" type="action" />
+        <button id="home-button-12" label="综合" type="action" />
+        <button id="home-button-13" label="挂号记录" type="action" />
+        <button id="home-button-14" label="医保定点" type="action" />
+        <button id="home-button-15" label="检查检验开单" type="action" />
+        <button id="home-button-16" label="生殖胚胎续费" type="action" />
+        <button id="home-button-17" label="产科建档" type="action" />
+        <button id="home-button-18" label="体检预约" type="action" />
+        <button id="home-button-19" label="石蜡切片申请" type="action" />
+        <button id="home-button-20" label="病理会诊" type="action" />
+        <button id="home-button-21" label="团队问诊" type="action" />
+        <button id="home-button-22" label="肝转移中心" type="action" />
+        <button id="home-button-23" label="+ 首页" type="action" />
+        <button id="home-button-24" label="健康" type="action" />
+        <button id="home-button-25" label="消息" type="action" />
+        <button id="home-button-26" label="我的" type="action" />
+      </buttons>
+    </page>
+    <page screen="registration" file="registration/index.html" title="预约挂号">
+      <buttons>
+        <button id="registration-button-1" label="返回首页" type="back-link" targetScreen="home" targetFile="index.html" />
+        <button id="registration-button-2" label="•••" type="action" />
+        <button id="registration-button-3" label="◎" type="action" />
+        <button id="registration-button-4" label="按院区挂号 / 去挂号" type="page-link" targetScreen="campus-select" targetFile="registration/campus-select/index.html" />
+        <button id="registration-button-5" label="搜索科室挂号 / 去挂号" type="action" />
+        <button id="registration-button-6" label="搜索医生挂号 / 去挂号" type="action" />
+      </buttons>
+    </page>
+    <page screen="campus-select" file="registration/campus-select/index.html" title="选择院区">
+      <buttons>
+        <button id="campus-select-button-1" label="返回预约挂号" type="back-link" targetScreen="registration" targetFile="registration/index.html" />
+        <button id="campus-select-button-2" label="•••" type="action" />
+        <button id="campus-select-button-3" label="◎" type="action" />
+        <button id="campus-select-button-4" label="金融城·员村 / 去挂号" type="page-link" targetScreen="campus-yuancun" targetFile="registration/campus-select/yuancun/index.html" />
+        <button id="campus-select-button-5" label="北院区 / 去挂号" type="page-link" targetScreen="campus-north" targetFile="registration/campus-select/north/index.html" />
+        <button id="campus-select-button-6" label="知识城 / 去挂号" type="page-link" targetScreen="campus-knowledge" targetFile="registration/campus-select/knowledge/index.html" />
+      </buttons>
+    </page>
+    <page screen="campus-yuancun" file="registration/campus-select/yuancun/index.html" title="金融城·员村">
+      <buttons>
+        <button id="campus-yuancun-button-1" label="返回选择院区" type="back-link" targetScreen="campus-select" targetFile="registration/campus-select/index.html" />
+        <button id="campus-yuancun-button-2" label="•••" type="action" />
+        <button id="campus-yuancun-button-3" label="◎" type="action" />
+        <button id="campus-yuancun-button-4" label="最近就诊的医生" type="action" />
+        <button id="campus-yuancun-button-5" label="特需" type="internal-panel" targetScreen="yuancun-special" />
+        <button id="campus-yuancun-button-6" label="外科" type="internal-panel" targetScreen="yuancun-surgery" />
+        <button id="campus-yuancun-button-7" label="内科" type="internal-panel" targetScreen="yuancun-internal" />
+        <button id="campus-yuancun-button-8" label="肿瘤科" type="internal-panel" targetScreen="yuancun-oncology" />
+        <button id="campus-yuancun-button-9" label="妇产科" type="internal-panel" targetScreen="yuancun-obgyn" />
+        <button id="campus-yuancun-button-10" label="生殖医学中心" type="internal-panel" targetScreen="yuancun-fertility" />
+        <button id="campus-yuancun-button-11" label="儿科" type="internal-panel" targetScreen="yuancun-pediatrics" />
+        <button id="campus-yuancun-button-12" label="神经内科" type="internal-panel" targetScreen="yuancun-neuro" />
+        <button id="campus-yuancun-button-13" label="耳鼻咽喉头颈外科" type="internal-panel" targetScreen="yuancun-ent" />
+        <button id="campus-yuancun-button-14" label="睡眠医学科" type="internal-panel" targetScreen="yuancun-sleep" />
+        <button id="campus-yuancun-button-15" label="眼科" type="internal-panel" targetScreen="yuancun-eye" />
+        <button id="campus-yuancun-button-16" label="口腔科" type="internal-panel" targetScreen="yuancun-dental" />
+        <button id="campus-yuancun-button-17" label="中医科" type="internal-panel" targetScreen="yuancun-tcm" />
+        <button id="campus-yuancun-button-18" label="皮肤科" type="internal-panel" targetScreen="yuancun-skin" />
+        <button id="campus-yuancun-button-19" label="康复医学科" type="internal-panel" targetScreen="yuancun-rehab" />
+        <button id="campus-yuancun-button-20" label="雅和门诊" type="action" />
+        <button id="campus-yuancun-button-21" label="外科门诊" type="action" />
+        <button id="campus-yuancun-button-22" label="内科门诊" type="action" />
+        <button id="campus-yuancun-button-23" label="肿瘤科门诊" type="action" />
+        <button id="campus-yuancun-button-24" label="妇产科门诊" type="action" />
+        <button id="campus-yuancun-button-25" label="生殖医学中心门诊" type="action" />
+        <button id="campus-yuancun-button-26" label="儿科门诊" type="action" />
+        <button id="campus-yuancun-button-27" label="神经科门诊" type="action" />
+        <button id="campus-yuancun-button-28" label="神经痛症专科门诊" type="action" />
+        <button id="campus-yuancun-button-29" label="头晕头痛门诊" type="action" />
+        <button id="campus-yuancun-button-30" label="帕金森病门诊" type="action" />
+        <button id="campus-yuancun-button-31" label="睡眠、记忆障碍专科门诊" type="page-link" targetScreen="sleep-memory-clinic" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/index.html" />
+        <button id="campus-yuancun-button-32" label="脑血管狭窄动脉瘤介入门诊" type="action" />
+        <button id="campus-yuancun-button-33" label="脑卒中筛查和随访门诊" type="action" />
+        <button id="campus-yuancun-button-34" label="耳鼻咽喉头颈外科门诊" type="action" />
+        <button id="campus-yuancun-button-35" label="睡眠医学科门诊" type="action" />
+        <button id="campus-yuancun-button-36" label="眼科门诊" type="action" />
+        <button id="campus-yuancun-button-37" label="口腔科门诊" type="action" />
+        <button id="campus-yuancun-button-38" label="中医科门诊" type="action" />
+        <button id="campus-yuancun-button-39" label="皮肤科门诊" type="action" />
+        <button id="campus-yuancun-button-40" label="康复医学科门诊" type="action" />
+      </buttons>
+    </page>
+    <page screen="sleep-memory-clinic" file="registration/campus-select/yuancun/sleep-memory-clinic/index.html" title="睡眠、记忆障碍专科门诊">
+      <buttons>
+        <button id="sleep-memory-clinic-button-1" label="返回金融城员村" type="back-link" targetScreen="campus-yuancun" targetFile="registration/campus-select/yuancun/index.html" />
+        <button id="sleep-memory-clinic-button-2" label="•••" type="action" />
+        <button id="sleep-memory-clinic-button-3" label="◎" type="action" />
+        <button id="sleep-memory-clinic-button-4" label="上一周" type="action" />
+        <button id="sleep-memory-clinic-button-5" label="05.18 周一有号" type="action" />
+        <button id="sleep-memory-clinic-button-6" label="05.25 周一有号" type="action" />
+        <button id="sleep-memory-clinic-button-7" label="下一周" type="action" />
+        <button id="sleep-memory-clinic-button-8" label="赵江佩 / 下午有号" type="action" />
+        <button id="sleep-memory-clinic-button-9" label="✓ 预约挂号" type="page-link" targetScreen="doctor-source" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" />
+      </buttons>
+    </page>
+    <page screen="doctor-source" file="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" title="医生号源">
+      <buttons>
+        <button id="doctor-source-button-1" label="返回专科门诊" type="back-link" targetScreen="sleep-memory-clinic" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/index.html" />
+        <button id="doctor-source-button-2" label="•••" type="action" />
+        <button id="doctor-source-button-3" label="◎" type="action" />
+        <button id="doctor-source-button-4" label="医生动态" type="action" />
+        <button id="doctor-source-button-5" label="赵江佩 / 详情" type="action" />
+        <button id="doctor-source-button-6" label="上一周" type="action" />
+        <button id="doctor-source-button-7" label="05.18 周一有号" type="action" />
+        <button id="doctor-source-button-8" label="05.25 周一有号" type="action" />
+        <button id="doctor-source-button-9" label="下一周" type="action" />
+        <button id="doctor-source-button-10" label="14:30~15:00 ¥ 25 余1" type="page-link" targetScreen="appointment-confirm" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html" />
+        <button id="doctor-source-button-11" label="15:00~15:30 ¥ 25 余4" type="action" />
+        <button id="doctor-source-button-12" label="15:30~16:00 ¥ 25 余4" type="action" />
+        <button id="doctor-source-button-13" label="16:00~16:30 ¥ 25 余4" type="action" />
+      </buttons>
+    </page>
+    <page screen="appointment-confirm" file="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html" title="挂号确认">
+      <buttons>
+        <button id="appointment-confirm-button-1" label="返回医生号源" type="back-link" targetScreen="doctor-source" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" />
+        <button id="appointment-confirm-button-2" label="•••" type="action" />
+        <button id="appointment-confirm-button-3" label="◎" type="action" />
+        <button id="appointment-confirm-button-4" label="无感支付开关" type="action" />
+        <button id="appointment-confirm-button-5" label="+添加就诊人" type="action" />
+        <button id="appointment-confirm-button-6" label="上一步" type="back-link" targetScreen="doctor-source" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" />
+        <button id="appointment-confirm-button-7" label="确认并支付" type="action" />
+      </buttons>
+    </page>
+    <page screen="campus-north" file="registration/campus-select/north/index.html" title="北院区">
+      <buttons>
+        <button id="campus-north-button-1" label="返回选择院区" type="back-link" targetScreen="campus-select" targetFile="registration/campus-select/index.html" />
+        <button id="campus-north-button-2" label="•••" type="action" />
+        <button id="campus-north-button-3" label="◎" type="action" />
+        <button id="campus-north-button-4" label="最近就诊的医生" type="action" />
+        <button id="campus-north-button-5" label="妇产科" type="action" />
+        <button id="campus-north-button-6" label="生殖医学中心" type="action" />
+        <button id="campus-north-button-7" label="产科" type="action" />
+      </buttons>
+    </page>
+    <page screen="campus-knowledge" file="registration/campus-select/knowledge/index.html" title="知识城">
+      <buttons>
+        <button id="campus-knowledge-button-1" label="返回选择院区" type="back-link" targetScreen="campus-select" targetFile="registration/campus-select/index.html" />
+        <button id="campus-knowledge-button-2" label="•••" type="action" />
+        <button id="campus-knowledge-button-3" label="◎" type="action" />
+        <button id="campus-knowledge-button-4" label="最近就诊的医生" type="action" />
+        <button id="campus-knowledge-button-5" label="外科" type="action" />
+        <button id="campus-knowledge-button-6" label="内科" type="action" />
+        <button id="campus-knowledge-button-7" label="妇产科" type="action" />
+        <button id="campus-knowledge-button-8" label="生殖医学中心" type="action" />
+        <button id="campus-knowledge-button-9" label="儿科" type="action" />
+        <button id="campus-knowledge-button-10" label="神经内科" type="action" />
+        <button id="campus-knowledge-button-11" label="耳鼻咽喉头颈外科" type="action" />
+        <button id="campus-knowledge-button-12" label="眼科" type="action" />
+        <button id="campus-knowledge-button-13" label="口腔科" type="action" />
+        <button id="campus-knowledge-button-14" label="中医科" type="action" />
+        <button id="campus-knowledge-button-15" label="皮肤科" type="action" />
+        <button id="campus-knowledge-button-16" label="康复医学科" type="action" />
+        <button id="campus-knowledge-button-17" label="全科医学科" type="action" />
+        <button id="campus-knowledge-button-18" label="护理门诊" type="action" />
+        <button id="campus-knowledge-button-19" label="（知识城）胃肠肛门外科门诊" type="action" />
+        <button id="campus-knowledge-button-20" label="（知识城）结直肠癌门诊" type="action" />
+        <button id="campus-knowledge-button-21" label="（知识城）疝外科门诊" type="action" />
+        <button id="campus-knowledge-button-22" label="（知识城）肝胆胰脾外科门诊" type="action" />
+        <button id="campus-knowledge-button-23" label="（知识城）泌尿外科门诊" type="action" />
+        <button id="campus-knowledge-button-24" label="（知识城）胸外科门诊" type="action" />
+        <button id="campus-knowledge-button-25" label="（知识城）小儿外科门诊" type="action" />
+        <button id="campus-knowledge-button-26" label="（知识城）骨科门诊" type="action" />
+        <button id="campus-knowledge-button-27" label="（知识城）脊柱骨科门诊" type="action" />
+        <button id="campus-knowledge-button-28" label="（知识城）关节外科/运动医学科门诊" type="action" />
+        <button id="campus-knowledge-button-29" label="（知识城）肩痛门诊" type="action" />
+        <button id="campus-knowledge-button-30" label="（知识城）神经外科门诊" type="action" />
+        <button id="campus-knowledge-button-31" label="（知识城）甲状腺外科门诊" type="action" />
+        <button id="campus-knowledge-button-32" label="（知识城）腰腿痛门诊" type="action" />
+      </buttons>
+    </page>
+  </pages>
+</app>

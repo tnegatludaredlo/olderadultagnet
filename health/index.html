@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>健康</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="健康">
+      <section class="flat-page" data-screen="health">
+        <div class="statusbar" aria-hidden="true">
+          <span>6:10</span>
+          <span class="status-icons">▮▮▮ 19</span>
+        </div>
+        <section class="health-page">
+          <div class="health-topbar">
+            <div class="health-mode-tabs">
+              <button class="is-active" type="button">推荐</button>
+              <button type="button">我的收藏</button>
+            </div>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+          <div class="health-search-row">
+            <input class="health-search-input" type="text" placeholder="请输入搜索内容" />
+            <button class="health-search-button" type="button">搜索</button>
+          </div>
+          <div class="health-content-tabs">
+            <button class="is-active" type="button">图文</button>
+            <button type="button">视频</button>
+          </div>
+          <div class="article-list">
+            <article class="article-card">
+              <h2>五一长假！拉不出？拉不停？</h2>
+              <div class="article-image article-image--restroom">
+                <div class="article-scene"></div>
+              </div>
+              <div class="article-meta">♡ 0</div>
+            </article>
+            <article class="article-card">
+              <p class="article-snippet">知名演员称被蒸汽眼罩“咬”伤，眼部热敷产品如何安全使用？ …</p>
+              <div class="article-image article-image--sleep"></div>
+            </article>
+          </div>
+        </section>
+        <nav class="bottom-nav is-active" aria-label="底部导航">
+          <button type="button" data-nav-target="home">
+            <span class="nav-icon home">+</span>
+            <span>首页</span>
+          </button>
+          <button class="active" type="button">
+            <span class="nav-icon leaf"></span>
+            <span>健康</span>
+          </button>
+          <button type="button" data-nav-target="messages">
+            <span class="nav-icon bubble"></span>
+            <span>消息</span>
+          </button>
+          <button type="button" data-nav-target="mine">
+            <span class="nav-icon user"></span>
+            <span>我的</span>
+          </button>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

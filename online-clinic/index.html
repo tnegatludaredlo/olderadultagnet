@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>选择科室</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="在线门诊选择科室">
+      <section class="app-page is-active sub-page" data-screen="online-clinic" aria-label="在线门诊选择科室页面">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>5:42</span>
+            <span class="status-icons">▮▮▮ 23</span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回首页" data-nav-back>
+              <span></span>
+            </button>
+            <h1>选择科室</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="clinic-page clinic-page--search">
+          <div class="search-shell">
+            <label class="search-bar" aria-label="搜索科室或医生">
+              <input type="text" placeholder="输入科室,医生" />
+              <span class="search-icon" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="clinic-layout">
+            <aside class="clinic-sidebar">
+              <button class="clinic-dept is-active" type="button">外科</button>
+              <button class="clinic-dept" type="button">内科</button>
+              <button class="clinic-dept" type="button">肿瘤科</button>
+              <button class="clinic-dept" type="button">妇产科</button>
+              <button class="clinic-dept" type="button">生殖医学中心</button>
+              <button class="clinic-dept" type="button">儿科</button>
+              <button class="clinic-dept" type="button">神经内科</button>
+              <button class="clinic-dept" type="button">耳鼻咽喉头颈外科</button>
+              <button class="clinic-dept" type="button">睡眠医学科</button>
+              <button class="clinic-dept" type="button">眼科</button>
+              <button class="clinic-dept" type="button">口腔科</button>
+              <button class="clinic-dept" type="button">中医科</button>
+              <button class="clinic-dept" type="button">皮肤科</button>
+              <button class="clinic-dept" type="button">康复医学科</button>
+            </aside>
+
+            <section class="clinic-main-wrap">
+              <section class="clinic-main clinic-main--list is-active">
+                <button class="clinic-item" type="button">胃肠肛门外科</button>
+                <button class="clinic-item" type="button">乳腺外科</button>
+                <button class="clinic-item" type="button">肝胆外科</button>
+                <button class="clinic-item" type="button">泌尿外科</button>
+                <button class="clinic-item" type="button">胸外科</button>
+                <button class="clinic-item" type="button">小儿外科</button>
+                <button class="clinic-item" type="button">骨科</button>
+                <button class="clinic-item" type="button">神经外科</button>
+                <button class="clinic-item" type="button">（知识城）泌尿外科门诊</button>
+                <button class="clinic-item" type="button">（知识城）小儿外科门诊</button>
+                <button class="clinic-item" type="button">甲状腺外科</button>
+              </section>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

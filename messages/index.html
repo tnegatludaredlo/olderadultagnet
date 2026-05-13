@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>消息</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="消息">
+      <section class="flat-page" data-screen="messages">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>6:11</span>
+            <span class="status-icons">▮▮▮ 19</span>
+          </div>
+          <div class="sub-titlebar">
+            <div></div>
+            <h1>消息</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+        <section class="message-page">
+          <div class="message-list">
+            <article class="message-card">
+              <div class="message-icon">🔊</div>
+              <h2>互联网医院通知</h2>
+            </article>
+          </div>
+          <p class="message-empty">没有更多数据了</p>
+        </section>
+        <nav class="bottom-nav is-active" aria-label="底部导航">
+          <button type="button" data-nav-target="home">
+            <span class="nav-icon home">+</span>
+            <span>首页</span>
+          </button>
+          <button type="button" data-nav-target="health">
+            <span class="nav-icon leaf"></span>
+            <span>健康</span>
+          </button>
+          <button class="active" type="button">
+            <span class="nav-icon bubble"></span>
+            <span>消息</span>
+          </button>
+          <button type="button" data-nav-target="mine">
+            <span class="nav-icon user"></span>
+            <span>我的</span>
+          </button>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

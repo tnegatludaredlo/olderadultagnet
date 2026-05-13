@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>门诊号绑定</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <script src="../../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="门诊号绑定">
+      <section class="flat-page" data-screen="patient-bind">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>5:46</span>
+            <span class="status-icons">▮▮▮ 22</span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回我的就诊人" data-nav-back-target="patient-list">
+              <span></span>
+            </button>
+            <h1>门诊号绑定</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="bind-steps">
+          <div class="bind-step is-active">基本信息</div>
+          <div class="bind-step">选择门诊号</div>
+          <div class="bind-step">详细信息</div>
+          <div class="bind-progress">
+            <span class="bind-dot is-active">✓</span>
+            <span class="bind-line"></span>
+            <span class="bind-dot"></span>
+            <span class="bind-line"></span>
+            <span class="bind-dot"></span>
+          </div>
+        </div>
+
+        <section class="bind-page">
+          <article class="bind-card">
+            <h2>基本信息</h2>
+
+            <div class="bind-field">
+              <label>姓名</label>
+              <input type="text" />
+            </div>
+
+            <fieldset class="bind-field">
+              <legend>证件类型</legend>
+              <div class="bind-chip-group">
+                <button class="bind-chip is-active" type="button">身份证</button>
+                <button class="bind-chip" type="button">护照</button>
+                <button class="bind-chip" type="button">出生证</button>
+                <button class="bind-chip" type="button">永居证</button>
+                <button class="bind-chip" type="button">往来内地通行证</button>
+              </div>
+            </fieldset>
+
+            <div class="bind-field">
+              <label>证件号码</label>
+              <input type="text" />
+            </div>
+
+            <fieldset class="bind-field">
+              <legend>与本人关系</legend>
+              <div class="bind-relation-group">
+                <button class="bind-relation" type="button">本人</button>
+                <button class="bind-relation" type="button">他人</button>
+              </div>
+            </fieldset>
+
+            <div class="bind-field">
+              <div class="bind-inline">
+                <span class="bind-prefix">+86</span>
+                <span class="bind-caret">⌄</span>
+                <input type="text" placeholder="手机号码" />
+              </div>
+            </div>
+
+            <div class="bind-field">
+              <label>请先获取验证码</label>
+              <div class="bind-code-row">
+                <input type="text" />
+                <button class="bind-send-button" type="button">发送验证码</button>
+              </div>
+            </div>
+
+            <div class="bind-warning">
+              <span>!</span>
+              <span>如验证失败或需修改就诊人信息，请凭有效身份证到医院一楼服务台办理</span>
+            </div>
+          </article>
+        </section>
+
+        <button class="bind-next" type="button">下一步</button>
+      </section>
+    </main>
+  </body>
+</html>

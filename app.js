@@ -5,7 +5,13 @@ const clinicTabs = Array.from(document.querySelectorAll("[data-clinic-target]"))
 
 const pageRoutes = {
   home: "index.html",
+  health: "health/index.html",
+  messages: "messages/index.html",
+  mine: "mine/index.html",
+  "patient-list": "mine/patients/index.html",
+  "patient-bind": "mine/patients/bind/index.html",
   registration: "registration/index.html",
+  "online-clinic": "online-clinic/index.html",
   "campus-select": "registration/campus-select/index.html",
   "campus-yuancun": "registration/campus-select/yuancun/index.html",
   "sleep-memory-clinic": "registration/campus-select/yuancun/sleep-memory-clinic/index.html",
@@ -16,7 +22,7 @@ const pageRoutes = {
 };
 
 function getCurrentRouteDepth() {
-  const currentScreen = document.querySelector(".app-page[data-screen]")?.dataset.screen;
+  const currentScreen = document.querySelector("[data-screen]")?.dataset.screen;
   const currentRoute = pageRoutes[currentScreen] || pageRoutes.home;
 
   return currentRoute.split("/").length - 1;

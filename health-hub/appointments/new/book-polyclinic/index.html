@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Appointment</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+    <script src="../../../healthhub.js" defer></script>
+  </head>
+  <body class="healthhub-body">
+    <main class="healthhub-shell" aria-label="Book Polyclinic Appointment">
+      <section class="hh-sub-page">
+        <header class="hh-sub-header">
+          <div class="healthhub-statusbar" aria-hidden="true">
+            <span>1:50</span>
+            <span class="healthhub-status-icons">
+              <span class="healthhub-signal"></span>
+              <span class="healthhub-wifi"></span>
+              <b>21</b>
+            </span>
+          </div>
+          <div class="hh-sub-titlebar">
+            <a class="hh-back" href="../index.html" aria-label="Back"></a>
+            <h1>New Appointment</h1>
+            <a class="hh-close" href="../../../index.html" aria-label="Close"></a>
+          </div>
+        </header>
+
+        <section class="hh-profile-row" aria-label="Patient profile">
+          <div class="hh-profile-icon" aria-hidden="true"></div>
+          <div class="hh-profile-copy">
+            <h2>MXXXX437J</h2>
+            <p>MXXXX437J</p>
+          </div>
+          <button class="hh-switch" type="button">Switch <span></span></button>
+        </section>
+
+        <section class="hh-book-form" aria-label="Appointment details">
+          <a class="hh-choice-card" href="./service-type/index.html" data-hh-selected-service>
+            <span>
+              <em>Service Type</em>
+              <strong>Doctor Consultation</strong>
+            </span>
+            <b>Change</b>
+          </a>
+          <a class="hh-choice-card hh-choice-card--empty" href="./location/index.html" data-hh-selected-location>
+            <span>Location</span>
+            <b>Select</b>
+          </a>
+          <a class="hh-book-appointment-button" href="./request/index.html">Book an appointment</a>
+        </section>
+
+        <section class="hh-book-empty" aria-label="Booking instructions">
+          <div class="hh-calendar-illustration" aria-hidden="true">
+            <div class="hh-calendar-card">
+              <span></span>
+            </div>
+          </div>
+          <p>To book an appointment, please select a <strong>Service Type</strong>, followed by the <strong>Location</strong>.</p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

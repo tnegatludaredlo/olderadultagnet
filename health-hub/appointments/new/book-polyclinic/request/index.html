@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment Request</title>
+    <link rel="stylesheet" href="../../../../../styles.css" />
+    <script src="../../../../healthhub.js" defer></script>
+  </head>
+  <body class="healthhub-body">
+    <main class="healthhub-shell" aria-label="Appointment Request">
+      <section class="hh-sub-page hh-request-page">
+        <header class="hh-sub-header hh-sticky-header">
+          <div class="healthhub-statusbar" aria-hidden="true">
+            <span>2:42</span>
+            <span class="healthhub-status-icons">
+              <span class="healthhub-signal"></span>
+              <span class="healthhub-wifi"></span>
+              <b>30</b>
+            </span>
+          </div>
+          <div class="hh-sub-titlebar">
+            <a class="hh-back" href="../index.html" aria-label="Back"></a>
+            <h1>Appointment Request</h1>
+            <a class="hh-close" href="../../../../index.html" aria-label="Close"></a>
+          </div>
+        </header>
+
+        <form class="hh-request-form">
+          <section class="hh-request-section">
+            <h2>Appointment Details</h2>
+            <p>Please fill our online form and we will contact you within 3 to 5 working days. This service is strictly for non-emergency, non-urgent cases and not applicable for Same Day Appointment requests.</p>
+            <p>For medical emergency, please call 995.</p>
+          </section>
+
+          <div class="hh-form-divider"></div>
+
+          <label class="hh-form-select">
+            <span><i>*</i>Preferred Institution</span>
+            <strong data-hh-request-location>Please select an institution</strong>
+            <b aria-hidden="true"></b>
+          </label>
+
+          <section class="hh-request-section hh-appointment-type">
+            <h2>Appointment Type</h2>
+            <p><i>*</i> Choose an appointment type:</p>
+            <label class="hh-radio"><input type="radio" name="appointmentType" value="New appointment" data-hh-required /><span></span>New appointment</label>
+            <label class="hh-radio"><input type="radio" name="appointmentType" value="Follow-up appointment" data-hh-required /><span></span>Follow-up appointment</label>
+          </section>
+
+          <section class="hh-request-section">
+            <h2>Make New Appointment</h2>
+            <p><i>*</i> Referred by:</p>
+            <label class="hh-radio"><input type="radio" name="referredBy" value="GP / Family Doctor" checked /><span></span>GP / Family Doctor</label>
+            <label class="hh-radio"><input type="radio" name="referredBy" value="Specialist" /><span></span>Specialist</label>
+            <label class="hh-radio"><input type="radio" name="referredBy" value="Myself" /><span></span>Myself</label>
+          </section>
+
+          <label class="hh-field-label">
+            <span><i>*</i> Please provide a brief description of your medical condition or symptoms.</span>
+            <textarea aria-label="Medical condition description" data-hh-field="description" data-hh-required></textarea>
+            <em>Required</em>
+          </label>
+
+          <div class="hh-dropdown" data-hh-dropdown>
+            <button class="hh-form-select hh-form-select--muted" type="button" data-hh-dropdown-button>
+              <strong data-hh-service-dropdown-label>Please select a service (Optional)</strong>
+              <b aria-hidden="true"></b>
+            </button>
+            <div class="hh-dropdown-menu" data-hh-dropdown-menu>
+              <button type="button">Anaesthesiology</button>
+              <button type="button">Cardiology</button>
+              <button type="button">Cardiothoracic Surgery</button>
+              <button type="button">Colorectal Surgery</button>
+              <button type="button">Dental Service</button>
+              <button type="button">Dentistry</button>
+              <button type="button">Dermatology</button>
+              <button type="button">Diagnostic Radiology</button>
+              <button type="button">Emergency Medicine</button>
+              <button type="button">Endocrinology</button>
+              <button type="button">Family Medicine</button>
+              <button type="button">Gastroenterology</button>
+              <button type="button">General Surgery</button>
+              <button type="button">Geriatric Medicine</button>
+              <button type="button">Haematology</button>
+              <button type="button">Hand Surgery</button>
+              <button type="button">Infectious Diseases</button>
+              <button type="button">Internal Medicine</button>
+              <button type="button">Medical Oncology</button>
+              <button type="button">Neonatology</button>
+              <button type="button">Neurology</button>
+              <button type="button">Neurosurgery</button>
+              <button type="button">Nuclear Medicine</button>
+              <button type="button">Obstetrics &amp; Gynaecology</button>
+              <button type="button">Occupational Health &amp; Epidemiology</button>
+              <button type="button">Ophthalmology</button>
+              <button type="button">Oral &amp; Maxillofacial Surgery</button>
+              <button type="button">Orthopaedic Surgery</button>
+              <button type="button">Otolaryngology (Ear, Nose &amp; Throat or ENT)</button>
+              <button type="button">Paediatric Medicine</button>
+              <button type="button">Palliative Medicine</button>
+              <button type="button">Pathology</button>
+              <button type="button">Plastic Surgery &amp; Burns</button>
+              <button type="button">Psychiatric Medicine</button>
+              <button type="button">Radiation Oncology</button>
+              <button type="button">Rehabilitation Medicine</button>
+              <button type="button">Renal Medicine</button>
+              <button type="button">Respiratory Medicine</button>
+              <button type="button">Rheumatology &amp; Immunology</button>
+              <button type="button">Sports Medicine</button>
+              <button type="button">Surgical Oncology</button>
+              <button type="button">Urology</button>
+            </div>
+          </div>
+
+          <label class="hh-text-input">
+            <input type="text" placeholder="Preferred Doctor (Optional)" data-hh-field="doctor" />
+          </label>
+
+          <section class="hh-request-section hh-patient-section">
+            <h2>Patient's Particulars</h2>
+            <p><i>*</i> Are you requesting on behalf of patient?</p>
+            <label class="hh-radio"><input type="radio" name="behalf" value="Yes" /><span></span>Yes</label>
+            <label class="hh-radio"><input type="radio" name="behalf" value="No" checked /><span></span>No</label>
+          </section>
+
+          <section class="hh-request-for">
+            <p>Request new appointment for:</p>
+            <label class="hh-form-select hh-form-select--disabled">
+              <span><i>*</i>Select Patient</span>
+              <strong>MXXXX437J</strong>
+              <b aria-hidden="true"></b>
+            </label>
+          </section>
+
+          <label class="hh-text-input">
+            <input type="text" placeholder="*Full Name (as per NRIC/FIN)" data-hh-field="fullName" data-hh-required />
+            <em>Required</em>
+          </label>
+
+          <label class="hh-text-input">
+            <input type="tel" placeholder="*Contact Number (+65)" data-hh-field="contact" data-hh-required />
+            <em>Required</em>
+          </label>
+
+          <label class="hh-text-input hh-date-input">
+            <input type="text" placeholder="*Date of Birth" readonly data-hh-date-input data-hh-required />
+            <strong data-hh-date-display>DD MMM YYYY</strong>
+            <span aria-hidden="true" data-hh-date-icon></span>
+            <div class="hh-calendar-picker" data-hh-calendar></div>
+          </label>
+
+          <label class="hh-text-input">
+            <input type="email" placeholder="*Email Address" data-hh-field="email" data-hh-required />
+            <em>Required</em>
+          </label>
+
+          <button class="hh-request-submit" type="button" data-hh-submit disabled>Submit</button>
+          <a class="hh-request-cancel" href="../index.html">Cancel</a>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -2,12 +2,27 @@
 <app name="i 六院" root="index.html">
   <routes>
     <route screen="home" file="index.html" title="i 六院" />
+    <route screen="health" file="health/index.html" title="健康" />
+    <route screen="messages" file="messages/index.html" title="消息" />
+    <route screen="mine" file="mine/index.html" title="我的" />
+    <route screen="patient-list" file="mine/patients/index.html" title="我的就诊人" />
+    <route screen="patient-bind" file="mine/patients/bind/index.html" title="门诊号绑定" />
     <route screen="registration" file="registration/index.html" title="预约挂号" />
+    <route screen="online-clinic" file="online-clinic/index.html" title="选择科室" />
     <route screen="campus-select" file="registration/campus-select/index.html" title="选择院区" />
     <route screen="campus-yuancun" file="registration/campus-select/yuancun/index.html" title="金融城·员村" />
     <route screen="sleep-memory-clinic" file="registration/campus-select/yuancun/sleep-memory-clinic/index.html" title="睡眠、记忆障碍专科门诊" />
     <route screen="doctor-source" file="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" title="医生号源" />
     <route screen="appointment-confirm" file="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html" title="挂号确认" />
+    <route screen="snore-clinic" file="registration/campus-select/yuancun/snore-clinic/index.html" title="耳鼻喉鼾症门诊" />
+    <route screen="snore-clinic-0515" file="registration/campus-select/yuancun/snore-clinic-0515/index.html" title="耳鼻喉鼾症门诊" />
+    <route screen="snore-clinic-0518" file="registration/campus-select/yuancun/snore-clinic-0518/index.html" title="耳鼻喉鼾症门诊" />
+    <route screen="snore-clinic-0519" file="registration/campus-select/yuancun/snore-clinic-0519/index.html" title="耳鼻喉鼾症门诊" />
+    <route screen="snore-doctor-source" file="registration/campus-select/yuancun/snore-clinic/doctor-source/index.html" title="医生号源" />
+    <route screen="snore-deng-source-0515" file="registration/campus-select/yuancun/deng-source-0515/index.html" title="邓文敏医生号源 05.15" />
+    <route screen="snore-long-source" file="registration/campus-select/yuancun/long-source/index.html" title="龙镇医生号源" />
+    <route screen="snore-liu-source" file="registration/campus-select/yuancun/liu-source/index.html" title="刘洁医生号源" />
+    <route screen="snore-appointment-confirm" file="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html" title="挂号确认" />
     <route screen="campus-north" file="registration/campus-select/north/index.html" title="北院区" />
     <route screen="campus-knowledge" file="registration/campus-select/knowledge/index.html" title="知识城" />
   </routes>
@@ -18,7 +33,7 @@
         <button id="home-button-2" label="◎" type="action" />
         <button id="home-button-3" label="医疗电子票据及清单领取指南 查看公告" type="action" />
         <button id="home-button-4" label="+ 预约挂号" type="page-link" targetScreen="registration" targetFile="registration/index.html" />
-        <button id="home-button-5" label="•• 在线门诊" type="action" />
+        <button id="home-button-5" label="•• 在线门诊" type="page-link" targetScreen="online-clinic" targetFile="online-clinic/index.html" />
         <button id="home-button-6" label="门诊报到" type="action" />
         <button id="home-button-7" label="门诊缴费" type="action" />
         <button id="home-button-8" label="报告查询" type="action" />
@@ -37,10 +52,94 @@
         <button id="home-button-21" label="团队问诊" type="action" />
         <button id="home-button-22" label="肝转移中心" type="action" />
         <button id="home-button-23" label="+ 首页" type="action" />
-        <button id="home-button-24" label="健康" type="action" />
-        <button id="home-button-25" label="消息" type="action" />
-        <button id="home-button-26" label="我的" type="action" />
+        <button id="home-button-24" label="健康" type="page-link" targetScreen="health" targetFile="health/index.html" />
+        <button id="home-button-25" label="消息" type="page-link" targetScreen="messages" targetFile="messages/index.html" />
+        <button id="home-button-26" label="我的" type="page-link" targetScreen="mine" targetFile="mine/index.html" />
       </buttons>
+    </page>
+    <page screen="health" file="health/index.html" title="健康">
+      <buttons>
+        <button id="health-button-1" label="推荐" type="action" />
+        <button id="health-button-2" label="我的收藏" type="action" />
+        <button id="health-button-3" label="•••" type="action" />
+        <button id="health-button-4" label="◎" type="action" />
+        <button id="health-button-5" label="搜索" type="action" />
+        <button id="health-button-6" label="图文" type="action" />
+        <button id="health-button-7" label="视频" type="action" />
+        <button id="health-button-8" label="+ 首页" type="page-link" targetScreen="home" targetFile="index.html" />
+        <button id="health-button-9" label="健康" type="action" />
+        <button id="health-button-10" label="消息" type="page-link" targetScreen="messages" targetFile="messages/index.html" />
+        <button id="health-button-11" label="我的" type="page-link" targetScreen="mine" targetFile="mine/index.html" />
+      </buttons>
+      <fields>
+        <field id="health-field-1" label="请输入搜索内容" tag="input" type="text" placeholder="请输入搜索内容" />
+      </fields>
+    </page>
+    <page screen="messages" file="messages/index.html" title="消息">
+      <buttons>
+        <button id="messages-button-1" label="•••" type="action" />
+        <button id="messages-button-2" label="◎" type="action" />
+        <button id="messages-button-3" label="+ 首页" type="page-link" targetScreen="home" targetFile="index.html" />
+        <button id="messages-button-4" label="健康" type="page-link" targetScreen="health" targetFile="health/index.html" />
+        <button id="messages-button-5" label="消息" type="action" />
+        <button id="messages-button-6" label="我的" type="page-link" targetScreen="mine" targetFile="mine/index.html" />
+      </buttons>
+    </page>
+    <page screen="mine" file="mine/index.html" title="我的">
+      <buttons>
+        <button id="mine-button-1" label="•••" type="action" />
+        <button id="mine-button-2" label="◎" type="action" />
+        <button id="mine-button-3" label="选择就诊人 ＞" type="page-link" targetScreen="patient-list" targetFile="mine/patients/index.html" />
+        <button id="mine-button-4" label="▭ 待付款" type="action" />
+        <button id="mine-button-5" label="✚ 线上问诊" type="action" />
+        <button id="mine-button-6" label="⚗ 检查检验申请" type="action" />
+        <button id="mine-button-7" label="¥ 退费申请记录" type="action" />
+        <button id="mine-button-8" label="🪪 挂号记录" type="action" />
+        <button id="mine-button-9" label="🪪 候补记录" type="action" />
+        <button id="mine-button-10" label="🧾 我的处方" type="action" />
+        <button id="mine-button-11" label="📋 我的验单" type="action" />
+        <button id="mine-button-12" label="📄 我的报告" type="action" />
+        <button id="mine-button-13" label="自助入院办理 ▶" type="action" />
+        <button id="mine-button-14" label="我的发票 ▶" type="action" />
+        <button id="mine-button-15" label="报销清单 ▶" type="action" />
+        <button id="mine-button-16" label="互联网医院门诊电子病历申请 ▶" type="action" />
+        <button id="mine-button-17" label="收货地址 ▶" type="action" />
+        <button id="mine-button-18" label="+ 首页" type="page-link" targetScreen="home" targetFile="index.html" />
+        <button id="mine-button-19" label="健康" type="page-link" targetScreen="health" targetFile="health/index.html" />
+        <button id="mine-button-20" label="消息" type="page-link" targetScreen="messages" targetFile="messages/index.html" />
+        <button id="mine-button-21" label="我的" type="action" />
+      </buttons>
+    </page>
+    <page screen="patient-list" file="mine/patients/index.html" title="我的就诊人">
+      <buttons>
+        <button id="patient-list-button-1" label="返回我的" type="back-link" targetScreen="mine" targetFile="mine/index.html" />
+        <button id="patient-list-button-2" label="•••" type="action" />
+        <button id="patient-list-button-3" label="◎" type="action" />
+        <button id="patient-list-button-4" label="添加就诊人" type="page-link" targetScreen="patient-bind" targetFile="mine/patients/bind/index.html" />
+        <button id="patient-list-button-5" label="确定切换" type="action" />
+      </buttons>
+    </page>
+    <page screen="patient-bind" file="mine/patients/bind/index.html" title="门诊号绑定">
+      <buttons>
+        <button id="patient-bind-button-1" label="返回我的就诊人" type="back-link" targetScreen="patient-list" targetFile="mine/patients/index.html" />
+        <button id="patient-bind-button-2" label="•••" type="action" />
+        <button id="patient-bind-button-3" label="◎" type="action" />
+        <button id="patient-bind-button-4" label="身份证" type="action" />
+        <button id="patient-bind-button-5" label="护照" type="action" />
+        <button id="patient-bind-button-6" label="出生证" type="action" />
+        <button id="patient-bind-button-7" label="永居证" type="action" />
+        <button id="patient-bind-button-8" label="往来内地通行证" type="action" />
+        <button id="patient-bind-button-9" label="本人" type="action" />
+        <button id="patient-bind-button-10" label="他人" type="action" />
+        <button id="patient-bind-button-11" label="发送验证码" type="action" />
+        <button id="patient-bind-button-12" label="下一步" type="action" />
+      </buttons>
+      <fields>
+        <field id="patient-bind-field-1" label="姓名" tag="input" type="text" />
+        <field id="patient-bind-field-2" label="证件号码" tag="input" type="text" />
+        <field id="patient-bind-field-3" label="手机号码" tag="input" type="text" placeholder="手机号码" />
+        <field id="patient-bind-field-4" label="请先获取验证码" tag="input" type="text" />
+      </fields>
     </page>
     <page screen="registration" file="registration/index.html" title="预约挂号">
       <buttons>
@@ -51,6 +150,41 @@
         <button id="registration-button-5" label="搜索科室挂号 / 去挂号" type="action" />
         <button id="registration-button-6" label="搜索医生挂号 / 去挂号" type="action" />
       </buttons>
+    </page>
+    <page screen="online-clinic" file="online-clinic/index.html" title="选择科室">
+      <buttons>
+        <button id="online-clinic-button-1" label="返回首页" type="back-link" targetScreen="home" targetFile="index.html" />
+        <button id="online-clinic-button-2" label="•••" type="action" />
+        <button id="online-clinic-button-3" label="◎" type="action" />
+        <button id="online-clinic-button-4" label="外科" type="action" />
+        <button id="online-clinic-button-5" label="内科" type="action" />
+        <button id="online-clinic-button-6" label="肿瘤科" type="action" />
+        <button id="online-clinic-button-7" label="妇产科" type="action" />
+        <button id="online-clinic-button-8" label="生殖医学中心" type="action" />
+        <button id="online-clinic-button-9" label="儿科" type="action" />
+        <button id="online-clinic-button-10" label="神经内科" type="action" />
+        <button id="online-clinic-button-11" label="耳鼻咽喉头颈外科" type="action" />
+        <button id="online-clinic-button-12" label="睡眠医学科" type="action" />
+        <button id="online-clinic-button-13" label="眼科" type="action" />
+        <button id="online-clinic-button-14" label="口腔科" type="action" />
+        <button id="online-clinic-button-15" label="中医科" type="action" />
+        <button id="online-clinic-button-16" label="皮肤科" type="action" />
+        <button id="online-clinic-button-17" label="康复医学科" type="action" />
+        <button id="online-clinic-button-18" label="胃肠肛门外科" type="action" />
+        <button id="online-clinic-button-19" label="乳腺外科" type="action" />
+        <button id="online-clinic-button-20" label="肝胆外科" type="action" />
+        <button id="online-clinic-button-21" label="泌尿外科" type="action" />
+        <button id="online-clinic-button-22" label="胸外科" type="action" />
+        <button id="online-clinic-button-23" label="小儿外科" type="action" />
+        <button id="online-clinic-button-24" label="骨科" type="action" />
+        <button id="online-clinic-button-25" label="神经外科" type="action" />
+        <button id="online-clinic-button-26" label="（知识城）泌尿外科门诊" type="action" />
+        <button id="online-clinic-button-27" label="（知识城）小儿外科门诊" type="action" />
+        <button id="online-clinic-button-28" label="甲状腺外科" type="action" />
+      </buttons>
+      <fields>
+        <field id="online-clinic-field-1" label="输入科室,医生" tag="input" type="text" placeholder="输入科室,医生" />
+      </fields>
     </page>
     <page screen="campus-select" file="registration/campus-select/index.html" title="选择院区">
       <buttons>
@@ -83,28 +217,81 @@
         <button id="campus-yuancun-button-17" label="中医科" type="internal-panel" targetScreen="yuancun-tcm" />
         <button id="campus-yuancun-button-18" label="皮肤科" type="internal-panel" targetScreen="yuancun-skin" />
         <button id="campus-yuancun-button-19" label="康复医学科" type="internal-panel" targetScreen="yuancun-rehab" />
-        <button id="campus-yuancun-button-20" label="雅和门诊" type="action" />
-        <button id="campus-yuancun-button-21" label="外科门诊" type="action" />
-        <button id="campus-yuancun-button-22" label="内科门诊" type="action" />
-        <button id="campus-yuancun-button-23" label="肿瘤科门诊" type="action" />
-        <button id="campus-yuancun-button-24" label="妇产科门诊" type="action" />
-        <button id="campus-yuancun-button-25" label="生殖医学中心门诊" type="action" />
-        <button id="campus-yuancun-button-26" label="儿科门诊" type="action" />
-        <button id="campus-yuancun-button-27" label="神经科门诊" type="action" />
-        <button id="campus-yuancun-button-28" label="神经痛症专科门诊" type="action" />
-        <button id="campus-yuancun-button-29" label="头晕头痛门诊" type="action" />
-        <button id="campus-yuancun-button-30" label="帕金森病门诊" type="action" />
-        <button id="campus-yuancun-button-31" label="睡眠、记忆障碍专科门诊" type="page-link" targetScreen="sleep-memory-clinic" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/index.html" />
-        <button id="campus-yuancun-button-32" label="脑血管狭窄动脉瘤介入门诊" type="action" />
-        <button id="campus-yuancun-button-33" label="脑卒中筛查和随访门诊" type="action" />
-        <button id="campus-yuancun-button-34" label="耳鼻咽喉头颈外科门诊" type="action" />
-        <button id="campus-yuancun-button-35" label="睡眠医学科门诊" type="action" />
-        <button id="campus-yuancun-button-36" label="眼科门诊" type="action" />
-        <button id="campus-yuancun-button-37" label="口腔科门诊" type="action" />
-        <button id="campus-yuancun-button-38" label="中医科门诊" type="action" />
-        <button id="campus-yuancun-button-39" label="皮肤科门诊" type="action" />
-        <button id="campus-yuancun-button-40" label="康复医学科门诊" type="action" />
+        <button id="campus-yuancun-button-20" label="雅和门诊" type="action" panel="yuancun-special" />
+        <button id="campus-yuancun-button-21" label="外科门诊" type="action" panel="yuancun-surgery" />
+        <button id="campus-yuancun-button-22" label="内科门诊" type="action" panel="yuancun-internal" />
+        <button id="campus-yuancun-button-23" label="肿瘤科门诊" type="action" panel="yuancun-oncology" />
+        <button id="campus-yuancun-button-24" label="妇产科门诊" type="action" panel="yuancun-obgyn" />
+        <button id="campus-yuancun-button-25" label="生殖医学中心门诊" type="action" panel="yuancun-fertility" />
+        <button id="campus-yuancun-button-26" label="儿科门诊" type="action" panel="yuancun-pediatrics" />
+        <button id="campus-yuancun-button-27" label="神经科门诊" type="action" panel="yuancun-neuro" />
+        <button id="campus-yuancun-button-28" label="神经痛症专科门诊" type="action" panel="yuancun-neuro" />
+        <button id="campus-yuancun-button-29" label="头晕头痛门诊" type="action" panel="yuancun-neuro" />
+        <button id="campus-yuancun-button-30" label="帕金森病门诊" type="action" panel="yuancun-neuro" />
+        <button id="campus-yuancun-button-31" label="睡眠、记忆障碍专科门诊" type="page-link" panel="yuancun-neuro" targetScreen="sleep-memory-clinic" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/index.html" />
+        <button id="campus-yuancun-button-32" label="脑血管狭窄动脉瘤介入门诊" type="action" panel="yuancun-neuro" />
+        <button id="campus-yuancun-button-33" label="脑卒中筛查和随访门诊" type="action" panel="yuancun-neuro" />
+        <button id="campus-yuancun-button-34" label="耳鼻咽喉头颈外科门诊" type="action" panel="yuancun-ent" />
+        <button id="campus-yuancun-button-35" label="耳鼻喉鼾症门诊" type="page-link" panel="yuancun-sleep" targetScreen="snore-clinic" targetFile="registration/campus-select/yuancun/snore-clinic/index.html" />
+        <button id="campus-yuancun-button-36" label="眼科门诊" type="action" panel="yuancun-eye" />
+        <button id="campus-yuancun-button-37" label="口腔科门诊" type="action" panel="yuancun-dental" />
+        <button id="campus-yuancun-button-38" label="中医科门诊" type="action" panel="yuancun-tcm" />
+        <button id="campus-yuancun-button-39" label="皮肤科门诊" type="action" panel="yuancun-skin" />
+        <button id="campus-yuancun-button-40" label="康复医学科门诊" type="action" panel="yuancun-rehab" />
       </buttons>
+      <panels>
+        <panel id="yuancun-special" label="特需" triggerButton="campus-yuancun-button-5">
+          <button id="campus-yuancun-button-20" label="雅和门诊" type="action" panel="yuancun-special" />
+        </panel>
+        <panel id="yuancun-surgery" label="外科" triggerButton="campus-yuancun-button-6">
+          <button id="campus-yuancun-button-21" label="外科门诊" type="action" panel="yuancun-surgery" />
+        </panel>
+        <panel id="yuancun-internal" label="内科" triggerButton="campus-yuancun-button-7">
+          <button id="campus-yuancun-button-22" label="内科门诊" type="action" panel="yuancun-internal" />
+        </panel>
+        <panel id="yuancun-oncology" label="肿瘤科" triggerButton="campus-yuancun-button-8">
+          <button id="campus-yuancun-button-23" label="肿瘤科门诊" type="action" panel="yuancun-oncology" />
+        </panel>
+        <panel id="yuancun-obgyn" label="妇产科" triggerButton="campus-yuancun-button-9">
+          <button id="campus-yuancun-button-24" label="妇产科门诊" type="action" panel="yuancun-obgyn" />
+        </panel>
+        <panel id="yuancun-fertility" label="生殖医学中心" triggerButton="campus-yuancun-button-10">
+          <button id="campus-yuancun-button-25" label="生殖医学中心门诊" type="action" panel="yuancun-fertility" />
+        </panel>
+        <panel id="yuancun-pediatrics" label="儿科" triggerButton="campus-yuancun-button-11">
+          <button id="campus-yuancun-button-26" label="儿科门诊" type="action" panel="yuancun-pediatrics" />
+        </panel>
+        <panel id="yuancun-neuro" label="神经内科" triggerButton="campus-yuancun-button-12">
+          <button id="campus-yuancun-button-27" label="神经科门诊" type="action" panel="yuancun-neuro" />
+          <button id="campus-yuancun-button-28" label="神经痛症专科门诊" type="action" panel="yuancun-neuro" />
+          <button id="campus-yuancun-button-29" label="头晕头痛门诊" type="action" panel="yuancun-neuro" />
+          <button id="campus-yuancun-button-30" label="帕金森病门诊" type="action" panel="yuancun-neuro" />
+          <button id="campus-yuancun-button-31" label="睡眠、记忆障碍专科门诊" type="page-link" panel="yuancun-neuro" targetScreen="sleep-memory-clinic" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/index.html" />
+          <button id="campus-yuancun-button-32" label="脑血管狭窄动脉瘤介入门诊" type="action" panel="yuancun-neuro" />
+          <button id="campus-yuancun-button-33" label="脑卒中筛查和随访门诊" type="action" panel="yuancun-neuro" />
+        </panel>
+        <panel id="yuancun-ent" label="耳鼻咽喉头颈外科" triggerButton="campus-yuancun-button-13">
+          <button id="campus-yuancun-button-34" label="耳鼻咽喉头颈外科门诊" type="action" panel="yuancun-ent" />
+        </panel>
+        <panel id="yuancun-sleep" label="睡眠医学科" triggerButton="campus-yuancun-button-14">
+          <button id="campus-yuancun-button-35" label="耳鼻喉鼾症门诊" type="page-link" panel="yuancun-sleep" targetScreen="snore-clinic" targetFile="registration/campus-select/yuancun/snore-clinic/index.html" />
+        </panel>
+        <panel id="yuancun-eye" label="眼科" triggerButton="campus-yuancun-button-15">
+          <button id="campus-yuancun-button-36" label="眼科门诊" type="action" panel="yuancun-eye" />
+        </panel>
+        <panel id="yuancun-dental" label="口腔科" triggerButton="campus-yuancun-button-16">
+          <button id="campus-yuancun-button-37" label="口腔科门诊" type="action" panel="yuancun-dental" />
+        </panel>
+        <panel id="yuancun-tcm" label="中医科" triggerButton="campus-yuancun-button-17">
+          <button id="campus-yuancun-button-38" label="中医科门诊" type="action" panel="yuancun-tcm" />
+        </panel>
+        <panel id="yuancun-skin" label="皮肤科" triggerButton="campus-yuancun-button-18">
+          <button id="campus-yuancun-button-39" label="皮肤科门诊" type="action" panel="yuancun-skin" />
+        </panel>
+        <panel id="yuancun-rehab" label="康复医学科" triggerButton="campus-yuancun-button-19">
+          <button id="campus-yuancun-button-40" label="康复医学科门诊" type="action" panel="yuancun-rehab" />
+        </panel>
+      </panels>
     </page>
     <page screen="sleep-memory-clinic" file="registration/campus-select/yuancun/sleep-memory-clinic/index.html" title="睡眠、记忆障碍专科门诊">
       <buttons>
@@ -142,10 +329,171 @@
         <button id="appointment-confirm-button-2" label="•••" type="action" />
         <button id="appointment-confirm-button-3" label="◎" type="action" />
         <button id="appointment-confirm-button-4" label="无感支付开关" type="action" />
-        <button id="appointment-confirm-button-5" label="+添加就诊人" type="action" />
+        <button id="appointment-confirm-button-5" label="+添加就诊人" type="page-link" targetScreen="patient-bind" targetFile="mine/patients/bind/index.html" />
         <button id="appointment-confirm-button-6" label="上一步" type="back-link" targetScreen="doctor-source" targetFile="registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html" />
         <button id="appointment-confirm-button-7" label="确认并支付" type="action" />
       </buttons>
+      <fields>
+        <field id="appointment-confirm-field-1" label="我已阅读同意 《互联网医院服务协议》" tag="input" type="checkbox" />
+        <field id="appointment-confirm-field-2" label="我已阅读同意 《诊疗服务协议》" tag="input" type="checkbox" />
+      </fields>
+    </page>
+    <page screen="snore-clinic" file="registration/campus-select/yuancun/snore-clinic/index.html" title="耳鼻喉鼾症门诊">
+      <buttons>
+        <button id="snore-clinic-button-1" label="返回金融城员村" type="back-link" targetScreen="campus-yuancun" targetFile="registration/campus-select/yuancun/index.html" />
+        <button id="snore-clinic-button-2" label="•••" type="action" />
+        <button id="snore-clinic-button-3" label="◎" type="action" />
+        <button id="snore-clinic-button-4" label="上一周" type="action" />
+        <button id="snore-clinic-button-5" label="05.14 今日有号" type="action" />
+        <button id="snore-clinic-button-6" label="05.15 周五有号" type="page-link" targetScreen="snore-clinic-0515" targetFile="registration/campus-select/yuancun/snore-clinic-0515/index.html" />
+        <button id="snore-clinic-button-7" label="05.18 周一有号" type="page-link" targetScreen="snore-clinic-0518" targetFile="registration/campus-select/yuancun/snore-clinic-0518/index.html" />
+        <button id="snore-clinic-button-8" label="05.19 周二有号" type="page-link" targetScreen="snore-clinic-0519" targetFile="registration/campus-select/yuancun/snore-clinic-0519/index.html" />
+        <button id="snore-clinic-button-9" label="05.20 周三有号" type="action" />
+        <button id="snore-clinic-button-10" label="下一周" type="action" />
+        <button id="snore-clinic-button-11" label="无号" type="action" />
+        <button id="snore-clinic-button-12" label="✓ 预约挂号" type="action" />
+        <button id="snore-clinic-button-13" label="✓ 在线咨询" type="action" />
+        <button id="snore-clinic-button-14" label="邓文敏 / 下午有号" type="action" />
+        <button id="snore-clinic-button-15" label="✓ 预约挂号" type="page-link" targetScreen="snore-doctor-source" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/index.html" />
+        <button id="snore-clinic-button-16" label="✓ 在线咨询" type="action" />
+      </buttons>
+    </page>
+    <page screen="snore-clinic-0515" file="registration/campus-select/yuancun/snore-clinic-0515/index.html" title="耳鼻喉鼾症门诊">
+      <buttons>
+        <button id="snore-clinic-0515-button-1" label="返回金融城员村" type="back-link" targetScreen="campus-yuancun" targetFile="registration/campus-select/yuancun/index.html" />
+        <button id="snore-clinic-0515-button-2" label="•••" type="action" />
+        <button id="snore-clinic-0515-button-3" label="◎" type="action" />
+        <button id="snore-clinic-0515-button-4" label="上一周" type="action" />
+        <button id="snore-clinic-0515-button-5" label="05.14 今日有号" type="page-link" targetScreen="snore-clinic" targetFile="registration/campus-select/yuancun/snore-clinic/index.html" />
+        <button id="snore-clinic-0515-button-6" label="05.15 周五有号" type="action" />
+        <button id="snore-clinic-0515-button-7" label="05.18 周一有号" type="page-link" targetScreen="snore-clinic-0518" targetFile="registration/campus-select/yuancun/snore-clinic-0518/index.html" />
+        <button id="snore-clinic-0515-button-8" label="05.19 周二有号" type="page-link" targetScreen="snore-clinic-0519" targetFile="registration/campus-select/yuancun/snore-clinic-0519/index.html" />
+        <button id="snore-clinic-0515-button-9" label="05.20 周三有号" type="action" />
+        <button id="snore-clinic-0515-button-10" label="下一周" type="action" />
+        <button id="snore-clinic-0515-button-11" label="邓文敏 / 下午有号" type="action" />
+        <button id="snore-clinic-0515-button-12" label="✓ 预约挂号" type="page-link" targetScreen="snore-deng-source-0515" targetFile="registration/campus-select/yuancun/deng-source-0515/index.html" />
+        <button id="snore-clinic-0515-button-13" label="✓ 在线咨询" type="action" />
+      </buttons>
+    </page>
+    <page screen="snore-clinic-0518" file="registration/campus-select/yuancun/snore-clinic-0518/index.html" title="耳鼻喉鼾症门诊">
+      <buttons>
+        <button id="snore-clinic-0518-button-1" label="返回金融城员村" type="back-link" targetScreen="campus-yuancun" targetFile="registration/campus-select/yuancun/index.html" />
+        <button id="snore-clinic-0518-button-2" label="•••" type="action" />
+        <button id="snore-clinic-0518-button-3" label="◎" type="action" />
+        <button id="snore-clinic-0518-button-4" label="上一周" type="action" />
+        <button id="snore-clinic-0518-button-5" label="05.14 今日有号" type="page-link" targetScreen="snore-clinic" targetFile="registration/campus-select/yuancun/snore-clinic/index.html" />
+        <button id="snore-clinic-0518-button-6" label="05.15 周五有号" type="page-link" targetScreen="snore-clinic-0515" targetFile="registration/campus-select/yuancun/snore-clinic-0515/index.html" />
+        <button id="snore-clinic-0518-button-7" label="05.18 周一有号" type="action" />
+        <button id="snore-clinic-0518-button-8" label="05.19 周二有号" type="page-link" targetScreen="snore-clinic-0519" targetFile="registration/campus-select/yuancun/snore-clinic-0519/index.html" />
+        <button id="snore-clinic-0518-button-9" label="05.20 周三有号" type="action" />
+        <button id="snore-clinic-0518-button-10" label="下一周" type="action" />
+        <button id="snore-clinic-0518-button-11" label="上午有号" type="action" />
+        <button id="snore-clinic-0518-button-12" label="✓ 预约挂号" type="page-link" targetScreen="snore-long-source" targetFile="registration/campus-select/yuancun/long-source/index.html" />
+      </buttons>
+    </page>
+    <page screen="snore-clinic-0519" file="registration/campus-select/yuancun/snore-clinic-0519/index.html" title="耳鼻喉鼾症门诊">
+      <buttons>
+        <button id="snore-clinic-0519-button-1" label="返回金融城员村" type="back-link" targetScreen="campus-yuancun" targetFile="registration/campus-select/yuancun/index.html" />
+        <button id="snore-clinic-0519-button-2" label="•••" type="action" />
+        <button id="snore-clinic-0519-button-3" label="◎" type="action" />
+        <button id="snore-clinic-0519-button-4" label="上一周" type="action" />
+        <button id="snore-clinic-0519-button-5" label="05.14 今日有号" type="page-link" targetScreen="snore-clinic" targetFile="registration/campus-select/yuancun/snore-clinic/index.html" />
+        <button id="snore-clinic-0519-button-6" label="05.15 周五有号" type="page-link" targetScreen="snore-clinic-0515" targetFile="registration/campus-select/yuancun/snore-clinic-0515/index.html" />
+        <button id="snore-clinic-0519-button-7" label="05.18 周一有号" type="page-link" targetScreen="snore-clinic-0518" targetFile="registration/campus-select/yuancun/snore-clinic-0518/index.html" />
+        <button id="snore-clinic-0519-button-8" label="05.19 周二有号" type="action" />
+        <button id="snore-clinic-0519-button-9" label="05.20 周三有号" type="action" />
+        <button id="snore-clinic-0519-button-10" label="下一周" type="action" />
+        <button id="snore-clinic-0519-button-11" label="刘洁 / 下午有号" type="action" />
+        <button id="snore-clinic-0519-button-12" label="✓ 预约挂号" type="page-link" targetScreen="snore-liu-source" targetFile="registration/campus-select/yuancun/liu-source/index.html" />
+        <button id="snore-clinic-0519-button-13" label="✓ 在线咨询" type="action" />
+      </buttons>
+    </page>
+    <page screen="snore-doctor-source" file="registration/campus-select/yuancun/snore-clinic/doctor-source/index.html" title="医生号源">
+      <buttons>
+        <button id="snore-doctor-source-button-1" label="返回耳鼻喉鼾症门诊" type="back-link" targetScreen="snore-clinic" targetFile="registration/campus-select/yuancun/snore-clinic/index.html" />
+        <button id="snore-doctor-source-button-2" label="•••" type="action" />
+        <button id="snore-doctor-source-button-3" label="◎" type="action" />
+        <button id="snore-doctor-source-button-4" label="医生动态" type="action" />
+        <button id="snore-doctor-source-button-5" label="邓文敏 / 详情" type="action" />
+        <button id="snore-doctor-source-button-6" label="在线门诊（今日号源）08:00~20:00 剩余20" type="action" />
+        <button id="snore-doctor-source-button-7" label="上一周" type="action" />
+        <button id="snore-doctor-source-button-8" label="05.14 今日有号" type="action" />
+        <button id="snore-doctor-source-button-9" label="05.15 周五有号" type="action" />
+        <button id="snore-doctor-source-button-10" label="05.20 周三有号" type="action" />
+        <button id="snore-doctor-source-button-11" label="05.21 周四有号" type="action" />
+        <button id="snore-doctor-source-button-12" label="05.23 周五有号" type="action" />
+        <button id="snore-doctor-source-button-13" label="下一周" type="action" />
+        <button id="snore-doctor-source-button-14" label="14:30~15:00 ¥ 25 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0514-1430" />
+        <button id="snore-doctor-source-button-15" label="15:00~15:30 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0514-1500" />
+        <button id="snore-doctor-source-button-16" label="15:30~16:00 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0514-1530" />
+        <button id="snore-doctor-source-button-17" label="16:00~16:30 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0514-1600" />
+        <button id="snore-doctor-source-button-18" label="16:30~17:00 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0514-1630" />
+        <button id="snore-doctor-source-button-19" label="17:00~17:30 ¥ 25 余1" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0514-1700" />
+      </buttons>
+    </page>
+    <page screen="snore-deng-source-0515" file="registration/campus-select/yuancun/deng-source-0515/index.html" title="医生号源">
+      <buttons>
+        <button id="snore-deng-source-0515-button-1" label="返回耳鼻喉鼾症门诊" type="back-link" targetScreen="snore-clinic-0515" targetFile="registration/campus-select/yuancun/snore-clinic-0515/index.html" />
+        <button id="snore-deng-source-0515-button-2" label="•••" type="action" />
+        <button id="snore-deng-source-0515-button-3" label="◎" type="action" />
+        <button id="snore-deng-source-0515-button-4" label="医生动态" type="action" />
+        <button id="snore-deng-source-0515-button-5" label="邓文敏 / 详情" type="action" />
+        <button id="snore-deng-source-0515-button-6" label="在线门诊（今日号源）08:00~20:00 剩余20" type="action" />
+        <button id="snore-deng-source-0515-button-7" label="14:30~15:00 ¥ 25 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0515-1430" />
+        <button id="snore-deng-source-0515-button-8" label="15:00~15:30 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0515-1500" />
+        <button id="snore-deng-source-0515-button-9" label="15:30~16:00 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0515-1530" />
+        <button id="snore-deng-source-0515-button-10" label="16:00~16:30 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0515-1600" />
+        <button id="snore-deng-source-0515-button-11" label="16:30~17:00 ¥ 25 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0515-1630" />
+        <button id="snore-deng-source-0515-button-12" label="17:00~17:30 ¥ 25 余1" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=deng-0515-1700" />
+      </buttons>
+    </page>
+    <page screen="snore-long-source" file="registration/campus-select/yuancun/long-source/index.html" title="医生号源">
+      <buttons>
+        <button id="snore-long-source-button-1" label="返回耳鼻喉鼾症门诊" type="back-link" targetScreen="snore-clinic-0518" targetFile="registration/campus-select/yuancun/snore-clinic-0518/index.html" />
+        <button id="snore-long-source-button-2" label="•••" type="action" />
+        <button id="snore-long-source-button-3" label="◎" type="action" />
+        <button id="snore-long-source-button-4" label="医生动态" type="action" />
+        <button id="snore-long-source-button-5" label="龙镇 / 详情" type="action" />
+        <button id="snore-long-source-button-6" label="08:00~08:30 ¥ 39 余1" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-0800" />
+        <button id="snore-long-source-button-7" label="08:30~09:00 ¥ 39 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-0830" />
+        <button id="snore-long-source-button-8" label="09:00~09:30 ¥ 39 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-0900" />
+        <button id="snore-long-source-button-9" label="09:30~10:00 ¥ 39 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-0930" />
+        <button id="snore-long-source-button-10" label="10:00~10:30 ¥ 39 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-1000" />
+        <button id="snore-long-source-button-11" label="10:30~11:00 ¥ 39 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-1030" />
+        <button id="snore-long-source-button-12" label="11:00~11:30 ¥ 39 余3" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-1100" />
+        <button id="snore-long-source-button-13" label="11:30~12:00 ¥ 39 余1" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=long-0518-1130" />
+      </buttons>
+    </page>
+    <page screen="snore-liu-source" file="registration/campus-select/yuancun/liu-source/index.html" title="医生号源">
+      <buttons>
+        <button id="snore-liu-source-button-1" label="返回耳鼻喉鼾症门诊" type="back-link" targetScreen="snore-clinic-0519" targetFile="registration/campus-select/yuancun/snore-clinic-0519/index.html" />
+        <button id="snore-liu-source-button-2" label="•••" type="action" />
+        <button id="snore-liu-source-button-3" label="◎" type="action" />
+        <button id="snore-liu-source-button-4" label="医生动态" type="action" />
+        <button id="snore-liu-source-button-5" label="刘洁 / 详情" type="action" />
+        <button id="snore-liu-source-button-6" label="在线门诊（今日号源）08:00~20:00 50元/次 剩余10" type="action" />
+        <button id="snore-liu-source-button-7" label="14:30~15:00 ¥ 39 余2" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=liu-0519-1430" />
+        <button id="snore-liu-source-button-8" label="15:00~15:30 ¥ 39 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=liu-0519-1500" />
+        <button id="snore-liu-source-button-9" label="15:30~16:00 ¥ 39 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=liu-0519-1530" />
+        <button id="snore-liu-source-button-10" label="16:00~16:30 ¥ 39 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=liu-0519-1600" />
+        <button id="snore-liu-source-button-11" label="16:30~17:00 ¥ 39 余4" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=liu-0519-1630" />
+        <button id="snore-liu-source-button-12" label="17:00~17:30 ¥ 39 余1" type="href-link" targetScreen="snore-appointment-confirm" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html?slot=liu-0519-1700" />
+      </buttons>
+    </page>
+    <page screen="snore-appointment-confirm" file="registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html" title="挂号确认">
+      <buttons>
+        <button id="snore-appointment-confirm-button-1" label="返回医生号源" type="back-link" targetScreen="snore-doctor-source" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/index.html" />
+        <button id="snore-appointment-confirm-button-2" label="•••" type="action" />
+        <button id="snore-appointment-confirm-button-3" label="◎" type="action" />
+        <button id="snore-appointment-confirm-button-4" label="无感支付开关" type="action" />
+        <button id="snore-appointment-confirm-button-5" label="+添加就诊人" type="page-link" targetScreen="patient-bind" targetFile="mine/patients/bind/index.html" />
+        <button id="snore-appointment-confirm-button-6" label="上一步" type="back-link" targetScreen="snore-doctor-source" targetFile="registration/campus-select/yuancun/snore-clinic/doctor-source/index.html" />
+        <button id="snore-appointment-confirm-button-7" label="确认并支付" type="action" />
+      </buttons>
+      <fields>
+        <field id="snore-appointment-confirm-field-1" label="我已阅读同意 《互联网医院服务协议》" tag="input" type="checkbox" />
+        <field id="snore-appointment-confirm-field-2" label="我已阅读同意 《诊疗服务协议》" tag="input" type="checkbox" />
+      </fields>
     </page>
     <page screen="campus-north" file="registration/campus-select/north/index.html" title="北院区">
       <buttons>

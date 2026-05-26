@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>服务</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body class="healthhub-body">
+    <main class="healthhub-shell" aria-label="服务">
+      <section class="healthhub-page hh-services-page">
+        <header class="hh-simple-header">
+          <div class="healthhub-statusbar" aria-hidden="true">
+            <span>4:35</span>
+            <span class="healthhub-status-icons">
+              <span class="healthhub-signal"></span>
+              <span class="healthhub-wifi"></span>
+              <b>62</b>
+            </span>
+          </div>
+          <h1>服务</h1>
+        </header>
+
+        <section class="hh-service-search-band" aria-label="搜索服务">
+          <label class="hh-service-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.3-4.3M10.8 18a7.2 7.2 0 1 1 0-14.4 7.2 7.2 0 0 1 0 14.4Z" /></svg>
+            <input type="search" placeholder="搜索服务" />
+          </label>
+        </section>
+
+        <section class="hh-common-services">
+          <h2>常用服务</h2>
+          <div class="hh-common-grid">
+            <a href="./detail/index.html?title=Vaccination%20Records&empty=vaccination%20records" class="hh-common-item">
+              <span class="hh-common-icon syringe"></span>
+              <strong>疫苗接种记录</strong>
+            </a>
+            <a href="./detail/index.html?title=Lab%20Reports&empty=lab%20reports" class="hh-common-item">
+              <span class="healthhub-tile-icon green"><svg viewBox="0 0 24 24"><path d="M8 4h7l3 3v13H6V4h2Zm7 0v4h4M9 11h6M9 15h4M15 15h3M17 13v4" /></svg></span>
+              <strong>化验报告</strong>
+            </a>
+            <a href="./detail/index.html?title=Payments&empty=payment%20records" class="hh-common-item">
+              <span class="healthhub-tile-icon cyan"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 10h16M16 17v4M13 20h6M16 14h6" /></svg></span>
+              <strong>付款</strong>
+            </a>
+            <a href="./detail/index.html?title=Medication%20Refills&empty=medication%20refills" class="hh-common-item">
+              <span class="healthhub-tile-icon gold"><svg viewBox="0 0 24 24"><path d="M8 4h8v3H8zM7 7h10l1 12H6L7 7Zm5 4v5M9.5 13.5h5M17 15h5M19.5 12.5v5" /></svg></span>
+              <strong>填补药物</strong>
+            </a>
+            <a href="./detail/index.html?title=Health%20Screening&empty=health%20screening%20records" class="hh-common-item">
+              <span class="healthhub-tile-icon emerald"><svg viewBox="0 0 24 24"><path d="M10 18a8 8 0 1 1 5.7-2.3L21 21M8 10h4M10 8v4M14 9.5h2M14 12.5h2" /></svg></span>
+              <strong>体检</strong>
+            </a>
+            <a href="./detail/index.html?title=CHAS&empty=CHAS%20records" class="hh-common-item">
+              <span class="hh-common-icon chas">CHAS</span>
+              <strong>CHAS</strong>
+            </a>
+          </div>
+        </section>
+
+        <section class="hh-service-categories">
+          <h2>服务类别</h2>
+          <div class="hh-category-grid">
+            <a class="hh-category-card" href="./detail/index.html?title=Healthier%20SG&empty=Healthier%20SG%20records"><span class="hh-category-icon healthier">Healthier<br />SG</span><strong>健康SG</strong></a>
+            <a class="hh-category-card" href="../appointments/index.html"><span class="hh-category-icon calendar"></span><strong>预约</strong></a>
+            <a class="hh-category-card" href="./detail/index.html?title=Medication&empty=medication%20records"><span class="hh-category-icon medicine"></span><strong>药物</strong></a>
+            <a class="hh-category-card" href="./detail/index.html?title=Payment%20%26%20Finance&empty=payment%20and%20finance%20records"><span class="hh-category-icon card"></span><strong>付款与财务</strong></a>
+            <a class="hh-category-card" href="./detail/index.html?title=Health%20Records&empty=health%20records"><span class="hh-category-icon clipboard"></span><strong>健康记录</strong></a>
+            <a class="hh-category-card" href="./detail/index.html?title=Health%20Assessment&empty=health%20assessment%20records"><span class="hh-category-icon stethoscope"></span><strong>健康评估</strong></a>
+            <a class="hh-category-card" href="./detail/index.html?title=Consent%20%26%20Permission&empty=consent%20and%20permission%20records"><span class="hh-category-icon consent"></span><strong>同意与许可</strong></a>
+          </div>
+        </section>
+
+        <nav class="healthhub-bottom-nav" aria-label="底部导航">
+          <a href="../index.html">
+            <span class="healthhub-nav-icon home" aria-hidden="true"></span>
+            <strong>主页</strong>
+          </a>
+          <a class="is-active" href="./index.html">
+            <span class="healthhub-nav-icon services" aria-hidden="true"></span>
+            <strong>服务</strong>
+          </a>
+          <a href="../records/index.html">
+            <span class="healthhub-nav-icon records" aria-hidden="true"></span>
+            <strong>健康档案</strong>
+          </a>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

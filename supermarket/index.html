@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShengSiong Supermarket</title>
+    <link rel="stylesheet" href="./supermarket.css" />
+  </head>
+  <body>
+    <main class="market-phone" aria-label="ShengSiong supermarket app">
+      <section class="screen is-active" id="home-screen" aria-label="Home"></section>
+      <section class="screen" id="categories-screen" aria-label="Categories"></section>
+      <section class="screen" id="listing-screen" aria-label="Product list"></section>
+      <section class="screen" id="detail-screen" aria-label="Product detail"></section>
+
+      <nav class="bottom-nav" aria-label="Primary navigation">
+        <button class="nav-item is-active" data-view="home" type="button">
+          <span class="nav-icon" data-icon="home"></span>
+          <span>Home</span>
+        </button>
+        <button class="nav-item" data-view="categories" type="button">
+          <span class="nav-icon" data-icon="grid"></span>
+          <span>Categories</span>
+        </button>
+        <button class="scan-button" type="button" aria-label="Scan barcode">
+          <span class="nav-icon" data-icon="scan"></span>
+        </button>
+        <button class="nav-item" type="button">
+          <span class="nav-icon" data-icon="ticket"></span>
+          <span>Vouchers</span>
+        </button>
+        <button class="nav-item" type="button">
+          <span class="nav-icon" data-icon="bag"></span>
+          <span>Cart</span>
+        </button>
+      </nav>
+    </main>
+
+    <script src="./catalog-data.js"></script>
+    <script src="./supermarket.js"></script>
+  </body>
+</html>

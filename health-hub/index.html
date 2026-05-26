@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Hub</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="healthhub-body">
+    <main class="healthhub-shell" aria-label="Health Hub">
+      <section class="healthhub-page">
+        <header class="healthhub-header">
+          <div class="healthhub-statusbar" aria-hidden="true">
+            <span>1:13</span>
+            <span class="healthhub-status-icons">
+              <span class="healthhub-signal"></span>
+              <span class="healthhub-wifi"></span>
+              <b>28</b>
+            </span>
+          </div>
+          <div class="healthhub-titlebar">
+            <button class="healthhub-icon-button" type="button" aria-label="通知">
+              <svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0v5l2 3H4l2-3V9Zm4 10h4" /></svg>
+            </button>
+            <div class="healthhub-logo" aria-label="Health Hub">
+              <span>Health Hub</span>
+              <i></i>
+            </div>
+            <button class="healthhub-icon-button" type="button" aria-label="设置">
+              <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm8.2 4a7.8 7.8 0 0 0-.1-1l2-1.5-2-3.5-2.4 1a8.9 8.9 0 0 0-1.7-1L15.7 3h-4l-.4 3a8.9 8.9 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a7.8 7.8 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a8.9 8.9 0 0 0 1.7 1l.4 3h4l.4-3a8.9 8.9 0 0 0 1.7-1l2.4 1 2-3.5-2-1.5c.1-.3.1-.7.1-1Z" /></svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="healthhub-welcome" aria-label="欢迎">
+          <h1>MXXXX437J您好, 欢迎回来！</h1>
+          <p>上次登录 17/05/2026, 09:26 PM</p>
+        </section>
+
+        <section class="healthhub-appointments" aria-label="预约">
+          <div class="healthhub-section-head">
+            <h2>预约</h2>
+            <button type="button">
+              <span class="healthhub-refresh" aria-hidden="true"></span>
+              <span>更新</span>
+            </button>
+          </div>
+          <div class="healthhub-consult-card" aria-hidden="true">
+            <div class="healthhub-files"></div>
+            <div class="healthhub-doctor">
+              <span></span>
+            </div>
+            <div class="healthhub-patient">
+              <span></span>
+            </div>
+            <div class="healthhub-desk"></div>
+          </div>
+          <a class="healthhub-primary-button" href="./appointments/index.html">
+            <span aria-hidden="true">+</span>
+            <strong>安排新的预约</strong>
+          </a>
+        </section>
+
+        <section class="healthhub-quick" aria-label="快速链接">
+          <div class="healthhub-section-head">
+            <h2>快速链接</h2>
+            <button type="button">修改</button>
+          </div>
+          <div class="healthhub-quick-grid">
+            <a class="healthhub-tile" href="./appointments/index.html">
+              <span class="healthhub-tile-icon red">
+                <svg viewBox="0 0 24 24"><path d="M7 3v4M17 3v4M5 7h14v13H5zM8 12h3M8 16h2M14 12h2M14 16h2" /></svg>
+              </span>
+              <strong>预约</strong>
+            </a>
+            <a class="healthhub-tile" href="./services/detail/index.html?title=Lab%20Reports&empty=lab%20reports">
+              <span class="healthhub-tile-icon green">
+                <svg viewBox="0 0 24 24"><path d="M8 4h7l3 3v13H6V4h2Zm7 0v4h4M9 11h6M9 15h4M15 15h3M17 13v4" /></svg>
+              </span>
+              <strong>化验报告</strong>
+            </a>
+            <button class="healthhub-tile" type="button">
+              <span class="healthhub-tile-icon cyan">
+                <svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 10h16M16 17v4M13 20h6M16 14h6" /></svg>
+              </span>
+              <strong>付款</strong>
+            </button>
+            <button class="healthhub-tile" type="button">
+              <span class="healthhub-tile-icon gold">
+                <svg viewBox="0 0 24 24"><path d="M8 4h8v3H8zM7 7h10l1 12H6L7 7Zm5 4v5M9.5 13.5h5M17 15h5M19.5 12.5v5" /></svg>
+              </span>
+              <strong>填补药物</strong>
+            </button>
+            <button class="healthhub-tile" type="button">
+              <span class="healthhub-tile-icon emerald">
+                <svg viewBox="0 0 24 24"><path d="M10 18a8 8 0 1 1 5.7-2.3L21 21M8 10h4M10 8v4M14 9.5h2M14 12.5h2" /></svg>
+              </span>
+              <strong>体检</strong>
+            </button>
+            <button class="healthhub-tile healthhub-tile--chas" type="button">
+              <span class="healthhub-bot" aria-hidden="true">
+                <i></i>
+              </span>
+              <strong>CHAS</strong>
+            </button>
+          </div>
+        </section>
+
+        <nav class="healthhub-bottom-nav" aria-label="底部导航">
+          <a class="is-active" href="./index.html">
+            <span class="healthhub-nav-icon home" aria-hidden="true"></span>
+            <strong>主页</strong>
+          </a>
+          <a href="./services/index.html">
+            <span class="healthhub-nav-icon services" aria-hidden="true"></span>
+            <strong>服务</strong>
+          </a>
+          <a href="./records/index.html">
+            <span class="healthhub-nav-icon records" aria-hidden="true"></span>
+            <strong>健康档案</strong>
+          </a>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

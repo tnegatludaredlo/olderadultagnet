@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>i 六院页面结构图</title>
+    <style>body{margin:0;padding:32px;background:#f5faf8;color:#14201b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}h1{margin:0 0 8px;font-size:24px}p{margin:0 0 24px;color:#5c6f67}.wrap{max-width:1400px;margin:0 auto}.diagram{padding:24px;background:#fff;border:1px solid #dfece7;border-radius:8px;overflow:auto}</style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>i 六院页面结构图</h1>
+      <p>实线是前进跳转，虚线是返回/上一步。当前已区分“神经内科分支”和“睡眠医学科分支”。</p>
+      <section class="diagram"><pre class="mermaid">flowchart TD
+  home["i 六院&lt;br/&gt;index.html"]
+  health["健康&lt;br/&gt;health/index.html"]
+  messages["消息&lt;br/&gt;messages/index.html"]
+  mine["我的&lt;br/&gt;mine/index.html"]
+  patient_list["我的就诊人&lt;br/&gt;mine/patients/index.html"]
+  patient_bind["门诊号绑定&lt;br/&gt;mine/patients/bind/index.html"]
+  online_clinic["选择科室&lt;br/&gt;online-clinic/index.html"]
+  registration["预约挂号&lt;br/&gt;registration/index.html"]
+  campus_select["选择院区&lt;br/&gt;registration/campus-select/index.html"]
+  campus_yuancun["金融城·员村&lt;br/&gt;registration/campus-select/yuancun/index.html"]
+  sleep_memory_clinic["神经内科分支&lt;br/&gt;睡眠、记忆障碍专科门诊&lt;br/&gt;registration/campus-select/yuancun/sleep-memory-clinic/index.html"]
+  doctor_source["神经内科分支&lt;br/&gt;医生号源&lt;br/&gt;registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/index.html"]
+  appointment_confirm["神经内科分支&lt;br/&gt;挂号确认&lt;br/&gt;registration/campus-select/yuancun/sleep-memory-clinic/doctor-source/appointment-confirm/index.html"]
+  snore_clinic["睡眠医学科分支&lt;br/&gt;耳鼻喉鼾症门诊&lt;br/&gt;registration/campus-select/yuancun/snore-clinic/index.html"]
+  snore_doctor_source["睡眠医学科分支&lt;br/&gt;医生号源&lt;br/&gt;registration/campus-select/yuancun/snore-clinic/doctor-source/index.html"]
+  snore_appointment_confirm["睡眠医学科分支&lt;br/&gt;挂号确认&lt;br/&gt;registration/campus-select/yuancun/snore-clinic/doctor-source/appointment-confirm/index.html"]
+  campus_north["北院区&lt;br/&gt;registration/campus-select/north/index.html"]
+  campus_knowledge["知识城&lt;br/&gt;registration/campus-select/knowledge/index.html"]
+
+  home --&gt;|"+ 预约挂号"| registration
+  home --&gt;|"在线门诊"| online_clinic
+  home --&gt;|"健康"| health
+  home --&gt;|"消息"| messages
+  home --&gt;|"我的"| mine
+
+  health --&gt;|"首页"| home
+  health --&gt;|"消息"| messages
+  health --&gt;|"我的"| mine
+
+  messages --&gt;|"首页"| home
+  messages --&gt;|"健康"| health
+  messages --&gt;|"我的"| mine
+
+  mine --&gt;|"首页"| home
+  mine --&gt;|"健康"| health
+  mine --&gt;|"消息"| messages
+  mine --&gt;|"选择就诊人"| patient_list
+  patient_list -.-&gt;|"返回我的"| mine
+  patient_list --&gt;|"添加就诊人"| patient_bind
+  patient_bind -.-&gt;|"返回我的就诊人"| patient_list
+
+  registration -.-&gt;|"返回首页"| home
+  registration --&gt;|"按院区挂号 / 去挂号"| campus_select
+  campus_select -.-&gt;|"返回预约挂号"| registration
+  campus_select --&gt;|"金融城·员村 / 去挂号"| campus_yuancun
+  campus_select --&gt;|"北院区 / 去挂号"| campus_north
+  campus_select --&gt;|"知识城 / 去挂号"| campus_knowledge
+  campus_yuancun -.-&gt;|"返回选择院区"| campus_select
+
+  campus_yuancun --&gt;|"神经内科 → 睡眠、记忆障碍专科门诊"| sleep_memory_clinic
+  sleep_memory_clinic -.-&gt;|"返回金融城员村"| campus_yuancun
+  sleep_memory_clinic --&gt;|"赵江佩 / 预约挂号"| doctor_source
+  doctor_source -.-&gt;|"返回专科门诊"| sleep_memory_clinic
+  doctor_source --&gt;|"14:30~15:00 ¥25 余1"| appointment_confirm
+  appointment_confirm -.-&gt;|"返回医生号源 / 上一步"| doctor_source
+  appointment_confirm --&gt;|"+添加就诊人"| patient_bind
+
+  campus_yuancun --&gt;|"睡眠医学科 → 耳鼻喉鼾症门诊"| snore_clinic
+  snore_clinic -.-&gt;|"返回金融城员村"| campus_yuancun
+  snore_clinic --&gt;|"邓文敏 / 预约挂号"| snore_doctor_source
+  snore_doctor_source -.-&gt;|"返回耳鼻喉鼾症门诊"| snore_clinic
+  snore_doctor_source --&gt;|"14:30~15:00 ¥25 余3"| snore_appointment_confirm
+  snore_appointment_confirm -.-&gt;|"返回医生号源 / 上一步"| snore_doctor_source
+  snore_appointment_confirm --&gt;|"+添加就诊人"| patient_bind
+
+  campus_north -.-&gt;|"返回选择院区"| campus_select
+  campus_knowledge -.-&gt;|"返回选择院区"| campus_select
+
+  classDef page fill:#ecfbf3,stroke:#28a271,color:#14201b,stroke-width:1px;
+  classDef confirm fill:#fff6e8,stroke:#e69a2d,color:#24170b,stroke-width:1px;
+  classDef utility fill:#eef4ff,stroke:#5b8def,color:#14201b,stroke-width:1px;
+  class home,health,messages,mine,online_clinic,registration,campus_select,campus_yuancun,sleep_memory_clinic,doctor_source,snore_clinic,snore_doctor_source,campus_north,campus_knowledge page;
+  class appointment_confirm,snore_appointment_confirm confirm;
+  class patient_list,patient_bind utility;
+</pre></section>
+    </main>
+    <script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'; mermaid.initialize({ startOnLoad: true, theme: 'base' });</script>
+  </body>
+</html>

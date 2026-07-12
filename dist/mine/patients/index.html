@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的就诊人</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script src="../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="我的就诊人">
+      <section class="flat-page" data-screen="patient-list">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>12:32</span>
+            <span class="status-icons">▮▮▮ 20</span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回我的" data-nav-back-target="mine">
+              <span></span>
+            </button>
+            <h1>我的就诊人</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="patient-picker-page">
+          <div class="patient-picker-empty"></div>
+          <p class="patient-picker-note">您还能添加<span class="accent">8</span>名就诊人</p>
+        </section>
+
+        <footer class="patient-picker-footer">
+          <button class="patient-picker-button patient-picker-button--ghost" type="button" data-nav-target="patient-bind">添加就诊人</button>
+          <button class="patient-picker-button patient-picker-button--disabled" type="button">确定切换</button>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>

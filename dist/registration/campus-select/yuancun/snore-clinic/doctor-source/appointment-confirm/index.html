@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>挂号确认</title>
+    <link rel="stylesheet" href="../../../../../../styles.css" />
+    <script src="../../../../../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="挂号确认">
+      <section class="app-page is-active sub-page confirm-page" data-screen="snore-appointment-confirm" aria-label="耳鼻喉鼾症挂号确认页面">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>10:30</span>
+            <span class="status-icons">▮▮▮ 5G <b>33</b></span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回医生号源" data-nav-back-target="snore-doctor-source">
+              <span></span>
+            </button>
+            <h1>挂号确认</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="confirm-content">
+          <article class="confirm-card confirm-card--doctor">
+            <div class="confirm-doctor-top">
+              <div class="doctor-photo doctor-photo--medium"><span id="confirm-doctor-avatar">邓</span></div>
+              <div class="confirm-doctor-top__text">
+                <div class="confirm-doctor-top__name">
+                  <h2 id="confirm-doctor-name">邓文敏</h2>
+                  <h3 id="confirm-doctor-role">主治医师</h3>
+                </div>
+                <p id="confirm-hospital-name">中山大学附属第六医院</p>
+              </div>
+            </div>
+            <div class="confirm-card__divider"></div>
+            <div class="confirm-details">
+              <div class="confirm-details__labels">
+                <span>就诊院区</span>
+                <span>院区地址</span>
+                <span>就诊科室</span>
+                <span>预约时间</span>
+                <span>接诊地点</span>
+                <span>挂号费用</span>
+              </div>
+              <div class="confirm-details__values">
+                <span id="confirm-campus">中山大学附属第六医院</span>
+                <span class="strong" id="confirm-address">广州市天河区员村二横路26号</span>
+                <span id="confirm-department">耳鼻喉鼾症门诊</span>
+                <span id="confirm-date">2026-05-14 星期四</span>
+                <span id="confirm-time">14:30-15:00</span>
+                <span id="confirm-location">1号楼3楼耳鼻喉鼾症</span>
+                <span class="fee" id="confirm-fee">¥ 25</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="confirm-card confirm-card--payment">
+            <div class="payment-row">
+              <div>
+                <h2>是否使用无感支付</h2>
+                <p>(秒报销，免排队)</p>
+              </div>
+              <div class="payment-help">?</div>
+              <button class="switch" type="button" aria-label="无感支付开关">
+                <span></span>
+              </button>
+            </div>
+          </article>
+
+          <section class="patient-section">
+            <div class="patient-section__title">
+              <h2>选择就诊人</h2>
+              <button type="button" data-nav-target="patient-bind">+添加就诊人</button>
+            </div>
+            <article class="confirm-card patient-card">
+              <div class="patient-card__text">
+                <div><strong>就诊人：</strong> xxx</div>
+                <div><strong>门诊号：</strong> 00000</div>
+              </div>
+              <div class="patient-check">✓</div>
+            </article>
+          </section>
+
+          <div class="agreement-list">
+            <label class="agreement-item">
+              <input type="checkbox" />
+              <span>我已阅读同意 <u>《互联网医院服务协议》</u></span>
+            </label>
+            <label class="agreement-item">
+              <input type="checkbox" />
+              <span>我已阅读同意 <u>《诊疗服务协议》</u></span>
+            </label>
+          </div>
+        </section>
+
+        <footer class="confirm-footer">
+          <button class="footer-button footer-button--ghost" type="button" data-nav-back-target="snore-doctor-source">上一步</button>
+          <button class="footer-button footer-button--solid" type="button">确认并支付</button>
+        </footer>
+      </section>
+    </main>
+    <script>
+      (function () {
+        const slotKey = new URLSearchParams(window.location.search).get("slot");
+        const slotMap = {
+          "deng-0514-1430": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-14 星期四", time: "14:30-15:00", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-doctor-source" },
+          "deng-0514-1500": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-14 星期四", time: "15:00-15:30", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-doctor-source" },
+          "deng-0514-1530": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-14 星期四", time: "15:30-16:00", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-doctor-source" },
+          "deng-0514-1600": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-14 星期四", time: "16:00-16:30", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-doctor-source" },
+          "deng-0514-1630": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-14 星期四", time: "16:30-17:00", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-doctor-source" },
+          "deng-0514-1700": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-14 星期四", time: "17:00-17:30", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-doctor-source" },
+          "deng-0515-1430": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-15 星期五", time: "14:30-15:00", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-deng-source-0515" },
+          "deng-0515-1500": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-15 星期五", time: "15:00-15:30", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-deng-source-0515" },
+          "deng-0515-1530": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-15 星期五", time: "15:30-16:00", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-deng-source-0515" },
+          "deng-0515-1600": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-15 星期五", time: "16:00-16:30", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-deng-source-0515" },
+          "deng-0515-1630": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-15 星期五", time: "16:30-17:00", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-deng-source-0515" },
+          "deng-0515-1700": { doctor: "邓文敏", avatar: "邓", role: "主治医师", date: "2026-05-15 星期五", time: "17:00-17:30", fee: "¥ 25", location: "1号楼3楼耳鼻喉鼾症", back: "snore-deng-source-0515" },
+          "liu-0519-1430": { doctor: "刘洁", avatar: "刘", role: "副主任医师", date: "2026-05-19 星期二", time: "14:30-15:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-liu-source" },
+          "liu-0519-1500": { doctor: "刘洁", avatar: "刘", role: "副主任医师", date: "2026-05-19 星期二", time: "15:00-15:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-liu-source" },
+          "liu-0519-1530": { doctor: "刘洁", avatar: "刘", role: "副主任医师", date: "2026-05-19 星期二", time: "15:30-16:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-liu-source" },
+          "liu-0519-1600": { doctor: "刘洁", avatar: "刘", role: "副主任医师", date: "2026-05-19 星期二", time: "16:00-16:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-liu-source" },
+          "liu-0519-1630": { doctor: "刘洁", avatar: "刘", role: "副主任医师", date: "2026-05-19 星期二", time: "16:30-17:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-liu-source" },
+          "liu-0519-1700": { doctor: "刘洁", avatar: "刘", role: "副主任医师", date: "2026-05-19 星期二", time: "17:00-17:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-liu-source" },
+          "long-0518-0800": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "08:00-08:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-0830": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "08:30-09:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-0900": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "09:00-09:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-0930": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "09:30-10:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-1000": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "10:00-10:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-1030": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "10:30-11:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-1100": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "11:00-11:30", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" },
+          "long-0518-1130": { doctor: "龙镇", avatar: "龙", role: "副主任医师", date: "2026-05-18 星期一", time: "11:30-12:00", fee: "¥ 39", location: "1号楼3楼耳鼻喉鼾症", back: "snore-long-source" }
+        };
+
+        const slot = slotMap[slotKey];
+        if (!slot) return;
+
+        document.getElementById("confirm-doctor-avatar").textContent = slot.avatar;
+        document.getElementById("confirm-doctor-name").textContent = slot.doctor;
+        document.getElementById("confirm-doctor-role").textContent = slot.role;
+        document.getElementById("confirm-campus").textContent = "中山大学附属第六医院";
+        document.getElementById("confirm-address").textContent = "广州市天河区员村二横路26号";
+        document.getElementById("confirm-department").textContent = "耳鼻喉鼾症门诊";
+        document.getElementById("confirm-date").textContent = slot.date;
+        document.getElementById("confirm-time").textContent = slot.time;
+        document.getElementById("confirm-location").textContent = slot.location;
+        document.getElementById("confirm-fee").textContent = slot.fee;
+
+        document.querySelectorAll("[data-nav-back-target='snore-doctor-source']").forEach((button) => {
+          button.dataset.navBackTarget = slot.back;
+        });
+      })();
+    </script>
+  </body>
+</html>

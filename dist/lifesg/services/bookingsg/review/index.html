@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookingSG Review</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="BookingSG review">
+      <section class="bookingsg-page bookingsg-flow-page">
+        <header class="bookingsg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">5:54</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>5G</strong>
+              <span class="lifesg-battery"><b>96</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <a class="onepa-circle onepa-circle--close" href="../additional/index.html" aria-label="关闭">
+              <span></span>
+            </a>
+            <strong>booking.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多">
+              <span></span>
+            </button>
+          </div>
+
+          <div class="bookingsg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+
+          <div class="bookingsg-brandbar">
+            <div class="bookingsg-logo">
+              <strong>Booking<span>SG</span></strong>
+              <small>POWERED BY GOVTECH</small>
+            </div>
+            <span class="bookingsg-hamburger" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="bookingsg-content bookingsg-content--form">
+          <div class="bookingsg-steps bookingsg-steps--five">
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Select service provider</strong></div>
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Select date and time</strong></div>
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Personal details</strong></div>
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Additional details</strong></div>
+            <div class="bookingsg-step is-active"><span class="bookingsg-step__line"></span><strong>Review</strong></div>
+          </div>
+
+          <section class="bookingsg-form-intro">
+            <h1>Review</h1>
+            <p>Please verify your booking details. Click on the ‘Edit’ button if you need to change any information provided.</p>
+          </section>
+
+          <div class="bookingsg-review-list">
+            <section class="bookingsg-review-card">
+              <button class="bookingsg-review-card__header" type="button" data-review-toggle>
+                <strong>Selected service provider</strong>
+                <i></i>
+              </button>
+              <div class="bookingsg-review-card__body">
+                <div class="bookingsg-review-row">
+                  <span>Service</span>
+                  <strong id="review-service"></strong>
+                </div>
+                <div class="bookingsg-review-row">
+                  <span>Service Provider</span>
+                  <strong id="review-centre"></strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="bookingsg-review-card">
+              <button class="bookingsg-review-card__header" type="button" data-review-toggle>
+                <strong>Selected date and time</strong>
+                <i></i>
+              </button>
+              <div class="bookingsg-review-card__body">
+                <div class="bookingsg-review-row">
+                  <span>Date</span>
+                  <strong id="review-date"></strong>
+                </div>
+                <div class="bookingsg-review-row">
+                  <span>Time</span>
+                  <strong id="review-time"></strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="bookingsg-review-card">
+              <button class="bookingsg-review-card__header" type="button" data-review-toggle>
+                <strong>Personal details</strong>
+                <i></i>
+              </button>
+              <div class="bookingsg-review-card__body">
+                <a class="bookingsg-review-edit" href="../personal/index.html">Edit</a>
+                <div class="bookingsg-review-row">
+                  <span>Name (as in NRIC or passport)</span>
+                  <strong id="review-name"></strong>
+                </div>
+                <div class="bookingsg-review-row">
+                  <span>NRIC or FIN</span>
+                  <strong id="review-nric"></strong>
+                </div>
+                <div class="bookingsg-review-row">
+                  <span>Email address</span>
+                  <strong id="review-email"></strong>
+                </div>
+                <div class="bookingsg-review-row">
+                  <span>Mobile number</span>
+                  <strong id="review-mobile"></strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="bookingsg-review-card">
+              <button class="bookingsg-review-card__header" type="button" data-review-toggle>
+                <strong>Additional details</strong>
+                <i></i>
+              </button>
+              <div class="bookingsg-review-card__body">
+                <a class="bookingsg-review-edit" href="../additional/index.html">Edit</a>
+                <div class="bookingsg-review-row">
+                  <span>Tax Type</span>
+                  <strong id="review-tax"></strong>
+                </div>
+                <div class="bookingsg-review-row">
+                  <span>Remarks/Comments</span>
+                  <strong id="review-remarks"></strong>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <button class="bookingsg-confirm" type="button">Submit</button>
+          <a class="bookingsg-back-button" href="../additional/index.html">Back</a>
+        </section>
+
+        <div class="bookingsg-floating-smile" aria-hidden="true"></div>
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="../booking-data.js"></script>
+    <script>
+      const booking = window.BookingSGData.read();
+
+      document.getElementById("review-service").textContent = booking.service;
+      document.getElementById("review-centre").textContent = booking.centre;
+      document.getElementById("review-date").textContent = booking.dateLong;
+      document.getElementById("review-time").textContent = `${booking.slotStart} to ${booking.slotEnd}`;
+      document.getElementById("review-name").textContent = booking.name;
+      document.getElementById("review-nric").textContent = booking.nric;
+      document.getElementById("review-email").textContent = booking.email;
+      document.getElementById("review-mobile").textContent = `${booking.countryCode} ${booking.mobile}`;
+      document.getElementById("review-tax").textContent = booking.taxType || "—";
+      document.getElementById("review-remarks").textContent = booking.remarks || "—";
+
+      document.querySelectorAll("[data-review-toggle]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".bookingsg-review-card");
+          card.classList.toggle("is-collapsed");
+        });
+      });
+    </script>
+  </body>
+</html>

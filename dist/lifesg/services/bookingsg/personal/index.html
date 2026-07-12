@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookingSG Personal Details</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="BookingSG personal details">
+      <section class="bookingsg-page bookingsg-flow-page">
+        <header class="bookingsg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">5:53</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>5G</strong>
+              <span class="lifesg-battery"><b>96</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <a class="onepa-circle onepa-circle--close" href="../time/index.html" aria-label="关闭">
+              <span></span>
+            </a>
+            <strong>booking.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多">
+              <span></span>
+            </button>
+          </div>
+
+          <div class="bookingsg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+
+          <div class="bookingsg-brandbar">
+            <div class="bookingsg-logo">
+              <strong>Booking<span>SG</span></strong>
+              <small>POWERED BY GOVTECH</small>
+            </div>
+            <span class="bookingsg-hamburger" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="bookingsg-content bookingsg-content--form">
+          <div class="bookingsg-steps bookingsg-steps--five">
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Select service provider</strong></div>
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Select date and time</strong></div>
+            <div class="bookingsg-step is-active"><span class="bookingsg-step__line"></span><strong>Personal details</strong></div>
+            <div class="bookingsg-step"><span class="bookingsg-step__line"></span><strong>Additional details</strong></div>
+            <div class="bookingsg-step"><span class="bookingsg-step__line"></span><strong>Review</strong></div>
+          </div>
+
+          <section class="bookingsg-form-intro">
+            <h1>Personal details</h1>
+            <p>Tell us more about yourself.</p>
+          </section>
+
+          <form class="bookingsg-form" id="bookingsg-personal-form">
+            <label class="bookingsg-field">
+              <span>Name (as in NRIC or passport)</span>
+              <input id="bookingsg-name" type="text" value="" />
+            </label>
+
+            <label class="bookingsg-field">
+              <span>NRIC or FIN</span>
+              <input id="bookingsg-nric" type="text" value="M*****437J" readonly />
+            </label>
+
+            <label class="bookingsg-field">
+              <span>Email address</span>
+              <input id="bookingsg-email" type="email" value="" />
+            </label>
+
+            <label class="bookingsg-field">
+              <span>Mobile number</span>
+              <div class="bookingsg-phone-field">
+                <div class="bookingsg-phone-field__code">
+                  <select id="bookingsg-code" aria-label="区号">
+                    <option selected>+65</option>
+                  </select>
+                  <i></i>
+                </div>
+                <input id="bookingsg-mobile" type="text" value="" inputmode="numeric" />
+              </div>
+            </label>
+
+            <button class="bookingsg-confirm" id="bookingsg-personal-next" type="submit">Next</button>
+            <a class="bookingsg-back-button" id="bookingsg-personal-back" href="../time/index.html">Back</a>
+          </form>
+        </section>
+
+        <div class="bookingsg-floating-smile" aria-hidden="true"></div>
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="../booking-data.js"></script>
+    <script>
+      const bookingStore = window.BookingSGData;
+      const params = new URLSearchParams(window.location.search);
+      const booking = bookingStore.save({
+        centre: params.get("centre") || bookingStore.read().centre,
+        address: params.get("address") || bookingStore.read().address,
+        date: params.get("date") || bookingStore.read().date,
+        dateShort: params.get("dateShort") || bookingStore.read().dateShort,
+        dateLong: params.get("dateLong") || bookingStore.read().dateLong,
+        slotStart: params.get("slotStart") || bookingStore.read().slotStart,
+        slotEnd: params.get("slotEnd") || bookingStore.read().slotEnd,
+      });
+
+      const form = document.getElementById("bookingsg-personal-form");
+      const nameInput = document.getElementById("bookingsg-name");
+      const nricInput = document.getElementById("bookingsg-nric");
+      const emailInput = document.getElementById("bookingsg-email");
+      const codeInput = document.getElementById("bookingsg-code");
+      const mobileInput = document.getElementById("bookingsg-mobile");
+      const backLink = document.getElementById("bookingsg-personal-back");
+
+      nameInput.value = booking.name;
+      nricInput.value = booking.nric;
+      emailInput.value = booking.email;
+      codeInput.value = booking.countryCode;
+      mobileInput.value = booking.mobile;
+      backLink.href = `../time/index.html?${bookingStore.buildQuery(booking)}`;
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const nextBooking = bookingStore.save({
+          name: nameInput.value.trim(),
+          nric: nricInput.value.trim(),
+          email: emailInput.value.trim(),
+          countryCode: codeInput.value.trim(),
+          mobile: mobileInput.value.trim(),
+        });
+        window.location.href = `../additional/index.html?${bookingStore.buildQuery(nextBooking)}`;
+      });
+    </script>
+  </body>
+</html>

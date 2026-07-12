@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App 切换</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="root-body">
+    <main class="root-shell" aria-label="App 切换">
+      <header class="root-header">
+        <p>Workspace</p>
+        <h1>选择应用</h1>
+      </header>
+
+      <section class="app-switcher" aria-label="应用列表">
+        <a class="app-entry app-entry--hospital" href="./hospital/index.html">
+          <span class="app-entry__icon" aria-hidden="true">⑥</span>
+          <span class="app-entry__body">
+            <strong>i 六院</strong>
+            <span>中山大学附属第六医院服务原型</span>
+          </span>
+          <span class="app-entry__arrow" aria-hidden="true"></span>
+        </a>
+
+        <a class="app-entry app-entry--healthhub" href="./health-hub/index.html">
+          <span class="app-entry__icon healthhub-mark" aria-hidden="true"></span>
+          <span class="app-entry__body">
+            <strong>Health Hub</strong>
+            <span>预约、报告、付款与健康档案服务首页</span>
+          </span>
+          <span class="app-entry__arrow" aria-hidden="true"></span>
+        </a>
+
+        <a class="app-entry app-entry--market" href="./supermarket/index.html">
+          <span class="app-entry__icon market-mark" aria-hidden="true">S</span>
+          <span class="app-entry__body">
+            <strong>ShengSiong 超市</strong>
+            <span>首页、分类、商品列表与详情页移动端原型</span>
+          </span>
+          <span class="app-entry__arrow" aria-hidden="true"></span>
+        </a>
+
+        <a class="app-entry app-entry--lifesg" href="./lifesg/index.html">
+          <span class="app-entry__icon lifesg-mark" aria-hidden="true">L</span>
+          <span class="app-entry__body">
+            <strong>lifeSG</strong>
+            <span>新加坡生活服务首页原型，含推荐服务与底部导航</span>
+          </span>
+          <span class="app-entry__arrow" aria-hidden="true"></span>
+        </a>
+
+        <a class="app-entry app-entry--activesg" href="./activesg/index.html">
+          <span class="app-entry__icon activesg-mark" aria-hidden="true">A</span>
+          <span class="app-entry__body">
+            <strong>activeSG</strong>
+            <span>直接进入从 lifeSG 提取出的 ActiveSG 场馆预约路径，沿用原有交互逻辑</span>
+          </span>
+          <span class="app-entry__arrow" aria-hidden="true"></span>
+        </a>
+
+        <a class="app-entry app-entry--mobile-plan" href="./mobile-plan/index.html">
+          <span class="app-entry__icon mobile-plan-mark" aria-hidden="true">M</span>
+          <span class="app-entry__body">
+            <strong>Mobile Plan</strong>
+            <span>通信套餐首页原型，含余额、流量包与最近购买模块</span>
+          </span>
+          <span class="app-entry__arrow" aria-hidden="true"></span>
+        </a>
+
+        <article class="app-entry app-entry--placeholder" aria-label="更多应用即将加入">
+          <span class="app-entry__icon" aria-hidden="true">+</span>
+          <span class="app-entry__body">
+            <strong>更多应用</strong>
+            <span>后续新增 app 会显示在这里</span>
+          </span>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="我的">
+      <section class="flat-page mine-page" data-screen="mine">
+        <div class="statusbar" aria-hidden="true">
+          <span>6:11</span>
+          <span class="status-icons">▮▮▮ 19</span>
+        </div>
+        <section class="mine-hero">
+          <div class="health-topbar">
+            <div></div>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+          <article class="mine-hero-card">
+            <div class="mine-user-row">
+              <div class="mine-user-main">
+                <div class="mine-avatar">👤</div>
+                <h1>xxx</h1>
+              </div>
+              <button class="mine-patient-link" type="button" data-nav-target="patient-list">选择就诊人 ＞</button>
+            </div>
+            <div class="mine-counts">
+              <div><strong>0</strong><span>我的关注</span></div>
+              <div><strong>0</strong><span>我的收藏</span></div>
+              <div><strong>0</strong><span>我的评论</span></div>
+              <div><strong>0</strong><span>关注医生</span></div>
+            </div>
+          </article>
+        </section>
+        <h2 class="mine-section-title">服务订单</h2>
+        <div class="mine-order-grid">
+          <button class="mine-order-item" type="button"><span class="mine-order-icon">▭</span><span>待付款</span></button>
+          <button class="mine-order-item" type="button"><span class="mine-order-icon">✚</span><span>线上问诊</span></button>
+          <button class="mine-order-item" type="button"><span class="mine-order-icon">⚗</span><span>检查检验申请</span></button>
+          <button class="mine-order-item" type="button"><span class="mine-order-icon">¥</span><span>退费申请记录</span></button>
+        </div>
+        <section class="mine-card">
+          <h3>健康服务</h3>
+          <div class="mine-service-grid">
+            <button class="mine-service-item" type="button"><span class="mine-service-icon">🪪</span><span>挂号记录</span></button>
+            <button class="mine-service-item" type="button"><span class="mine-service-icon">🪪</span><span>候补记录</span></button>
+            <button class="mine-service-item" type="button"><span class="mine-service-icon">🧾</span><span>我的处方</span></button>
+            <button class="mine-service-item" type="button"><span class="mine-service-icon">📋</span><span>我的验单</span></button>
+            <button class="mine-service-item" type="button"><span class="mine-service-icon">📄</span><span>我的报告</span></button>
+          </div>
+        </section>
+        <section class="mine-list-card">
+          <button class="mine-list-row" type="button"><span>自助入院办理</span><span class="mine-list-arrow">▶</span></button>
+          <button class="mine-list-row" type="button"><span>我的发票</span><span class="mine-list-arrow">▶</span></button>
+          <button class="mine-list-row" type="button"><span>报销清单</span><span class="mine-list-arrow">▶</span></button>
+          <button class="mine-list-row" type="button"><span>互联网医院门诊电子病历申请</span><span class="mine-list-arrow">▶</span></button>
+        </section>
+        <section class="mine-list-card">
+          <button class="mine-list-row" type="button"><span>收货地址</span><span class="mine-list-arrow">▶</span></button>
+        </section>
+        <nav class="bottom-nav is-active" aria-label="底部导航">
+          <button type="button" data-nav-target="home">
+            <span class="nav-icon home">+</span>
+            <span>首页</span>
+          </button>
+          <button type="button" data-nav-target="health">
+            <span class="nav-icon leaf"></span>
+            <span>健康</span>
+          </button>
+          <button type="button" data-nav-target="messages">
+            <span class="nav-icon bubble"></span>
+            <span>消息</span>
+          </button>
+          <button class="active" type="button">
+            <span class="nav-icon user"></span>
+            <span>我的</span>
+          </button>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

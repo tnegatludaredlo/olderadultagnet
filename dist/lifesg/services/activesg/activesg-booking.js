@@ -1,0 +1,274 @@
+const ACTIVESG_STORAGE_KEY = "activesg-mock-booking";
+
+const ACTIVESG_PROFILE = {
+  fullName: "XXX",
+  nric: "M46xxx7J",
+  mobile: "1234 5678",
+  countryCode: "+65",
+};
+
+const ACTIVESG_GROUPS = [
+  {
+    title: "Core Sports",
+    items: [
+      "Badminton",
+      "Beach Volleyball",
+      "Dance",
+      "Floorball",
+      "Flying Disc",
+      "Handball",
+      "Lawn Bowl",
+      "Netball",
+      "Petanque",
+      "Pickleball",
+      "Rugby",
+      "Squash",
+      "Table Tennis",
+      "Volleyball",
+    ],
+  },
+  {
+    title: "Basketball",
+    items: ["Basketball", "Basketball 3x3"],
+  },
+  {
+    title: "Free To Play",
+    items: [
+      "Free To Play",
+      "Free To Play Basketball",
+      "Free To Play Flying Disc",
+      "Free To Play Pickleball",
+    ],
+  },
+  {
+    title: "Soccer",
+    items: [
+      "Futsal",
+      "Soccer",
+      "Soccer (5-A-Side)",
+      "Soccer (5-A-Side)(Night)",
+      "Soccer (7-A-Side)",
+    ],
+  },
+  {
+    title: "Hockey",
+    items: ["Hockey", "Hockey (Night)"],
+  },
+  {
+    title: "Tennis",
+    items: ["Mini Tennis", "Tennis", "Tennis Wall"],
+  },
+];
+
+function hashString(value) {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function createRng(seedValue) {
+  let seed = seedValue >>> 0;
+  return () => {
+    seed += 0x6d2b79f5;
+    let value = seed;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function titleCase(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function readBooking() {
+  try {
+    const raw = sessionStorage.getItem(ACTIVESG_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveBooking(patch) {
+  const next = { ...readBooking(), ...patch };
+  sessionStorage.setItem(ACTIVESG_STORAGE_KEY, JSON.stringify(next));
+  return next;
+}
+
+function clearBooking() {
+  sessionStorage.removeItem(ACTIVESG_STORAGE_KEY);
+}
+
+function getCatalog() {
+  return window.ActiveSGMockCatalog || { activities: [] };
+}
+
+function getActivities() {
+  return getCatalog().activities || [];
+}
+
+function findActivity(activityId) {
+  return getActivities().find((item) => item.activityId === activityId) || null;
+}
+
+function findActivityByName(activityName) {
+  return getActivities().find((item) => item.activityName === activityName) || null;
+}
+
+function findVenue(activityId, venueId) {
+  const activity = findActivity(activityId);
+  if (!activity) return null;
+  return activity.venues.find((venue) => venue.venueId === venueId) || null;
+}
+
+function formatDateLabel(dateString) {
+  return new Intl.DateTimeFormat("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+  }).format(new Date(`${dateString}T12:00:00`));
+}
+
+function formatDateCard(dateString) {
+  const date = new Date(`${dateString}T12:00:00`);
+  return {
+    weekday: new Intl.DateTimeFormat("en-GB", { weekday: "short" }).format(date),
+    dayMonth: new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "short",
+    }).format(date),
+  };
+}
+
+function formatReviewDate(dateString, timeLabel) {
+  const date = new Date(`${dateString}T12:00:00`);
+  const prefix = new Intl.DateTimeFormat("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+  }).format(date);
+  return `${prefix}, ${timeLabel}`;
+}
+
+function buildTimeLabel(hour) {
+  const suffix = hour >= 12 ? "pm" : "am";
+  const normalised = hour % 12 === 0 ? 12 : hour % 12;
+  return `${normalised}:00 ${suffix}`;
+}
+
+function buildFallbackSchedule(activityId, venueId) {
+  const seed = hashString(`${activityId}:${venueId}`);
+  const rng = createRng(seed);
+  const schedule = [];
+  let cursor = 1 + Math.floor(rng() * 5);
+
+  for (let index = 0; index < 4; index += 1) {
+    const date = new Date(Date.UTC(2026, 6, cursor, 12, 0, 0));
+    const dateString = date.toISOString().slice(0, 10);
+    const timePool = [7, 8, 9, 10, 11, 14, 15, 16, 19, 20];
+    const timeCount = 1 + Math.floor(rng() * 4);
+    const chosen = new Set();
+
+    while (chosen.size < timeCount) {
+      chosen.add(timePool[Math.floor(rng() * timePool.length)]);
+    }
+
+    schedule.push({
+      date: dateString,
+      card: formatDateCard(dateString),
+      times: Array.from(chosen)
+        .sort((left, right) => left - right)
+        .map((hour) => buildTimeLabel(hour)),
+    });
+
+    cursor += 2 + Math.floor(rng() * 4);
+  }
+
+  return schedule;
+}
+
+function getSchedule(activityId, venueId) {
+  const venue = findVenue(activityId, venueId);
+  if (Array.isArray(venue?.schedule) && venue.schedule.length > 0) {
+    return venue.schedule;
+  }
+  return buildFallbackSchedule(activityId, venueId);
+}
+
+function getNextSlot(activityId, venueId) {
+  const [firstDate] = getSchedule(activityId, venueId);
+  const [firstTime] = firstDate?.times || [];
+  if (!firstDate || !firstTime) {
+    return "Slots available Thu, 2 Jul, 10:00 am";
+  }
+  return `Slots available ${formatDateLabel(firstDate.date)}, ${firstTime}`;
+}
+
+function buildFacilityBase(activityName) {
+  if (activityName.includes("Dance")) return "Dance Studio";
+  if (activityName.includes("Soccer") || activityName.includes("Futsal")) return "Football Pitch";
+  if (activityName.includes("Hockey")) return "Hockey Pitch";
+  if (activityName.includes("Rugby")) return "Rugby Pitch";
+  if (activityName.includes("Flying Disc")) return "Flying Disc Field";
+  if (activityName.includes("Floorball")) return "Floorball Court";
+  if (activityName.includes("Handball")) return "Handball Court";
+  if (activityName.includes("Netball")) return "Netball Court";
+  if (activityName.includes("Volleyball")) return "Volleyball Court";
+  if (activityName.includes("Badminton")) return "Badminton Court";
+  if (activityName.includes("Pickleball")) return "Pickleball Court";
+  if (activityName.includes("Table Tennis")) return "Table Tennis Table";
+  if (activityName.includes("Tennis")) return "Tennis Court";
+  if (activityName.includes("Squash")) return "Squash Court";
+  if (activityName.includes("Basketball")) return "Basketball Court";
+  if (activityName.includes("Lawn Bowl")) return "Lawn Bowl Green";
+  if (activityName.includes("Petanque")) return "Petanque Court";
+  if (activityName.includes("Free To Play")) return "Open Play Zone";
+  return `${titleCase(activityName)} Facility`;
+}
+
+function getFacilities(activityName, venueId, timeLabel) {
+  const seed = hashString(`${activityName}:${venueId}:${timeLabel}`);
+  const rng = createRng(seed);
+  const count = 1 + Math.floor(rng() * 3);
+  const base = buildFacilityBase(activityName);
+  const facilities = [];
+
+  for (let index = 1; index <= count; index += 1) {
+    facilities.push(`${base} ${String(index).padStart(2, "0")}`);
+  }
+
+  return facilities;
+}
+
+function getGroupedActivities() {
+  const activitiesByName = new Map(getActivities().map((item) => [item.activityName, item]));
+
+  return ACTIVESG_GROUPS.map((group) => ({
+    title: group.title,
+    items: group.items
+      .map((name) => activitiesByName.get(name))
+      .filter(Boolean),
+  })).filter((group) => group.items.length > 0);
+}
+
+window.ActiveSGBooking = {
+  profile: ACTIVESG_PROFILE,
+  clearBooking,
+  findActivity,
+  findActivityByName,
+  findVenue,
+  formatReviewDate,
+  getActivities,
+  getFacilities,
+  getGroupedActivities,
+  getNextSlot,
+  getSchedule,
+  readBooking,
+  saveBooking,
+};

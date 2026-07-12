@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body class="healthhub-body">
+    <main class="healthhub-shell" aria-label="Appointments">
+      <section class="hh-sub-page">
+        <header class="hh-sub-header">
+          <div class="healthhub-statusbar" aria-hidden="true">
+            <span>1:14</span>
+            <span class="healthhub-status-icons">
+              <span class="healthhub-signal"></span>
+              <span class="healthhub-wifi"></span>
+              <b>28</b>
+            </span>
+          </div>
+          <div class="hh-sub-titlebar">
+            <a class="hh-back" href="../index.html" aria-label="Back"></a>
+            <h1>Appointments</h1>
+            <a class="hh-close" href="../index.html" aria-label="Close"></a>
+          </div>
+        </header>
+
+        <section class="hh-profile-row" aria-label="Patient profile">
+          <div class="hh-profile-icon" aria-hidden="true"></div>
+          <div class="hh-profile-copy">
+            <h2>MXXXX437J</h2>
+            <p>MXXXX437J</p>
+          </div>
+          <button class="hh-switch" type="button">Switch <span></span></button>
+        </section>
+
+        <section class="hh-appointment-panel" aria-label="Appointment list">
+          <a class="hh-make-button" href="./new/index.html">
+            <span aria-hidden="true">+</span>
+            <strong>Make new appointment</strong>
+          </a>
+
+          <div class="hh-tabs" role="tablist" aria-label="Appointment status">
+            <button class="is-active" type="button">Upcoming</button>
+            <button type="button">Missed</button>
+            <button type="button">Open</button>
+          </div>
+        </section>
+
+        <section class="hh-empty-appointments" aria-label="No upcoming appointments">
+          <div class="hh-calendar-illustration" aria-hidden="true">
+            <div class="hh-calendar-card">
+              <span></span>
+            </div>
+          </div>
+          <p>You do not have any upcoming appointments.</p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

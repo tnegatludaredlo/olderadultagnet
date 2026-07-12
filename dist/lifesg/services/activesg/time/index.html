@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select date and time</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG select date and time">
+      <section class="activesg-page activesg-page--flow">
+        <header class="activesg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">12:05</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>4G</strong>
+              <span class="lifesg-battery lifesg-battery--warning"><b>31</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <a class="onepa-circle onepa-circle--close" href="../index.html" aria-label="关闭">
+              <span></span>
+            </a>
+            <strong>activesg.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多">
+              <span></span>
+            </button>
+          </div>
+
+          <div class="activesg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="activesg-flow-hero">
+          <div class="activesg-flow-hero__top">
+            <a class="activesg-back-mini activesg-back-mini--dark" id="time-back-link" href="../venues/index.html" aria-label="返回">
+              <span></span>
+            </a>
+            <span class="activesg-nav-menu" aria-hidden="true"></span>
+          </div>
+
+          <div class="activesg-flow-hero__copy">
+            <div class="activesg-flow-icon activesg-flow-icon--date" aria-hidden="true"></div>
+            <h1>Select date &amp; time</h1>
+            <p id="time-subtitle"></p>
+          </div>
+        </section>
+
+        <section class="activesg-content activesg-content--flow">
+          <div class="activesg-flow-tab">Instant</div>
+          <div class="activesg-date-strip" id="date-strip"></div>
+
+          <p class="activesg-slot-help">Each slot is 1 hour long. Select up to 2 slots.</p>
+
+          <div class="activesg-time-grid" id="time-grid"></div>
+        </section>
+
+        <div class="activesg-bottom-sheet">
+          <p id="time-summary">Select a slot to continue.</p>
+          <a class="activesg-primary-button activesg-primary-button--disabled" id="time-continue" href="./index.html" aria-disabled="true">
+            Continue to facilities
+          </a>
+        </div>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-mock-data.js"></script>
+    <script src="../activesg-booking.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const activityId = params.get("activityId");
+      const venueId = params.get("venueId");
+      const activity = window.ActiveSGBooking.findActivity(activityId);
+      const venue = window.ActiveSGBooking.findVenue(activityId, venueId);
+
+      if (!activity || !venue) {
+        window.location.href = "../index.html";
+        throw new Error("Missing ActiveSG activity or venue");
+      }
+
+      document.getElementById("time-back-link").href = `../venues/index.html?activityId=${encodeURIComponent(activityId)}`;
+      document.getElementById("time-subtitle").innerHTML = `Book instantly or ballot for slots at <strong>${venue.venueName}</strong>.`;
+
+      const schedule = window.ActiveSGBooking.getSchedule(activityId, venueId);
+      if (!Array.isArray(schedule) || !schedule.length) {
+        window.location.href = `../venues/index.html?activityId=${encodeURIComponent(activityId)}`;
+        throw new Error("No ActiveSG schedule available");
+      }
+      const dateStrip = document.getElementById("date-strip");
+      const timeGrid = document.getElementById("time-grid");
+      const summary = document.getElementById("time-summary");
+      const continueButton = document.getElementById("time-continue");
+
+      let selectedDate = schedule[0].date;
+      let selectedTime = "";
+
+      function renderDates() {
+        dateStrip.innerHTML = schedule
+          .map(
+            (entry) => `
+              <button class="activesg-date-pill${entry.date === selectedDate ? " is-selected" : ""}" type="button" data-date-value="${entry.date}">
+                <strong>${entry.card.weekday}</strong>
+                <span>${entry.card.dayMonth}</span>
+              </button>
+            `,
+          )
+          .join("");
+
+        Array.from(dateStrip.querySelectorAll("[data-date-value]")).forEach((button) => {
+          button.addEventListener("click", () => {
+            selectedDate = button.dataset.dateValue;
+            selectedTime = "";
+            render();
+          });
+        });
+      }
+
+      function renderTimes() {
+        const activeDate = schedule.find((entry) => entry.date === selectedDate) || schedule[0];
+        timeGrid.innerHTML = activeDate.times
+          .map(
+            (time) => `
+              <button class="activesg-time-pill${time === selectedTime ? " is-selected" : ""}" type="button" data-time-value="${time}">
+                ${time}
+              </button>
+            `,
+          )
+          .join("");
+
+        Array.from(timeGrid.querySelectorAll("[data-time-value]")).forEach((button) => {
+          button.addEventListener("click", () => {
+            selectedTime = button.dataset.timeValue;
+            render();
+          });
+        });
+      }
+
+      function renderSummary() {
+        if (!selectedTime) {
+          summary.textContent = "Select a slot to continue.";
+          continueButton.classList.add("activesg-primary-button--disabled");
+          continueButton.setAttribute("aria-disabled", "true");
+          continueButton.href = "./index.html";
+          return;
+        }
+
+        const reviewLabel = window.ActiveSGBooking.formatReviewDate(selectedDate, selectedTime);
+        summary.innerHTML = `Time slot 1: <strong>${reviewLabel}</strong>`;
+        continueButton.classList.remove("activesg-primary-button--disabled");
+        continueButton.setAttribute("aria-disabled", "false");
+
+        window.ActiveSGBooking.saveBooking({
+          activityId,
+          activityName: activity.activityName,
+          venueId,
+          venueName: venue.venueName,
+          venueAddress: venue.address,
+          slotDate: selectedDate,
+          slotTime: selectedTime,
+          reviewDate: reviewLabel,
+        });
+
+        continueButton.href = `../facility/index.html?activityId=${encodeURIComponent(activityId)}&venueId=${encodeURIComponent(venueId)}&date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`;
+      }
+
+      function render() {
+        renderDates();
+        renderTimes();
+        renderSummary();
+      }
+
+      render();
+    </script>
+  </body>
+</html>

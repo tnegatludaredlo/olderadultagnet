@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<healthHubApp root="./health-hub/index.html">
+  <shared>
+    <stylesheet path="../styles.css" />
+    <script path="./healthhub.js">
+      <state key="healthhub.selectedService" usedBy="book-polyclinic, service-type" />
+      <state key="healthhub.selectedLocation" usedBy="book-polyclinic, location, request" />
+      <state key="healthhub.appointmentRequest" usedBy="request, confirmation" />
+    </script>
+  </shared>
+
+  <route id="home" path="./index.html" title="Health Hub" language="zh-CN">
+    <section id="welcome" label="MXXXX437J您好, 欢迎回来！" />
+    <section id="appointments" label="预约">
+      <link label="安排新的预约" to="./appointments/index.html" routeRef="appointments" />
+    </section>
+    <section id="quick-links" label="快速链接">
+      <link label="预约" to="./appointments/index.html" routeRef="appointments" />
+      <link label="化验报告" to="./services/detail/index.html?title=Lab%20Reports&amp;empty=lab%20reports" routeRef="service-empty-detail" />
+    </section>
+    <nav id="bottom-nav">
+      <link label="主页" to="./index.html" routeRef="home" active="true" />
+      <link label="服务" to="./services/index.html" routeRef="services" />
+      <link label="健康档案" to="./records/index.html" routeRef="records" />
+    </nav>
+  </route>
+
+  <route id="appointments" path="./appointments/index.html" title="Appointments" language="en">
+    <header title="Appointments" back="./index.html" close="./index.html" />
+    <profile id="MXXXX437J" />
+    <action label="Make new appointment" to="./new/index.html" routeRef="new-appointment-institution" />
+    <tabs active="Upcoming">
+      <tab label="Upcoming" emptyText="You do not have any upcoming appointments." />
+      <tab label="Missed" />
+      <tab label="Open" />
+    </tabs>
+  </route>
+
+  <route id="new-appointment-institution" path="./appointments/new/index.html" title="New Appointment" language="en">
+    <header title="New Appointment" back="../index.html" close="../../index.html" />
+    <profile id="MXXXX437J" />
+    <section label="Select a Healthcare Institution">
+      <group label="Polyclinics">
+        <link label="Book Polyclinic Appointment" to="./book-polyclinic/index.html" routeRef="book-polyclinic" />
+        <link label="Setup Preferred Polyclinics" to="#" disabled="true" />
+      </group>
+      <group label="Hospitals">
+        <link label="Alexandra Hospital" to="#" disabled="true" />
+        <link label="Changi General Hospital" to="#" disabled="true" />
+        <link label="Institute of Mental Health" to="#" disabled="true" />
+      </group>
+    </section>
+  </route>
+
+  <route id="book-polyclinic" path="./appointments/new/book-polyclinic/index.html" title="New Appointment" language="en">
+    <header title="New Appointment" back="../index.html" close="../../../index.html" />
+    <profile id="MXXXX437J" />
+    <choice id="service-type" label="Service Type" default="Doctor Consultation" stateKey="healthhub.selectedService">
+      <link label="Change" to="./service-type/index.html" routeRef="select-service-type" />
+    </choice>
+    <choice id="location" label="Location" stateKey="healthhub.selectedLocation">
+      <link label="Select" to="./location/index.html" routeRef="select-location" />
+    </choice>
+    <action label="Book an appointment" to="./request/index.html" routeRef="appointment-request" />
+  </route>
+
+  <route id="select-service-type" path="./appointments/new/book-polyclinic/service-type/index.html" title="Select Service Type" language="en">
+    <header title="Select Service Type" back="../index.html" close="../../../../index.html" />
+    <intro title="Select a Service" text="Select a service below that caters to your medical needs." />
+    <selection stateKey="healthhub.selectedService" returnsTo="../index.html">
+      <group label="Doctor Consultation">
+        <option>Doctor Consultation</option>
+      </group>
+      <group label="Healthier SG">
+        <option>Health Plan Discussion</option>
+        <option>Healthier@SG Consult</option>
+      </group>
+      <group label="Video Consultation (via Zoom) For patients age 18 and above only">
+        <option>Doctor Consult for General Conditions (SingHealth Polyclinics)</option>
+        <option>Chronic Conditions and Family Planning Follow-up</option>
+      </group>
+      <group label="Nursing">
+        <option>Adult Vaccination (Excludes Flu Vaccination)</option>
+        <option>Vaccination Clinic (7 years and above)</option>
+        <option>Postnatal Care</option>
+        <option>Advanced Practice Nurse (For Existing APN Patients)</option>
+        <option>Child Vaccination (Age 6 Months to 17 Years)</option>
+        <option>COVID Vaccination (Age 12 Years &amp; above)</option>
+        <option>COVID Vaccination (Age 5 to 11 Years)</option>
+        <option>COVID Vaccination (Age 6 Months to 4 Years)</option>
+        <option>Dressing</option>
+        <option>Flu Vaccination</option>
+      </group>
+      <group label="Screening">
+        <option>Cervical Cancer Screening</option>
+        <option>Bone Mineral Densitometry (BMD)</option>
+        <option>Driving Licence Medical Examination</option>
+        <option>Diabetic Eye Screening</option>
+        <option>Foot Screening for Diabetes Patients</option>
+        <option>Mammogram Screening</option>
+        <option>Assessment for Mobility Scooter</option>
+        <option>Ultrasound</option>
+        <option>Spirometry</option>
+      </group>
+      <group label="Antenatal and Children's Health">
+        <option>Antenatal Care</option>
+        <option>Lactation Support Service</option>
+        <option>Newborn Jaundice Screening</option>
+      </group>
+      <group label="Allied Health">
+        <option>Financial Counselling</option>
+        <option>Medical Social Service</option>
+        <option>Physiotherapy Service</option>
+      </group>
+      <group label="Dental">
+        <option>Dental Cleaning (Scaling &amp; Polishing)</option>
+      </group>
+      <group label="Allied Health Led Preventive Health">
+        <option>Advance Care Planning</option>
+      </group>
+    </selection>
+  </route>
+
+  <route id="select-location" path="./appointments/new/book-polyclinic/location/index.html" title="Select Location" language="en">
+    <header title="Select Location" back="../index.html" close="../../../../index.html" />
+    <selection label="List of Polyclinics" stateKey="healthhub.selectedLocation" returnsTo="../index.html">
+      <option>Ang Mo Kio Polyclinic</option>
+      <option>Bedok Polyclinic</option>
+      <option>Bukit Batok Polyclinic</option>
+      <option>Bukit Merah Polyclinic</option>
+      <option>Bukit Panjang Polyclinic</option>
+      <option>Choa Chu Kang Polyclinic</option>
+      <option>Clementi Polyclinic</option>
+      <option>Eunos Polyclinic</option>
+      <option>Geylang Polyclinic</option>
+      <option>Hougang Polyclinic</option>
+      <option>Jurong Polyclinic</option>
+      <option>Kallang Polyclinic</option>
+      <option>Khatib Polyclinic</option>
+      <option>Marine Parade Polyclinic</option>
+      <option>Outram Polyclinic</option>
+      <option>Pasir Ris Polyclinic</option>
+      <option>Pioneer Polyclinic</option>
+      <option>Punggol Polyclinic</option>
+      <option>Queenstown Polyclinic</option>
+      <option>Sembawang Polyclinic</option>
+      <option>Sengkang Polyclinic</option>
+      <option>Serangoon Polyclinic</option>
+      <option>Tampines North Polyclinic</option>
+      <option>Tampines Polyclinic</option>
+      <option>Tengah Polyclinic</option>
+      <option>Toa Payoh Polyclinic</option>
+      <option>Woodlands Polyclinic</option>
+      <option>Yishun Polyclinic</option>
+    </selection>
+  </route>
+
+  <route id="appointment-request" path="./appointments/new/book-polyclinic/request/index.html" title="Appointment Request" language="en">
+    <header title="Appointment Request" back="../index.html" close="../../../../index.html" />
+    <form stateKey="healthhub.appointmentRequest" submitTo="./confirmation/index.html" locationSource="healthhub.selectedLocation">
+      <field id="preferredInstitution" required="true" source="healthhub.selectedLocation" />
+      <field id="appointmentType" type="radio" required="true" options="New appointment, Follow-up appointment" />
+      <field id="referredBy" type="radio" default="GP / Family Doctor" options="GP / Family Doctor, Specialist, Myself" />
+      <field id="description" type="textarea" required="true" />
+      <field id="requestService" type="dropdown" required="false" />
+      <field id="doctor" type="text" required="false" />
+      <field id="behalf" type="radio" default="No" options="Yes, No" />
+      <field id="patient" type="select" default="MXXXX437J" />
+      <field id="fullName" type="text" required="true" />
+      <field id="contact" type="tel" required="true" />
+      <field id="dateOfBirth" type="calendar" required="true" minYear="1900" maxYear="2026" format="D MMM YYYY" />
+      <field id="email" type="email" required="true" />
+    </form>
+  </route>
+
+  <route id="appointment-confirmation" path="./appointments/new/book-polyclinic/request/confirmation/index.html" title="Appointment Confirmation" language="en">
+    <header title="Confirmation" back="../index.html" close="../../../../../index.html" />
+    <summary source="healthhub.appointmentRequest">
+      <field key="location" label="Preferred Institution" />
+      <field key="appointmentType" label="Appointment Type" />
+      <field key="requestService" label="Service" fallback="Not selected" />
+      <field key="fullName" label="Patient" />
+      <field key="contact" label="Contact" />
+      <field key="email" label="Email" />
+    </summary>
+    <action label="Done" to="../../../../../index.html" routeRef="home" />
+  </route>
+
+  <route id="services" path="./services/index.html" title="服务" language="zh-CN">
+    <search placeholder="搜索服务" />
+    <section label="常用服务">
+      <link label="疫苗接种记录" to="./detail/index.html?title=Vaccination%20Records&amp;empty=vaccination%20records" routeRef="service-empty-detail" />
+      <link label="化验报告" to="./detail/index.html?title=Lab%20Reports&amp;empty=lab%20reports" routeRef="service-empty-detail" />
+      <link label="付款" to="./detail/index.html?title=Payments&amp;empty=payment%20records" routeRef="service-empty-detail" />
+      <link label="填补药物" to="./detail/index.html?title=Medication%20Refills&amp;empty=medication%20refills" routeRef="service-empty-detail" />
+      <link label="体检" to="./detail/index.html?title=Health%20Screening&amp;empty=health%20screening%20records" routeRef="service-empty-detail" />
+      <link label="CHAS" to="./detail/index.html?title=CHAS&amp;empty=CHAS%20records" routeRef="service-empty-detail" />
+    </section>
+    <section label="服务类别">
+      <link label="健康SG" to="./detail/index.html?title=Healthier%20SG&amp;empty=Healthier%20SG%20records" routeRef="service-empty-detail" />
+      <link label="预约" to="../appointments/index.html" routeRef="appointments" />
+      <link label="药物" to="./detail/index.html?title=Medication&amp;empty=medication%20records" routeRef="service-empty-detail" />
+      <link label="付款与财务" to="./detail/index.html?title=Payment%20%26%20Finance&amp;empty=payment%20and%20finance%20records" routeRef="service-empty-detail" />
+      <link label="健康记录" to="./detail/index.html?title=Health%20Records&amp;empty=health%20records" routeRef="service-empty-detail" />
+      <link label="健康评估" to="./detail/index.html?title=Health%20Assessment&amp;empty=health%20assessment%20records" routeRef="service-empty-detail" />
+      <link label="同意与许可" to="./detail/index.html?title=Consent%20%26%20Permission&amp;empty=consent%20and%20permission%20records" routeRef="service-empty-detail" />
+    </section>
+    <nav id="bottom-nav">
+      <link label="主页" to="../index.html" routeRef="home" />
+      <link label="服务" to="./index.html" routeRef="services" active="true" />
+      <link label="健康档案" to="../records/index.html" routeRef="records" />
+    </nav>
+  </route>
+
+  <route id="service-empty-detail" path="./services/detail/index.html" titleSource="query.title" emptyTextSource="query.empty" language="en">
+    <header titleSource="query.title" back="../index.html" close="../../index.html" />
+    <profile id="MXXXX437J" />
+    <emptyState illustration="lab" messageTemplate="You do not have any {query.empty}." />
+  </route>
+
+  <route id="records" path="./records/index.html" title="健康档案" language="zh-CN">
+    <profileCard id="MXXXX437J" label="查看健康档案和记录" to="../services/detail/index.html?title=Health%20Records&amp;empty=health%20records" />
+    <section label="我的看护者">
+      <link label="添加看护者" to="../services/detail/index.html?title=Caregivers&amp;empty=caregiver%20records" routeRef="service-empty-detail" />
+    </section>
+    <section label="我的看护对象">
+      <group label="我的孩子">
+        <link label="添加亲人" to="../services/detail/index.html?title=Family%20Health%20Records&amp;empty=family%20health%20records" routeRef="service-empty-detail" />
+      </group>
+      <group label="家人和朋友">
+        <link label="添加亲人" to="../services/detail/index.html?title=Family%20Health%20Records&amp;empty=family%20health%20records" routeRef="service-empty-detail" />
+      </group>
+    </section>
+    <nav id="bottom-nav">
+      <link label="主页" to="../index.html" routeRef="home" />
+      <link label="服务" to="../services/index.html" routeRef="services" />
+      <link label="健康档案" to="./index.html" routeRef="records" active="true" />
+    </nav>
+  </route>
+</healthHubApp>

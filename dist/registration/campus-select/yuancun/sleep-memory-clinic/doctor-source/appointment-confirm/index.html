@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>挂号确认</title>
+    <link rel="stylesheet" href="../../../../../../styles.css" />
+    <script src="../../../../../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="挂号确认">
+      <section class="app-page is-active sub-page confirm-page" data-screen="appointment-confirm" aria-label="挂号确认页面">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>9:01</span>
+            <span class="status-icons">▮▮▮ 5G <b>26</b></span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回医生号源" data-nav-back-target="doctor-source">
+              <span></span>
+            </button>
+            <h1>挂号确认</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="confirm-content">
+          <article class="confirm-card confirm-card--doctor">
+            <div class="confirm-doctor-top">
+              <div class="doctor-photo doctor-photo--medium"><span>赵</span></div>
+              <div class="confirm-doctor-top__text">
+                <div class="confirm-doctor-top__name">
+                  <h2>赵江佩</h2>
+                  <h3>主治医师</h3>
+                </div>
+                <p>中山大学附属第六医院</p>
+              </div>
+            </div>
+            <div class="confirm-card__divider"></div>
+            <div class="confirm-details">
+              <div class="confirm-details__labels">
+                <span>就诊院区</span>
+                <span>院区地址</span>
+                <span>就诊科室</span>
+                <span>预约时间</span>
+                <span>接诊地点</span>
+                <span>挂号费用</span>
+              </div>
+              <div class="confirm-details__values">
+                <span>中山大学附属第六医院</span>
+                <span class="strong">广州市天河区员村二横路26号</span>
+                <span>睡眠、记忆障碍专科门诊</span>
+                <span>2026-05-18 星期一</span>
+                <span>14:30-15:00</span>
+                <span>2号楼一楼</span>
+                <span class="fee">¥ 25</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="confirm-card confirm-card--payment">
+            <div class="payment-row">
+              <div>
+                <h2>是否使用无感支付</h2>
+                <p>(秒报销，免排队)</p>
+              </div>
+              <div class="payment-help">?</div>
+              <button class="switch" type="button" aria-label="无感支付开关">
+                <span></span>
+              </button>
+            </div>
+          </article>
+
+          <section class="patient-section">
+            <div class="patient-section__title">
+              <h2>选择就诊人</h2>
+              <button type="button" data-nav-target="patient-bind">+添加就诊人</button>
+            </div>
+            <article class="confirm-card patient-card">
+              <div class="patient-card__text">
+                <div><strong>就诊人：</strong> xxx</div>
+                <div><strong>门诊号：</strong> 000000</div>
+              </div>
+              <div class="patient-check">✓</div>
+            </article>
+          </section>
+
+          <div class="agreement-list">
+            <label class="agreement-item">
+              <input type="checkbox" />
+              <span>我已阅读同意 <u>《互联网医院服务协议》</u></span>
+            </label>
+            <label class="agreement-item">
+              <input type="checkbox" />
+              <span>我已阅读同意 <u>《诊疗服务协议》</u></span>
+            </label>
+          </div>
+        </section>
+
+        <footer class="confirm-footer">
+          <button class="footer-button footer-button--ghost" type="button" data-nav-back-target="doctor-source">上一步</button>
+          <button class="footer-button footer-button--solid" type="button">确认并支付</button>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>

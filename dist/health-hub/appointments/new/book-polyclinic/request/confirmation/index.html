@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment Confirmation</title>
+    <link rel="stylesheet" href="../../../../../../styles.css" />
+    <script src="../../../../../healthhub.js" defer></script>
+  </head>
+  <body class="healthhub-body">
+    <main class="healthhub-shell" aria-label="Appointment Confirmation">
+      <section class="hh-sub-page hh-confirmation-page">
+        <header class="hh-sub-header">
+          <div class="healthhub-statusbar" aria-hidden="true">
+            <span>3:38</span>
+            <span class="healthhub-status-icons">
+              <span class="healthhub-signal"></span>
+              <span class="healthhub-wifi"></span>
+              <b>70</b>
+            </span>
+          </div>
+          <div class="hh-sub-titlebar">
+            <a class="hh-back" href="../index.html" aria-label="Back"></a>
+            <h1>Confirmation</h1>
+            <a class="hh-close" href="../../../../../index.html" aria-label="Close"></a>
+          </div>
+        </header>
+
+        <section class="hh-confirmation-hero">
+          <div class="hh-confirmation-check" aria-hidden="true"></div>
+          <h2>Appointment request submitted</h2>
+          <p>We will contact you within 3 to 5 working days.</p>
+        </section>
+
+        <section class="hh-confirmation-card">
+          <h3>Request Summary</h3>
+          <dl>
+            <div><dt>Preferred Institution</dt><dd data-hh-confirm="location">-</dd></div>
+            <div><dt>Appointment Type</dt><dd data-hh-confirm="appointmentType">-</dd></div>
+            <div><dt>Service</dt><dd data-hh-confirm="requestService">-</dd></div>
+            <div><dt>Patient</dt><dd>MXXXX437J</dd></div>
+            <div><dt>Contact</dt><dd data-hh-confirm="contact">-</dd></div>
+            <div><dt>Email</dt><dd data-hh-confirm="email">-</dd></div>
+          </dl>
+        </section>
+
+        <a class="hh-confirmation-done" href="../../../../../index.html">Done</a>
+      </section>
+    </main>
+  </body>
+</html>

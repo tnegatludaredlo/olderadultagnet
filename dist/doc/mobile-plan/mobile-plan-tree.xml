@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mobilePlanApp root="./mobile-plan/index.html">
+  <shared>
+    <stylesheet path="../styles.css" />
+    <state key="mobilePlan.selectedOffer" usedBy="topup, data-roaming, addons, payment-selected, payment-method, payment-success" />
+    <component id="side-drawer">
+      <link label="Home" to="./mobile-plan/index.html" routeRef="home" />
+      <link label="Top Up" to="./mobile-plan/topup/index.html" routeRef="topup" />
+      <link label="Data &amp; Roaming" to="./mobile-plan/data-roaming/index.html" routeRef="data-roaming" />
+      <link label="Add-ons" to="./mobile-plan/addons/index.html" routeRef="addons" />
+      <action label="Notifications" />
+      <action label="Balance" />
+      <action label="Past Transactions" />
+      <action label="Settings" />
+      <action label="Chat With Us" />
+      <action label="Log Out" />
+    </component>
+    <flow id="payment-flow">
+      <step id="payment-selected" title="You have selected" />
+      <step id="payment-method" title="Make payment" />
+      <step id="payment-success" title="Payment received!" />
+    </flow>
+  </shared>
+
+  <route id="home" path="./index.html" title="Mobile Plan Home" language="en">
+    <header title="Welcome!" menu="side-drawer" />
+    <account number="85764206" balance="$0.00" validTill="12 Dec 2026" />
+    <section id="quick-actions" label="Quick actions">
+      <link label="Top Up" to="./topup/index.html" routeRef="topup" />
+      <link label="Data &amp; Roaming" to="./data-roaming/index.html" routeRef="data-roaming" />
+      <link label="Add-ons" to="./addons/index.html" routeRef="addons" />
+      <action label="Notifications" />
+    </section>
+    <section id="my-balance" label="My Balance">
+      <card title="All-In-1">
+        <metric label="Local Data left" value="477.17 GB" total="500.00 GB" />
+        <metric label="Roaming Data left" value="3.00 GB" total="3.00 GB" />
+        <metric label="Local Outgoing Calls left" value="500 mins" total="500" />
+        <metric label="Local Incoming Calls" value="Unlimited" />
+        <metric label="Local SMS left" value="50" total="50" />
+        <metric label="IDD Calls left" value="200 mins" total="200" />
+      </card>
+    </section>
+    <section id="last-bought" label="Last bought">
+      <card title="$14 All-In-1" price="$14.00" />
+      <card title="$7 Data Pack" price="$7.00" />
+    </section>
+    <nav id="drawer-nav" active="Home" componentRef="side-drawer" />
+  </route>
+
+  <route id="topup" path="./topup/index.html" title="Top Up" language="en">
+    <header title="Top Up" menu="side-drawer" />
+    <accordion id="all-in-1" label="All-In-1" defaultExpanded="false">
+      <offer title="$14 All-In-1" price="$14.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$16 All-in-1 Top-up" price="$16.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$24 All-In-1" price="$24.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$26 All-in-1" price="$26.00" badge="BEST SELLER" action="Buy now" flowRef="payment-flow" />
+      <offer title="$58 All-In-1" price="$58.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="super-topup" label="Super Top Up" defaultExpanded="false">
+      <offer title="Super$15" price="$15.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="Super$28" price="$28.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="power-topup" label="Power Top Up" defaultExpanded="false">
+      <offer title="Power $19" price="$19.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="Power $30" price="$30.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="main-balance-topup" label="Main Balance Top Up" defaultExpanded="false">
+      <offer title="$10 Main Balance" price="$10.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$18 Main Balance" price="$18.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$20 Main Balance" price="$20.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$30 Main Balance" price="$30.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$50 Main Balance" price="$50.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$60 Main Balance" price="$60.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$75 Main Balance" price="$75.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$100 Main Balance" price="$100.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="topup-card" label="Top Up Card" defaultExpanded="false">
+      <emptyState message="Top Up card offers can be added here later." />
+    </accordion>
+    <action label="Back to top" to="#top" />
+    <nav id="drawer-nav" active="Top Up" componentRef="side-drawer" />
+  </route>
+
+  <route id="data-roaming" path="./data-roaming/index.html" title="Data &amp; Roaming" language="en">
+    <header title="Data &amp; Roaming" menu="side-drawer" />
+    <accordion id="data-30-days" label="Data Packs - 30 Days" defaultExpanded="false">
+      <offer title="500GB Data Pack" price="$14.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="800GB Data Pack" price="$28.00" badge="BEST SELLER" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="data-14-days" label="Data Packs - 14 Days" defaultExpanded="false">
+      <offer title="100GB Data Pack" price="$10.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="data-3-days" label="Data Packs - 3 Days" defaultExpanded="false">
+      <offer title="30GB Data Pack" price="$5.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="roaming-packs" label="Roaming Packs" defaultExpanded="false">
+      <offer title="$15 Roaming Pack" price="$15.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$28 Roaming Pack" price="$28.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="data-only-sim" label="Data Only SIM Data Pack" defaultExpanded="false">
+      <offer title="$13 Data Only Top Up" price="$13.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$38 Data Only Top Up" price="$38.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <action label="Back to top" to="#top" />
+    <nav id="drawer-nav" active="Data &amp; Roaming" componentRef="side-drawer" />
+  </route>
+
+  <route id="addons" path="./addons/index.html" title="Add-ons" language="en">
+    <header title="Add-ons" menu="side-drawer" />
+    <accordion id="idd-033-packs" label="IDD 033 Packs" defaultExpanded="false">
+      <tabs active="Bangladesh">
+        <tab label="Bangladesh" />
+        <tab label="India" />
+        <tab label="China" />
+      </tabs>
+      <offer title="$5 IDD 033 Pack (Bangladesh)" price="$5.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$8 All-In-1 IDD 033 Pack (Bangladesh)" price="$8.00" action="Buy now" flowRef="payment-flow" />
+      <offer title="$9 IDD 033 Pack (Bangladesh)" price="$9.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="validity-extension" label="Validity Extension" defaultExpanded="false">
+      <offer title="90 Days Validity Extension" price="$5.00" action="Buy now" flowRef="payment-flow" />
+    </accordion>
+    <accordion id="m-send-singapore" label="M Send Singapore" defaultExpanded="false">
+      <offer title="Send Top Up" action="Send now" flowRef="payment-flow" />
+    </accordion>
+    <action label="Back to top" to="#top" />
+    <nav id="drawer-nav" active="Add-ons" componentRef="side-drawer" />
+  </route>
+
+  <route id="payment-selected" path="#payment-selected" title="You have selected" language="en">
+    <summary source="mobilePlan.selectedOffer">
+      <field key="title" />
+      <field key="price" />
+      <field key="description" />
+    </summary>
+    <action label="Top up for 85764206" to="#payment-method" routeRef="payment-method" />
+    <action label="Top up for another number" to="#payment-method" routeRef="payment-method" />
+    <action label="No, cancel" to="previousRoute" />
+  </route>
+
+  <route id="payment-method" path="#payment-method" title="Make payment" language="en">
+    <paymentOptions>
+      <option label="Debit / Credit Card" enabled="true" />
+      <option label="Prepaid Balance" enabled="false" note="Required amount exceeds current balance." />
+    </paymentOptions>
+    <action label="Pay selected amount" to="#payment-success" routeRef="payment-success" />
+    <action label="No, cancel" to="previousRoute" />
+  </route>
+
+  <route id="payment-success" path="#payment-success" title="Payment received!" language="en">
+    <message text="A confirmation SMS will be sent to you once the order is processed." />
+    <receipt>
+      <field label="Date of transaction" value="dynamic-now" />
+      <field label="M1 Prepaid number to top up" value="+65 85764206" />
+      <field label="Amount paid" value="selected-offer-price" />
+    </receipt>
+    <message text="The transaction will be reflected in Past Transactions." />
+    <action label="Okay" to="previousRoute" />
+  </route>
+</mobilePlanApp>

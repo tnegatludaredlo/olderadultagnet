@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>金融城·员村</title>
+    <link rel="stylesheet" href="../../../styles.css" />
+    <script src="../../../app.js" defer></script>
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="金融城·员村">
+      <section class="app-page is-active sub-page" data-screen="campus-yuancun" aria-label="金融城员村挂号页面">
+        <header class="sub-header">
+          <div class="statusbar sub-statusbar" aria-hidden="true">
+            <span>8:50</span>
+            <span class="status-icons">▮▮▮ 5G <b>29</b></span>
+          </div>
+          <div class="sub-titlebar">
+            <button class="back-button" type="button" aria-label="返回选择院区" data-nav-back-target="campus-select">
+              <span></span>
+            </button>
+            <h1>金融城·员村</h1>
+            <div class="mini-actions" aria-label="微信小程序操作">
+              <button type="button" aria-label="更多">•••</button>
+              <button type="button" aria-label="关闭">◎</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="clinic-page">
+          <button class="recent-doctor" type="button">
+            <span>最近就诊的医生</span>
+            <span class="recent-arrow" aria-hidden="true"></span>
+          </button>
+          <div class="clinic-layout">
+            <aside class="clinic-sidebar">
+              <button class="clinic-dept is-active" type="button" data-clinic-target="yuancun-special">特需</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-surgery">外科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-internal">内科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-oncology">肿瘤科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-obgyn">妇产科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-fertility">生殖医学中心</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-pediatrics">儿科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-neuro">神经内科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-ent">耳鼻咽喉头颈外科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-sleep">睡眠医学科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-eye">眼科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-dental">口腔科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-tcm">中医科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-skin">皮肤科</button>
+              <button class="clinic-dept" type="button" data-clinic-target="yuancun-rehab">康复医学科</button>
+            </aside>
+            <section class="clinic-main-wrap">
+              <section class="clinic-main is-active" data-clinic-panel="yuancun-special">
+                <button class="clinic-item clinic-item--single" type="button">雅和门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-surgery">
+                <button class="clinic-item clinic-item--single" type="button">外科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-internal">
+                <button class="clinic-item clinic-item--single" type="button">内科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-oncology">
+                <button class="clinic-item clinic-item--single" type="button">肿瘤科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-obgyn">
+                <button class="clinic-item clinic-item--single" type="button">妇产科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-fertility">
+                <button class="clinic-item clinic-item--single" type="button">生殖医学中心门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-pediatrics">
+                <button class="clinic-item clinic-item--single" type="button">儿科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-neuro">
+                <button class="clinic-item" type="button">神经科门诊</button>
+                <button class="clinic-item" type="button">神经痛症专科门诊</button>
+                <button class="clinic-item" type="button">头晕头痛门诊</button>
+                <button class="clinic-item" type="button">帕金森病门诊</button>
+                <button class="clinic-item" type="button" data-nav-target="sleep-memory-clinic">睡眠、记忆障碍专科门诊</button>
+                <button class="clinic-item" type="button">脑血管狭窄动脉瘤介入门诊</button>
+                <button class="clinic-item" type="button">脑卒中筛查和随访门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-ent">
+                <button class="clinic-item clinic-item--single" type="button">耳鼻咽喉头颈外科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-sleep">
+                <button class="clinic-item clinic-item--single" type="button" data-nav-target="snore-clinic">耳鼻喉鼾症门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-eye">
+                <button class="clinic-item clinic-item--single" type="button">眼科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-dental">
+                <button class="clinic-item clinic-item--single" type="button">口腔科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-tcm">
+                <button class="clinic-item clinic-item--single" type="button">中医科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-skin">
+                <button class="clinic-item clinic-item--single" type="button">皮肤科门诊</button>
+              </section>
+              <section class="clinic-main clinic-main--list" data-clinic-panel="yuancun-rehab">
+                <button class="clinic-item clinic-item--single" type="button">康复医学科门诊</button>
+              </section>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

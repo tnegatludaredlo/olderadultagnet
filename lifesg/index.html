@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lifeSG</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell" aria-label="lifeSG 首页">
+      <section class="lifesg-page">
+        <header class="lifesg-header">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">4:07</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>5G</strong>
+              <span class="lifesg-battery"><b>54</b></span>
+            </div>
+          </div>
+
+          <div class="lifesg-greeting">
+            <div>
+              <p>Welcome</p>
+              <h1>Wu Zhiqing</h1>
+            </div>
+            <div class="lifesg-top-actions" aria-label="快捷操作">
+              <button type="button" aria-label="搜索">
+                <span class="lifesg-icon search"></span>
+              </button>
+              <button type="button" aria-label="日历">
+                <span class="lifesg-icon calendar"></span>
+              </button>
+              <button type="button" aria-label="通知">
+                <span class="lifesg-icon bell"></span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <section class="lifesg-hero" aria-label="推广卡片">
+          <article class="lifesg-banner">
+            <div class="lifesg-banner__copy">
+              <h2>Child LifeSG Credits</h2>
+              <p>All families with Singapore Citizen children born in 2025 will receive $500 credits per child.</p>
+              <a href="./index.html">Check your child&apos;s eligibility here »</a>
+            </div>
+            <div class="lifesg-banner__art" aria-hidden="true">
+              <span class="person person-left"></span>
+              <span class="person person-right"></span>
+              <span class="person child"></span>
+              <span class="coin coin-a"></span>
+              <span class="coin coin-b"></span>
+              <span class="coin coin-c"></span>
+            </div>
+          </article>
+          <div class="lifesg-dots" aria-hidden="true">
+            <span class="is-active"></span>
+            <span></span>
+            <span></span>
+          </div>
+        </section>
+
+        <section class="lifesg-service-list" aria-label="最近服务">
+          <div class="lifesg-tabs">
+            <button class="is-active" type="button" data-lifesg-tab="recent">Recent</button>
+            <button type="button" data-lifesg-tab="popular">Popular</button>
+          </div>
+
+          <div class="lifesg-cards is-active" data-lifesg-panel="recent">
+            <a class="lifesg-service-card" href="./index.html">
+              <span class="lifesg-service-icon racket" aria-hidden="true"></span>
+              <strong>Buy ActiveSG swim or gym passes</strong>
+              <span class="lifesg-chevron" aria-hidden="true"></span>
+            </a>
+
+            <a class="lifesg-service-card" href="./index.html">
+              <span class="lifesg-service-icon facility" aria-hidden="true"></span>
+              <strong>Book public facilities and spaces</strong>
+              <span class="lifesg-chevron" aria-hidden="true"></span>
+            </a>
+
+            <a class="lifesg-service-card" href="./index.html">
+              <span class="lifesg-service-icon piggy" aria-hidden="true"></span>
+              <strong>Book Ministry of Law virtual appointment</strong>
+              <span class="lifesg-chevron" aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <div class="lifesg-cards" data-lifesg-panel="popular" hidden>
+            <a class="lifesg-service-card" href="./index.html">
+              <span class="lifesg-service-icon hdb" aria-hidden="true"></span>
+              <strong>Check HDB application status</strong>
+              <span class="lifesg-chevron" aria-hidden="true"></span>
+            </a>
+
+            <a class="lifesg-service-card" href="./index.html">
+              <span class="lifesg-service-icon family" aria-hidden="true"></span>
+              <strong>Apply for birth registration and Baby Bonus</strong>
+              <span class="lifesg-chevron" aria-hidden="true"></span>
+            </a>
+
+            <a class="lifesg-service-card" href="./index.html">
+              <span class="lifesg-service-icon parking" aria-hidden="true"></span>
+              <strong>Apply for HDB season parking</strong>
+              <span class="lifesg-chevron" aria-hidden="true"></span>
+            </a>
+          </div>
+        </section>
+
+        <section class="lifesg-oneservice" aria-label="OneService">
+          <div class="lifesg-oneservice__header">
+            <div>
+              <h2>OneService</h2>
+              <p>Services related to your estate</p>
+              <span>Brought to you by Municipal Services Office</span>
+            </div>
+            <div class="lifesg-oneservice__mascot" aria-hidden="true">
+              <i></i>
+            </div>
+          </div>
+
+          <div class="lifesg-oneservice__grid">
+            <article class="lifesg-mini-card">
+              <span class="lifesg-mini-icon plane" aria-hidden="true"></span>
+              <strong>Submit case</strong>
+            </article>
+            <article class="lifesg-mini-card">
+              <span class="lifesg-mini-icon building" aria-hidden="true"></span>
+              <strong>Book facilities</strong>
+            </article>
+          </div>
+
+          <a class="lifesg-service-card lifesg-service-card--highlight" href="./index.html">
+            <span class="lifesg-service-icon heart" aria-hidden="true"></span>
+            <strong>Help Neighbour</strong>
+            <span class="lifesg-chevron" aria-hidden="true"></span>
+          </a>
+        </section>
+
+        <nav class="lifesg-bottom-nav" aria-label="底部导航">
+          <a class="is-active" href="./index.html">
+            <span class="lifesg-nav-icon home" aria-hidden="true"></span>
+            <strong>Home</strong>
+          </a>
+          <a href="./services/index.html">
+            <span class="lifesg-nav-icon grid" aria-hidden="true"></span>
+            <strong>Services</strong>
+          </a>
+          <a href="./index.html">
+            <span class="lifesg-nav-icon explore" aria-hidden="true"></span>
+            <strong>Explore</strong>
+          </a>
+          <a href="./index.html">
+            <span class="lifesg-nav-icon account" aria-hidden="true"></span>
+            <strong>Account</strong>
+          </a>
+        </nav>
+      </section>
+    </main>
+    <script>
+      const lifeTabs = Array.from(document.querySelectorAll("[data-lifesg-tab]"));
+      const lifePanels = Array.from(document.querySelectorAll("[data-lifesg-panel]"));
+
+      lifeTabs.forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.lifesgTab;
+
+          lifeTabs.forEach((item) => {
+            item.classList.toggle("is-active", item === button);
+          });
+
+          lifePanels.forEach((panel) => {
+            const isActive = panel.dataset.lifesgPanel === target;
+            panel.classList.toggle("is-active", isActive);
+            panel.hidden = !isActive;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

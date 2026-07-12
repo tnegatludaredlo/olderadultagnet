@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select venue</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG select venue">
+      <section class="activesg-page activesg-page--flow">
+        <header class="activesg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">12:04</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>4G</strong>
+              <span class="lifesg-battery lifesg-battery--warning"><b>32</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <a class="onepa-circle onepa-circle--close" href="../index.html" aria-label="关闭">
+              <span></span>
+            </a>
+            <strong>activesg.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多">
+              <span></span>
+            </button>
+          </div>
+
+          <div class="activesg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="activesg-flow-hero">
+          <div class="activesg-flow-hero__top">
+            <a class="activesg-back-mini activesg-back-mini--dark" href="../index.html" aria-label="返回">
+              <span></span>
+            </a>
+            <span class="activesg-nav-rotate" aria-hidden="true"></span>
+          </div>
+
+          <div class="activesg-flow-hero__copy">
+            <div class="activesg-flow-icon activesg-flow-icon--venue" aria-hidden="true"></div>
+            <h1>Select venue</h1>
+            <p id="venue-subtitle"></p>
+          </div>
+        </section>
+
+        <section class="activesg-content activesg-content--flow">
+          <label class="activesg-search activesg-search--compact" aria-label="Search venue">
+            <span class="lifesg-search-icon" aria-hidden="true"></span>
+            <input id="venue-search" type="search" placeholder="Search postal code or venue" />
+            <span class="activesg-input-clear" aria-hidden="true"></span>
+          </label>
+
+          <div class="activesg-venue-list" id="venue-list"></div>
+        </section>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-mock-data.js"></script>
+    <script src="../activesg-booking.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const activityId = params.get("activityId");
+      const activity = window.ActiveSGBooking.findActivity(activityId);
+
+      if (!activity) {
+        window.location.href = "../index.html";
+        throw new Error("Missing ActiveSG activity");
+      }
+
+      const subtitle = document.getElementById("venue-subtitle");
+      const venueList = document.getElementById("venue-list");
+      const searchInput = document.getElementById("venue-search");
+
+      subtitle.innerHTML = `Find <strong>${activity.activityName.toLowerCase()}</strong> venues.`;
+
+      function renderVenues() {
+        const query = searchInput.value.trim().toLowerCase();
+        const items = activity.venues.filter((venue) => {
+          const postal = venue.address.line3.toLowerCase();
+          return venue.venueName.toLowerCase().includes(query) || postal.includes(query);
+        });
+
+        venueList.innerHTML =
+          items
+            .map((venue) => {
+              const nextSlot = window.ActiveSGBooking.getNextSlot(activity.activityId, venue.venueId).replace(
+                /^Slots available /,
+                "",
+              );
+
+              return `
+                <a class="activesg-venue-card" href="../time/index.html?activityId=${encodeURIComponent(activity.activityId)}&venueId=${encodeURIComponent(venue.venueId)}">
+                  <strong>${venue.venueName}</strong>
+                  <span class="activesg-status-badge">
+                    <i></i>
+                    Slots available
+                  </span>
+                  <span class="activesg-slot-meta">
+                    <i></i>
+                    ${nextSlot}
+                  </span>
+                  <span class="activesg-chevron-right" aria-hidden="true"></span>
+                </a>
+              `;
+            })
+            .join("") ||
+          `
+            <section class="activesg-empty-state">
+              <strong>No venues found</strong>
+              <p>Try another venue name or postal code.</p>
+            </section>
+          `;
+      }
+
+      searchInput.addEventListener("input", renderVenues);
+      renderVenues();
+    </script>
+  </body>
+</html>

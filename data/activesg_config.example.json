@@ -1,0 +1,34 @@
+{
+  "dateRange": {
+    "from": "2026-06-10",
+    "to": "2026-06-12"
+  },
+  "request": {
+    "sourceType": "http",
+    "method": "GET",
+    "urlTemplate": "https://REPLACE_WITH_REAL_ENDPOINT?facilityId={{facilityId}}&date={{date}}",
+    "headers": {
+      "accept": "application/json",
+      "cookie": "PASTE_YOUR_BROWSER_COOKIE_HERE"
+    }
+  },
+  "extract": {
+    "slotArrayPath": "data.slots",
+    "fieldMap": {
+      "startTime": "startTime",
+      "endTime": "endTime",
+      "status": "status",
+      "available": "available",
+      "price": "price.amount",
+      "currency": "price.currency",
+      "slotId": "id"
+    }
+  },
+  "facilities": [
+    {
+      "venueName": "Bishan Sport Hall",
+      "facilityType": "Badminton",
+      "facilityId": "REPLACE_ME"
+    }
+  ]
+}

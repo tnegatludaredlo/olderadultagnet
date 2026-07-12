@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookingSG Additional Details</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="BookingSG additional details">
+      <section class="bookingsg-page bookingsg-flow-page">
+        <header class="bookingsg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">5:53</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>5G</strong>
+              <span class="lifesg-battery"><b>96</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <a class="onepa-circle onepa-circle--close" href="../personal/index.html" aria-label="关闭">
+              <span></span>
+            </a>
+            <strong>booking.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多">
+              <span></span>
+            </button>
+          </div>
+
+          <div class="bookingsg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+
+          <div class="bookingsg-brandbar">
+            <div class="bookingsg-logo">
+              <strong>Booking<span>SG</span></strong>
+              <small>POWERED BY GOVTECH</small>
+            </div>
+            <span class="bookingsg-hamburger" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="bookingsg-content bookingsg-content--form">
+          <div class="bookingsg-steps bookingsg-steps--five">
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Select service provider</strong></div>
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Select date and time</strong></div>
+            <div class="bookingsg-step bookingsg-step--done"><span class="bookingsg-step__line"></span><strong>Personal details</strong></div>
+            <div class="bookingsg-step is-active"><span class="bookingsg-step__line"></span><strong>Additional details</strong></div>
+            <div class="bookingsg-step"><span class="bookingsg-step__line"></span><strong>Review</strong></div>
+          </div>
+
+          <section class="bookingsg-form-intro">
+            <h1>Additional Details</h1>
+            <p>Provide us with more details on this booking.</p>
+          </section>
+
+          <form class="bookingsg-form" id="bookingsg-additional-form">
+            <div class="bookingsg-field bookingsg-select-field">
+              <span>Tax Type (optional)</span>
+              <button class="bookingsg-select-trigger" id="bookingsg-tax-trigger" type="button" aria-expanded="false">
+                <strong id="bookingsg-tax-value">Select</strong>
+                <i></i>
+              </button>
+              <div class="bookingsg-select-menu" id="bookingsg-tax-menu" hidden>
+                <button type="button" data-value="Individual Income Tax">Individual Income Tax</button>
+                <button type="button" data-value="Business Income Tax (Self-employed/Partnership only)">Business Income Tax (Self-employed/Partnership only)</button>
+                <button type="button" data-value="Property Tax">Property Tax</button>
+                <button type="button" data-value="Tax Clearance">Tax Clearance</button>
+              </div>
+            </div>
+
+            <label class="bookingsg-field">
+              <span>Remarks/Comments (optional)</span>
+              <textarea id="bookingsg-remarks" rows="4"></textarea>
+            </label>
+
+            <button class="bookingsg-confirm" type="submit">Next</button>
+            <a class="bookingsg-back-button" href="../personal/index.html">Back</a>
+          </form>
+        </section>
+
+        <div class="bookingsg-floating-smile" aria-hidden="true"></div>
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="../booking-data.js"></script>
+    <script>
+      const bookingStore = window.BookingSGData;
+      const booking = bookingStore.read();
+      const form = document.getElementById("bookingsg-additional-form");
+      const trigger = document.getElementById("bookingsg-tax-trigger");
+      const valueNode = document.getElementById("bookingsg-tax-value");
+      const menu = document.getElementById("bookingsg-tax-menu");
+      const remarksField = document.getElementById("bookingsg-remarks");
+
+      valueNode.textContent = booking.taxType || "Select";
+      remarksField.value = booking.remarks || "";
+
+      trigger.addEventListener("click", () => {
+        const isOpen = !menu.hidden;
+        menu.hidden = isOpen;
+        trigger.setAttribute("aria-expanded", String(!isOpen));
+      });
+
+      menu.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          valueNode.textContent = button.dataset.value;
+          bookingStore.save({ taxType: button.dataset.value });
+          menu.hidden = true;
+          trigger.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        bookingStore.save({
+          taxType: valueNode.textContent === "Select" ? "" : valueNode.textContent,
+          remarks: remarksField.value.trim(),
+        });
+        window.location.href = "../review/index.html";
+      });
+    </script>
+  </body>
+</html>

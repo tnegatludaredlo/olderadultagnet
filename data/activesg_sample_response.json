@@ -1,0 +1,28 @@
+{
+  "data": {
+    "slots": [
+      {
+        "id": "slot-001",
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "status": "available",
+        "available": true,
+        "price": {
+          "amount": 3.5,
+          "currency": "SGD"
+        }
+      },
+      {
+        "id": "slot-002",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "status": "unavailable",
+        "available": false,
+        "price": {
+          "amount": 3.5,
+          "currency": "SGD"
+        }
+      }
+    ]
+  }
+}

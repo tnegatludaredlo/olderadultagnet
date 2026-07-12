@@ -1,0 +1,29 @@
+{
+  "dateRange": {
+    "from": "2026-06-10",
+    "to": "2026-06-11"
+  },
+  "request": {
+    "sourceType": "file",
+    "filePathTemplate": "data/activesg_sample_response.json"
+  },
+  "extract": {
+    "slotArrayPath": "data.slots",
+    "fieldMap": {
+      "startTime": "startTime",
+      "endTime": "endTime",
+      "status": "status",
+      "available": "available",
+      "price": "price.amount",
+      "currency": "price.currency",
+      "slotId": "id"
+    }
+  },
+  "facilities": [
+    {
+      "venueName": "Bishan Sport Hall",
+      "facilityType": "Badminton",
+      "facilityId": "bishan-badminton"
+    }
+  ]
+}

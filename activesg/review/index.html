@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review and pay</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body class="lifesg-body" data-activesg-root="../">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG review and pay">
+      <section class="activesg-page activesg-page--flow">
+        <header class="activesg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">12:06</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>4G</strong>
+              <span class="lifesg-battery lifesg-battery--warning"><b>31</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <strong>activesg.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多" data-activesg-menu-trigger>
+              <span></span>
+            </button>
+          </div>
+
+          <div class="activesg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="activesg-flow-hero">
+          <div class="activesg-flow-hero__top">
+            <a class="activesg-back-mini activesg-back-mini--dark" id="review-back-link" href="../facility/index.html" aria-label="返回">
+              <span></span>
+            </a>
+            <button class="activesg-nav-button" type="button" aria-label="Open menu" data-activesg-menu-trigger>
+              <span class="activesg-nav-menu" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="activesg-flow-hero__copy">
+            <div class="activesg-flow-icon activesg-flow-icon--review" aria-hidden="true"></div>
+            <h1>Review and pay</h1>
+          </div>
+        </section>
+
+        <section class="activesg-content activesg-content--flow activesg-content--review">
+          <article class="activesg-review-card">
+            <header class="activesg-review-card__header">
+              <i class="activesg-card-icon activesg-card-icon--wallet" aria-hidden="true"></i>
+              <strong>PAYMENT DETAILS</strong>
+            </header>
+            <div class="activesg-payment-box">
+              <div class="activesg-payment-line">
+                <span id="payment-item"></span>
+                <strong id="payment-total"></strong>
+              </div>
+              <hr />
+              <div class="activesg-payment-total">
+                <span>Total:</span>
+                <strong id="payment-grand-total"></strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="activesg-review-card">
+            <header class="activesg-review-card__header">
+              <i class="activesg-card-icon activesg-card-icon--person" aria-hidden="true"></i>
+              <strong>CONTACT DETAILS</strong>
+            </header>
+            <div class="activesg-contact-grid">
+              <label class="activesg-readonly-field">
+                <span>Full name</span>
+                <input id="profile-name" type="text" readonly />
+              </label>
+              <label class="activesg-readonly-field">
+                <span>NRIC/FIN</span>
+                <input id="profile-nric" type="text" readonly />
+              </label>
+              <label class="activesg-readonly-field activesg-readonly-field--phone">
+                <span>Mobile number</span>
+                <div class="activesg-phone-box">
+                  <strong id="profile-code"></strong>
+                  <input id="profile-mobile" type="text" readonly />
+                </div>
+                <small>Booking confirmation and reminders will be sent to this number by SMS</small>
+              </label>
+            </div>
+          </article>
+
+          <article class="activesg-review-card">
+            <header class="activesg-review-card__header">
+              <i class="activesg-card-icon activesg-card-icon--calendar" aria-hidden="true"></i>
+              <strong>BOOKING DETAILS</strong>
+            </header>
+            <div class="activesg-booking-rows">
+              <div class="activesg-booking-row">
+                <span>What</span>
+                <strong id="booking-what"></strong>
+              </div>
+              <div class="activesg-booking-row">
+                <span>Where</span>
+                <div class="activesg-booking-address">
+                  <strong id="booking-where"></strong>
+                  <small id="booking-address-line1"></small>
+                  <small id="booking-address-line2"></small>
+                  <small id="booking-address-line3"></small>
+                </div>
+              </div>
+              <div class="activesg-booking-row">
+                <span>When</span>
+                <div class="activesg-booking-address">
+                  <strong id="booking-when"></strong>
+                  <small id="booking-facility"></small>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <div class="activesg-paybar">
+          <button class="activesg-paybar__button" id="pay-button" type="button">
+            <i aria-hidden="true"></i>
+            Pay using ActiveSG$
+          </button>
+          <p class="activesg-paybar__status" id="pay-status" hidden></p>
+          <p>
+            By proceeding, you agree to the
+            <a href="../index.html">Privacy Statement</a>
+            and
+            <a href="../index.html">Terms of Use</a>
+            of ActiveSG. You also agree not to on-sell or transfer this booking to others.
+          </p>
+        </div>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-mock-data.js"></script>
+    <script src="../activesg-booking.js"></script>
+    <script src="../activesg-menu.js"></script>
+    <script>
+      const booking = window.ActiveSGBooking.readBooking();
+      const profile = window.ActiveSGBooking.profile;
+      const payButton = document.getElementById("pay-button");
+      const payStatus = document.getElementById("pay-status");
+
+      if (!booking.activityId || !booking.venueId || !booking.slotDate || !booking.slotTime || !booking.facility) {
+        window.location.href = "../index.html";
+        throw new Error("Missing ActiveSG review data");
+      }
+
+      document.getElementById(
+        "review-back-link",
+      ).href = `../facility/index.html?activityId=${encodeURIComponent(booking.activityId)}&venueId=${encodeURIComponent(booking.venueId)}&date=${encodeURIComponent(booking.slotDate)}&time=${encodeURIComponent(booking.slotTime)}`;
+
+      document.getElementById("payment-item").textContent = `${booking.activityName} - ${booking.reviewDate} (Non-peak)`;
+      document.getElementById("payment-total").textContent = booking.totalAmount || "S$0.00";
+      document.getElementById("payment-grand-total").textContent = booking.totalAmount || "S$0.00";
+
+      document.getElementById("profile-name").value = profile.fullName;
+      document.getElementById("profile-nric").value = profile.nric;
+      document.getElementById("profile-code").textContent = profile.countryCode;
+      document.getElementById("profile-mobile").value = profile.mobile;
+
+      document.getElementById("booking-what").textContent = booking.activityName;
+      document.getElementById("booking-where").textContent = booking.venueName;
+      document.getElementById("booking-address-line1").textContent = booking.venueAddress.line1;
+      document.getElementById("booking-address-line2").textContent = booking.venueAddress.line2;
+      document.getElementById("booking-address-line3").textContent = booking.venueAddress.line3;
+      document.getElementById("booking-when").textContent = booking.reviewDate;
+      document.getElementById("booking-facility").textContent = booking.facility;
+
+      payButton.addEventListener("click", () => {
+        const confirmed = window.ActiveSGBooking.confirmBooking();
+        if (!confirmed) return;
+
+        payButton.disabled = true;
+        payStatus.hidden = false;
+        payStatus.textContent = "Payment successful. Updating your bookings...";
+
+        window.setTimeout(() => {
+          window.location.href = `../bookings/index.html?bookingId=${encodeURIComponent(confirmed.id)}`;
+        }, 450);
+      });
+
+      window.ActiveSGMenu.mount();
+    </script>
+  </body>
+</html>

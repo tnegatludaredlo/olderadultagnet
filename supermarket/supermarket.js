@@ -3,10 +3,26 @@ const screens = {
   categories: document.querySelector("#categories-screen"),
   listing: document.querySelector("#listing-screen"),
   detail: document.querySelector("#detail-screen"),
+  favourites: document.querySelector("#favourites-screen"),
+  cart: document.querySelector("#cart-screen"),
+  search: document.querySelector("#search-screen"),
+  checkout: document.querySelector("#checkout-screen"),
+  addressForm: document.querySelector("#address-form-screen"),
+  paymentForm: document.querySelector("#payment-form-screen"),
 };
 
 const shell = document.querySelector(".market-phone");
 const navItems = Array.from(document.querySelectorAll("[data-view]"));
+const favoriteProductIds = new Set();
+const cartItems = new Map();
+let previousView = "home";
+let currentView = "home";
+let searchQuery = "";
+let checkoutStep = "address";
+let savedAddress = null;
+let selectedDeliverySlot = "";
+let selectedRemark = "";
+let savedPaymentMethod = null;
 
 function svgUrl(markup) {
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(markup)}`;
@@ -115,7 +131,13 @@ function icon(name) {
     back: '<svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"></path></svg>',
     share: '<svg viewBox="0 0 24 24"><path d="M20 12 13 5v4C7 9 4 12 3 18c2-3 5-4 10-4v5l7-7Z"></path></svg>',
     plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>',
+    minus: '<svg viewBox="0 0 24 24"><path d="M5 12h14"></path></svg>',
     box: '<svg viewBox="0 0 24 24"><path d="M4 9h16v11H4V9Z"></path><path d="M7 9V5h10v4M9 13h6"></path></svg>',
+    trash: '<svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M10 11v6M14 11v6"></path><path d="M6 7l1 14h10l1-14"></path><path d="M9 7V4h6v3"></path></svg>',
+    map: '<svg viewBox="0 0 24 24"><path d="M12 21s7-5.3 7-11a7 7 0 0 0-14 0c0 5.7 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>',
+    calendar: '<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>',
+    card: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>',
+    edit: '<svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"></path><path d="m14 7 3 3"></path></svg>',
   };
   return icons[name] || "";
 }
@@ -126,14 +148,51 @@ function installNavIcons() {
   });
 }
 
-function setView(view) {
-  Object.entries(screens).forEach(([key, el]) => el.classList.toggle("is-active", key === view));
-  navItems.forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
-  shell.classList.toggle("is-detail-view", view === "detail");
-  window.scrollTo(0, 0);
+function cartQuantity(productId) {
+  return cartItems.get(productId) || 0;
 }
 
-function header({ title = "", mode = "brand", backTarget = "categories" } = {}) {
+function cartCount() {
+  return Array.from(cartItems.values()).reduce((sum, qty) => sum + qty, 0);
+}
+
+function cartSubtotal() {
+  return Array.from(cartItems.entries()).reduce((sum, [productId, qty]) => {
+    const product = activeProducts.find((item) => item.id === productId);
+    return sum + (product ? Number(product.price || 0) * qty : 0);
+  }, 0);
+}
+
+function formatMoney(value) {
+  return `$${Number(value || 0).toFixed(2)}`;
+}
+
+function cartBadge() {
+  const count = cartCount();
+  return `<span class="cart-badge ${count ? "is-visible" : ""}" data-cart-count>${count || ""}</span>`;
+}
+
+function updateCartBadges() {
+  const count = cartCount();
+  document.querySelectorAll("[data-cart-count]").forEach((badge) => {
+    badge.textContent = count ? String(count) : "";
+    badge.classList.toggle("is-visible", count > 0);
+  });
+}
+
+function setView(view) {
+  if (view !== currentView) {
+    previousView = currentView;
+    currentView = view;
+  }
+  Object.entries(screens).forEach(([key, el]) => el.classList.toggle("is-active", key === view));
+  navItems.forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
+  shell.classList.toggle("is-detail-view", ["detail", "favourites", "search", "checkout", "addressForm", "paymentForm"].includes(view));
+  window.scrollTo(0, 0);
+  updateCartBadges();
+}
+
+function header({ title = "", mode = "brand", backTarget = "categories", showSubtabs = true } = {}) {
   if (mode === "brand") {
     return `
       <header class="green-head">
@@ -156,16 +215,40 @@ function header({ title = "", mode = "brand", backTarget = "categories" } = {}) 
     `;
   }
 
+  if (mode === "cart") {
+    return `
+      <header class="green-head">
+        <div class="status-row"><span>3:52</span><span class="status-icons">||| WiFi 83</span></div>
+        <div class="cart-titlebar">
+          <h1>Cart</h1>
+          <button class="head-button" type="button" data-clear-cart aria-label="Clear cart">${icon("trash")}</button>
+        </div>
+      </header>
+    `;
+  }
+
+  if (mode === "checkout") {
+    return `
+      <header class="green-head checkout-head">
+        <div class="status-row"><span>7:28</span><span class="status-icons">||| WiFi 51</span></div>
+        <div class="checkout-titlebar">
+          <button class="back-button" type="button" data-checkout-back aria-label="Back">${icon("back")}</button>
+          <h1>${title}</h1>
+        </div>
+      </header>
+    `;
+  }
+
   if (mode === "detail") {
     return `
       <header class="green-head listing-head">
         <div class="status-row"><span>7:13</span><span class="status-icons">||| WiFi 57</span></div>
         <div class="titlebar">
-          <button class="back-button" type="button" data-back="listing" aria-label="Back">${icon("back")}</button>
+          <button class="back-button" type="button" data-back="previous" aria-label="Back">${icon("back")}</button>
           <h1></h1>
           <div class="head-group">
             <button class="head-button" type="button" aria-label="Share">${icon("share")}</button>
-            <button class="head-button" type="button" aria-label="Cart">${icon("bag")}</button>
+            <button class="head-button has-badge" type="button" data-go-cart aria-label="Cart">${icon("bag")}${cartBadge()}</button>
           </div>
         </div>
       </header>
@@ -180,21 +263,23 @@ function header({ title = "", mode = "brand", backTarget = "categories" } = {}) 
         <h1>${title}</h1>
         <div class="head-group">
           <button class="head-button" type="button" aria-label="Search">${icon("search")}</button>
-          <button class="head-button" type="button" aria-label="Cart">${icon("bag")}</button>
+          <button class="head-button has-badge" type="button" data-go-cart aria-label="Cart">${icon("bag")}${cartBadge()}</button>
         </div>
       </div>
-      <div class="subtabs"><span class="is-active">All</span><span>Bake For You</span><span>Golden Swiss</span><span>Happy Family</span><span>Heritage Farm</span></div>
+      ${showSubtabs ? '<div class="subtabs"><span class="is-active">All</span><span>Bake For You</span><span>Golden Swiss</span><span>Happy Family</span><span>Heritage Farm</span></div>' : ""}
     </header>
   `;
 }
 
 function searchCard(flat = false) {
   return `
-    <button class="search-card ${flat ? "is-flat" : ""}" type="button">
-      <span class="icon">${icon("search")}</span>
-      <span>Search products and categories</span>
-      ${flat ? '<span class="icon"></span>' : `<span class="heart icon">${icon("heart")}</span>`}
-    </button>
+    <div class="search-card ${flat ? "is-flat" : ""}">
+      <form class="search-main" data-search-form>
+        <span class="icon">${icon("search")}</span>
+        <input type="search" name="query" value="${searchQuery}" placeholder="Search products and categories" autocomplete="off" data-search-input />
+      </form>
+      ${flat ? '<span class="icon"></span>' : `<button class="heart icon" type="button" data-open-favourites aria-label="Open favourites">${icon("heart")}</button>`}
+    </div>
   `;
 }
 
@@ -210,15 +295,32 @@ function sortProductsByName(items) {
   return [...items].sort((a, b) => (a.name || "").localeCompare(b.name || "", "en", { sensitivity: "base", numeric: true }));
 }
 
+function quantityControl(product, variant = "card") {
+  const qty = cartQuantity(product.id);
+  if (!qty) {
+    return `<button class="add-mini" type="button" data-cart-action="increase" data-cart-product-id="${product.id}" onclick="event.stopPropagation(); window.changeCartQuantity('${product.id}', 1)" aria-label="Add ${product.name}">${icon("plus")}</button>`;
+  }
+
+  return `
+    <div class="quantity-control quantity-control--${variant}" data-cart-product-id="${product.id}">
+      <button type="button" data-cart-action="decrease" data-cart-product-id="${product.id}" onclick="event.stopPropagation(); window.changeCartQuantity('${product.id}', -1)" aria-label="Decrease ${product.name}">${icon("minus")}</button>
+      <span>${qty}</span>
+      <button type="button" data-cart-action="increase" data-cart-product-id="${product.id}" onclick="event.stopPropagation(); window.changeCartQuantity('${product.id}', 1)" aria-label="Increase ${product.name}">${icon("plus")}</button>
+    </div>
+  `;
+}
+
 function productCard(product, compact = false) {
   return `
-    <button class="product-card" type="button" data-product-id="${product.id}" onclick="event.stopPropagation(); window.openProductDetail('${product.id}')" aria-label="View ${product.name}">
-      <div class="product-art">
-        <img src="${getProductImage(product)}" alt="${product.name}" loading="lazy" />
-      </div>
-      <span class="add-mini" aria-hidden="true">${icon("plus")}</span>
+    <article class="product-card" data-open-product="${product.id}" onclick="event.stopPropagation(); window.openProductDetail('${product.id}')">
+      <button class="product-open" type="button" data-open-product="${product.id}" onclick="event.stopPropagation(); window.openProductDetail('${product.id}')" aria-label="View ${product.name}">
+        <span class="product-art">
+          <img src="${getProductImage(product)}" alt="${product.name}" loading="lazy" />
+        </span>
+      </button>
+      ${quantityControl(product)}
       ${product.promo || product.oldPrice ? '<span class="deal-badge" aria-hidden="true"></span>' : ""}
-      <div class="product-info">
+      <div class="product-info product-info-button" data-open-product="${product.id}" onclick="event.stopPropagation(); window.openProductDetail('${product.id}')" role="button" tabindex="0" aria-label="View ${product.name}">
         <h3>${product.name}</h3>
         <span class="weight">${product.weight}</span>
         <span class="price-row">
@@ -226,13 +328,36 @@ function productCard(product, compact = false) {
           ${product.oldPrice ? `<span class="old-price">$${product.oldPrice}</span>` : ""}
         </span>
       </div>
-    </button>
+    </article>
   `;
 }
 
 function productsFor(categoryId) {
   const filtered = activeProducts.filter((product) => product.category === categoryId);
   return sortProductsByName(filtered.length ? filtered : activeProducts.slice(0, 12));
+}
+
+function searchableText(product) {
+  return [
+    product.name,
+    product.brand,
+    product.weight,
+    product.rawCategory,
+    product.categoryName,
+    product.tags?.join(" "),
+  ].filter(Boolean).join(" ").toLowerCase();
+}
+
+function searchProducts(query) {
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) {
+    return [];
+  }
+
+  return sortProductsByName(activeProducts.filter((product) => {
+    const haystack = searchableText(product);
+    return terms.every((term) => haystack.includes(term));
+  }));
 }
 
 function renderHome() {
@@ -262,6 +387,19 @@ function renderHome() {
       <div class="promo-tile blue">Fresh eggs and chilled deals</div>
     </div>
     <p class="source-note">Showing ${activeProducts.length} products exported from the current Sheng Siong Online catalog.</p>
+  `;
+}
+
+function renderSearch() {
+  const results = searchProducts(searchQuery);
+  const trimmed = searchQuery.trim();
+  screens.search.innerHTML = `
+    ${header({ title: "Search", mode: "listing", backTarget: "previous", showSubtabs: false })}
+    ${searchCard(true)}
+    <div class="search-result-head">
+      <h2>${trimmed ? `${results.length} result${results.length === 1 ? "" : "s"} for "${trimmed}"` : "Search products"}</h2>
+    </div>
+    ${trimmed ? (results.length ? `<div class="product-grid">${results.map((product) => productCard(product)).join("")}</div>` : '<div class="empty-state">No products found.</div>') : '<div class="empty-state">Type a product, brand, or category.</div>'}
   `;
 }
 
@@ -295,8 +433,228 @@ function renderListing(categoryId = "housebrands") {
   screens.listing.dataset.categoryId = category.id;
 }
 
+function favouriteProducts() {
+  return sortProductsByName(activeProducts.filter((product) => favoriteProductIds.has(product.id)));
+}
+
+function renderFavourites() {
+  const favourites = favouriteProducts();
+  screens.favourites.innerHTML = `
+    ${header({ title: "My Favourites", mode: "listing", backTarget: "home", showSubtabs: false })}
+    <div class="filters">
+      ${["Categories", "Brands", "Pricing", "Dietary", "Origin"].map((item) => `<button class="filter-chip" type="button">${item}⌄</button>`).join("")}
+    </div>
+    ${favourites.length ? `<div class="product-grid">${favourites.map((product) => productCard(product)).join("")}</div>` : '<div class="empty-state">No favourite products yet.</div>'}
+  `;
+}
+
+function cartProducts() {
+  return Array.from(cartItems.entries())
+    .map(([productId, qty]) => ({ product: activeProducts.find((item) => item.id === productId), qty }))
+    .filter((item) => item.product);
+}
+
+function renderCart() {
+  const items = cartProducts();
+  const subtotal = cartSubtotal();
+  const deliveryTarget = 69;
+  const remaining = Math.max(deliveryTarget - subtotal, 0);
+  const progress = Math.min((subtotal / deliveryTarget) * 100, 100);
+
+  screens.cart.innerHTML = `
+    ${header({ mode: "cart" })}
+    <div class="cart-content">
+      ${items.length ? items.map(({ product }) => `
+        <article class="cart-line">
+          <button class="cart-product-image" type="button" data-open-product="${product.id}">
+            <img src="${getProductImage(product)}" alt="${product.name}" loading="lazy" />
+          </button>
+          <div class="cart-line-info">
+            <h3>${product.name}</h3>
+            <span>${product.weight}</span>
+            <strong>${formatMoney(product.price)}</strong>
+          </div>
+          ${quantityControl(product, "cart")}
+        </article>
+      `).join("") : '<div class="empty-state">Your cart is empty.</div>'}
+    </div>
+    <section class="cart-summary">
+      <p>${remaining > 0 ? `${formatMoney(remaining)} to free delivery` : "Free delivery unlocked"}</p>
+      <div class="delivery-progress"><span style="width:${progress}%"></span></div>
+      <div class="checkout-row">
+        <strong>Subtotal: <span>${formatMoney(subtotal)}</span></strong>
+        <button type="button" data-start-checkout>Check Out</button>
+      </div>
+    </section>
+  `;
+}
+
+function checkoutStepper(activeStep) {
+  const steps = [
+    { id: "address", icon: "map" },
+    { id: "schedule", icon: "calendar" },
+    { id: "payment", icon: "card" },
+    { id: "review", icon: "box" },
+  ];
+  const activeIndex = Math.max(0, steps.findIndex((step) => step.id === activeStep));
+  const progress = activeIndex === 0 ? "0px" : `calc((100% - 56px) / 3 * ${activeIndex})`;
+
+  return `
+    <div class="checkout-steps" style="--checkout-progress: ${progress}">
+      ${steps.map((step, index) => `
+        <span class="checkout-step ${index <= activeIndex ? "is-done" : ""} ${index === activeIndex ? "is-current" : ""}">
+          ${icon(step.icon)}
+        </span>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderAddressSummary() {
+  if (!savedAddress) {
+    return `
+      <section class="checkout-empty">
+        <div class="pin-illustration"><span></span></div>
+        <h3>No addresses saved</h3>
+        <p>To continue checking out, please add a delivery address</p>
+        <button class="primary-wide" type="button" data-add-address>Add New Address</button>
+      </section>
+    `;
+  }
+
+  return `
+    <section class="checkout-address">
+      <button class="edit-address" type="button" data-edit-address aria-label="Edit address">${icon("edit")}</button>
+      <article class="address-card">
+        <strong>${savedAddress.name}</strong>
+        <span>${savedAddress.line}</span>
+        <span>+65 ${savedAddress.mobile}</span>
+      </article>
+      <div class="map-preview" aria-hidden="true"><span class="map-pin"></span><strong>Google</strong></div>
+      <button class="primary-wide checkout-fixed" type="button" data-checkout-continue>Continue</button>
+    </section>
+  `;
+}
+
+function renderScheduleStep() {
+  const slots = [
+    { id: "10:00am - 1:00pm", status: "Not available (Full)", disabled: true },
+    { id: "1:00pm - 4:00pm", status: "Available" },
+    { id: "4:00pm - 7:00pm", status: "Available" },
+    { id: "6:00pm - 9:00pm", status: "Available" },
+  ];
+  const remarks = [
+    "Please call upon arrival.",
+    "Contactless delivery. Please leave the items at my doorstep.",
+    "Allow earlier delivery. Please call to confirm.",
+  ];
+
+  return `
+    <div class="schedule-days">
+      ${[
+        ["Wed", "27 May"],
+        ["Thu", "28 May"],
+        ["Fri", "29 May"],
+        ["Sat", "30 May"],
+        ["Sun", "31 May"],
+        ["Mon", "1 Jun"],
+      ].map(([day, date]) => `<button class="${day === "Fri" ? "is-active" : ""}" type="button"><strong>${day}</strong><span>${date}</span></button>`).join("")}
+    </div>
+    <div class="slot-list">
+      ${slots.map((slot) => `
+        <button class="slot-card ${slot.disabled ? "is-disabled" : ""} ${selectedDeliverySlot === slot.id ? "is-selected" : ""}" type="button" data-select-slot="${slot.id}" ${slot.disabled ? "disabled" : ""}>
+          <span><strong>${slot.id}</strong><small>${slot.status}</small></span>
+          <i></i>
+        </button>
+      `).join("")}
+    </div>
+    ${selectedDeliverySlot ? `
+      <section class="remarks-section">
+        <h3>Remarks</h3>
+        ${remarks.map((remark) => `
+          <button class="remark-card ${selectedRemark === remark ? "is-selected" : ""}" type="button" data-select-remark="${remark}">
+            <span>${remark}</span><i></i>
+          </button>
+        `).join("")}
+      </section>
+    ` : ""}
+    <button class="primary-wide checkout-fixed" type="button" data-checkout-continue ${selectedDeliverySlot ? "" : "disabled"}>Continue</button>
+  `;
+}
+
+function renderPaymentStep() {
+  if (!savedPaymentMethod) {
+    return `
+      <section class="checkout-empty payment-empty">
+        <div class="card-illustration"><span></span></div>
+        <h3>No payment methods added</h3>
+        <p>To continue checking out, please add a payment method</p>
+        <button class="primary-wide" type="button" data-add-payment>Add New Payment Method</button>
+      </section>
+    `;
+  }
+
+  return `
+    <section class="payment-list">
+      <article class="payment-method">
+        <span class="payment-chip">${savedPaymentMethod.brand}</span>
+        <strong>${savedPaymentMethod.name}</strong>
+        <span>${savedPaymentMethod.brand} ending ${savedPaymentMethod.last4}</span>
+      </article>
+      <button class="primary-wide checkout-fixed" type="button" data-checkout-continue>Place Order</button>
+    </section>
+  `;
+}
+
+function renderCheckout() {
+  const titles = {
+    address: "Delivery Address",
+    schedule: "Select Delivery Schedule",
+    payment: "Select Payment Method",
+  };
+
+  screens.checkout.innerHTML = `
+    ${header({ title: "Checkout", mode: "checkout" })}
+    <main class="checkout-page">
+      ${checkoutStepper(checkoutStep)}
+      <h2 class="checkout-heading">${titles[checkoutStep]}</h2>
+      ${checkoutStep === "address" ? renderAddressSummary() : checkoutStep === "schedule" ? renderScheduleStep() : renderPaymentStep()}
+    </main>
+  `;
+}
+
+function renderAddressForm() {
+  screens.addressForm.innerHTML = `
+    ${header({ title: "Add New Address", mode: "checkout" })}
+    <form class="address-form" data-address-form>
+      <label><strong>Recipient Name</strong><input name="name" placeholder="Recipient Name" value="${savedAddress?.name || ""}" /></label>
+      <label><strong>Mobile Number</strong><input name="mobile" placeholder="+65 Mobile Number" value="${savedAddress?.mobile || ""}" /></label>
+      <label class="wide"><strong>Address</strong><span class="search-input-wrap">${icon("search")}<input name="street" placeholder="Enter your postal code or street name" value="${savedAddress?.street || ""}" /></span></label>
+      <label><strong>Floor</strong><input name="floor" placeholder="Floor" value="${savedAddress?.floor || ""}" /></label>
+      <label><strong>Unit Number</strong><input name="unit" placeholder="Unit Number" value="${savedAddress?.unit || ""}" /></label>
+      <label class="wide"><strong>Additional Details</strong><input name="details" placeholder="Additional Address Details" value="${savedAddress?.details || ""}" /></label>
+      <div class="form-toggle"><span>Set this address as default</span><button type="button" aria-label="Set default"></button></div>
+      <button class="primary-wide form-save" type="submit">Save</button>
+    </form>
+  `;
+}
+
+function renderPaymentForm() {
+  screens.paymentForm.innerHTML = `
+    ${header({ title: "Add Payment Method", mode: "checkout" })}
+    <form class="address-form payment-form" data-payment-form>
+      <label class="wide"><strong>Cardholder Name</strong><input name="name" placeholder="Cardholder Name" value="${savedPaymentMethod?.name || ""}" /></label>
+      <label class="wide"><strong>Card Number</strong><input name="number" inputmode="numeric" placeholder="Card Number" /></label>
+      <label><strong>Expiry Date</strong><input name="expiry" placeholder="MM/YY" /></label>
+      <label><strong>CVV</strong><input name="cvv" inputmode="numeric" placeholder="CVV" /></label>
+      <button class="primary-wide form-save" type="submit">Save</button>
+    </form>
+  `;
+}
+
 function renderDetail(productId = "bread-400") {
   const product = activeProducts.find((item) => item.id === productId) || activeProducts[0];
+  const isFavourite = favoriteProductIds.has(product.id);
   const similar = sortProductsByName(activeProducts.filter((item) => item.id !== product.id && item.category === product.category)).slice(0, 6);
   const sameBrand = sortProductsByName(activeProducts.filter((item) => item.id !== product.id && product.brand && item.brand === product.brand)).slice(0, 6);
 
@@ -309,8 +667,10 @@ function renderDetail(productId = "bread-400") {
     <section class="detail-main">
       <h1>${product.name}</h1>
       <div class="weight">${product.weight}</div>
-      <strong class="price">$${product.price}</strong>
-      <button class="favorite" type="button" aria-label="Favorite">${icon("heart")}</button>
+      <div class="detail-price-row">
+        <strong class="price">$${product.price}</strong>
+        <button class="favorite ${isFavourite ? "is-active" : ""}" type="button" data-favourite-id="${product.id}" aria-label="Favorite">${icon("heart")}</button>
+      </div>
     </section>
     <section class="detail-section">
       <h2>Dietary</h2>
@@ -327,9 +687,78 @@ function renderDetail(productId = "bread-400") {
       <h2>Same Brand</h2>
     </section>
     <div class="horizontal-products">${(sameBrand.length ? sameBrand : similar).map((item) => productCard(item, true)).join("")}</div>
-    <button class="detail-cta" type="button">Add to Cart</button>
+    <div class="detail-cta-wrap">${cartQuantity(product.id) ? quantityControl(product, "detail") : `<button class="detail-cta" type="button" data-cart-action="increase" data-cart-product-id="${product.id}" onclick="event.stopPropagation(); window.changeCartQuantity('${product.id}', 1)">Add to Cart</button>`}</div>
   `;
 }
+
+function toggleFavorite(productId) {
+  if (favoriteProductIds.has(productId)) {
+    favoriteProductIds.delete(productId);
+  } else {
+    favoriteProductIds.add(productId);
+  }
+
+  renderDetail(productId);
+  renderFavourites();
+}
+
+function refreshCurrentView(productId = null) {
+  if (currentView === "listing") {
+    renderListing(screens.listing.dataset.categoryId || "housebrands");
+  } else if (currentView === "detail" && productId) {
+    renderDetail(productId);
+  } else if (currentView === "favourites") {
+    renderFavourites();
+  } else if (currentView === "cart") {
+    renderCart();
+  } else if (currentView === "search") {
+    renderSearch();
+  } else if (currentView === "checkout") {
+    renderCheckout();
+  }
+  updateCartBadges();
+}
+
+function goToView(view) {
+  if (view === "listing") {
+    renderListing(screens.listing.dataset.categoryId || "housebrands");
+  } else if (view === "favourites") {
+    renderFavourites();
+  } else if (view === "cart") {
+    renderCart();
+  } else if (view === "home") {
+    renderHome();
+  } else if (view === "categories") {
+    renderCategories();
+  } else if (view === "search") {
+    renderSearch();
+  } else if (view === "checkout") {
+    renderCheckout();
+  } else if (view === "addressForm") {
+    renderAddressForm();
+  } else if (view === "paymentForm") {
+    renderPaymentForm();
+  }
+  setView(view);
+}
+
+function changeCartQuantity(productId, delta) {
+  const nextQty = Math.max(0, cartQuantity(productId) + delta);
+  if (nextQty === 0) {
+    cartItems.delete(productId);
+  } else {
+    cartItems.set(productId, nextQty);
+  }
+
+  renderCart();
+  if (currentView !== "cart") {
+    refreshCurrentView(productId);
+  } else {
+    updateCartBadges();
+  }
+}
+
+window.changeCartQuantity = changeCartQuantity;
 
 function openProductDetail(productId) {
   renderDetail(productId);
@@ -341,11 +770,112 @@ window.openProductDetail = openProductDetail;
 function bindEvents() {
   navItems.forEach((button) => {
     button.addEventListener("click", () => {
-      setView(button.dataset.view);
+      goToView(button.dataset.view);
     });
   });
 
   document.addEventListener("click", (event) => {
+    const cartAction = event.target.closest("[data-cart-action]");
+    if (cartAction) {
+      event.preventDefault();
+      event.stopPropagation();
+      changeCartQuantity(cartAction.dataset.cartProductId, cartAction.dataset.cartAction === "increase" ? 1 : -1);
+      return;
+    }
+
+    const goCart = event.target.closest("[data-go-cart]");
+    if (goCart) {
+      event.preventDefault();
+      goToView("cart");
+      return;
+    }
+
+    const clearCart = event.target.closest("[data-clear-cart]");
+    if (clearCart) {
+      event.preventDefault();
+      cartItems.clear();
+      renderCart();
+      refreshCurrentView();
+      return;
+    }
+
+    const startCheckout = event.target.closest("[data-start-checkout]");
+    if (startCheckout) {
+      event.preventDefault();
+      if (!cartCount()) {
+        return;
+      }
+      checkoutStep = "address";
+      goToView("checkout");
+      return;
+    }
+
+    const addAddress = event.target.closest("[data-add-address], [data-edit-address]");
+    if (addAddress) {
+      event.preventDefault();
+      goToView("addressForm");
+      return;
+    }
+
+    const addPayment = event.target.closest("[data-add-payment]");
+    if (addPayment) {
+      event.preventDefault();
+      goToView("paymentForm");
+      return;
+    }
+
+    const selectedSlot = event.target.closest("[data-select-slot]");
+    if (selectedSlot) {
+      event.preventDefault();
+      selectedDeliverySlot = selectedSlot.dataset.selectSlot;
+      renderCheckout();
+      return;
+    }
+
+    const selectedRemarkButton = event.target.closest("[data-select-remark]");
+    if (selectedRemarkButton) {
+      event.preventDefault();
+      const remark = selectedRemarkButton.dataset.selectRemark;
+      selectedRemark = selectedRemark === remark ? "" : remark;
+      renderCheckout();
+      return;
+    }
+
+    const checkoutContinue = event.target.closest("[data-checkout-continue]");
+    if (checkoutContinue) {
+      event.preventDefault();
+      if (checkoutStep === "address" && savedAddress) {
+        checkoutStep = "schedule";
+      } else if (checkoutStep === "schedule" && selectedDeliverySlot) {
+        checkoutStep = "payment";
+      } else if (checkoutStep === "payment" && savedPaymentMethod) {
+        cartItems.clear();
+        checkoutStep = "address";
+        goToView("cart");
+        renderCart();
+        return;
+      }
+      goToView("checkout");
+      return;
+    }
+
+    const checkoutBack = event.target.closest("[data-checkout-back]");
+    if (checkoutBack) {
+      event.preventDefault();
+      if (currentView === "addressForm" || currentView === "paymentForm") {
+        goToView("checkout");
+      } else if (checkoutStep === "payment") {
+        checkoutStep = "schedule";
+        goToView("checkout");
+      } else if (checkoutStep === "schedule") {
+        checkoutStep = "address";
+        goToView("checkout");
+      } else {
+        goToView("cart");
+      }
+      return;
+    }
+
     const category = event.target.closest("[data-category-id]");
     if (category) {
       renderListing(category.dataset.categoryId);
@@ -353,16 +883,107 @@ function bindEvents() {
       return;
     }
 
-    const product = event.target.closest("[data-product-id]");
+    const product = event.target.closest("[data-open-product]");
     if (product) {
-      openProductDetail(product.dataset.productId);
+      openProductDetail(product.dataset.openProduct);
+      return;
+    }
+
+    const favouriteButton = event.target.closest("[data-favourite-id]");
+    if (favouriteButton) {
+      event.preventDefault();
+      toggleFavorite(favouriteButton.dataset.favouriteId);
+      return;
+    }
+
+    const favouritesEntry = event.target.closest("[data-open-favourites]");
+    if (favouritesEntry) {
+      event.preventDefault();
+      goToView("favourites");
       return;
     }
 
     const back = event.target.closest("[data-back]");
     if (back) {
-      const previous = back.dataset.back === "categories" ? "categories" : "listing";
-      setView(previous);
+      const target = back.dataset.back;
+      if (target === "previous") {
+        goToView(previousView === "detail" ? "home" : previousView);
+      } else {
+        goToView(target === "categories" ? "categories" : target === "home" ? "home" : "listing");
+      }
+    }
+  });
+
+  document.addEventListener("submit", (event) => {
+    const addressForm = event.target.closest("[data-address-form]");
+    if (addressForm) {
+      event.preventDefault();
+      const data = new FormData(addressForm);
+      const name = String(data.get("name") || "").trim() || "Zhiq";
+      const mobile = String(data.get("mobile") || "").trim().replace(/^\+65\s*/, "") || "8576 4206";
+      const street = String(data.get("street") || "").trim() || "26 Sunshine Terrace";
+      const floor = String(data.get("floor") || "").trim() || "11";
+      const unit = String(data.get("unit") || "").trim() || "4";
+      const details = String(data.get("details") || "").trim();
+      savedAddress = {
+        name,
+        mobile,
+        street,
+        floor,
+        unit,
+        details,
+        line: `${street} #${floor}-${unit} S(535703)`,
+      };
+      checkoutStep = "address";
+      goToView("checkout");
+      return;
+    }
+
+    const paymentForm = event.target.closest("[data-payment-form]");
+    if (paymentForm) {
+      event.preventDefault();
+      const data = new FormData(paymentForm);
+      const name = String(data.get("name") || "").trim() || "Saved Card";
+      const number = String(data.get("number") || "").replace(/\D/g, "");
+      const last4 = number.slice(-4) || "4242";
+      savedPaymentMethod = {
+        name,
+        last4,
+        brand: number.startsWith("5") ? "Mastercard" : "Visa",
+      };
+      checkoutStep = "payment";
+      goToView("checkout");
+      return;
+    }
+
+    const form = event.target.closest("[data-search-form]");
+    if (!form) {
+      return;
+    }
+
+    event.preventDefault();
+    const input = form.querySelector("[data-search-input]");
+    searchQuery = input ? input.value : "";
+    goToView("search");
+  });
+
+  document.addEventListener("input", (event) => {
+    const input = event.target.closest("[data-search-input]");
+    if (!input) {
+      return;
+    }
+
+    searchQuery = input.value;
+    if (searchQuery.trim()) {
+      renderSearch();
+      setView("search");
+      const searchInput = screens.search.querySelector("[data-search-input]");
+      if (searchInput) {
+        searchInput.focus();
+        searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+      }
+    } else if (currentView === "search") {
+      renderSearch();
     }
   });
 }
@@ -372,4 +993,11 @@ renderHome();
 renderCategories();
 renderListing();
 renderDetail();
+renderFavourites();
+renderCart();
+renderSearch();
+renderCheckout();
+renderAddressForm();
+renderPaymentForm();
 bindEvents();
+updateCartBadges();

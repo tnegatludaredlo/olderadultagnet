@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body class="lifesg-body" data-activesg-page="bookings" data-activesg-root="../">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG bookings">
+      <section class="activesg-page activesg-page--flow activesg-bookings-page">
+        <header class="activesg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">1:38</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>4G</strong>
+              <span class="lifesg-battery"><b>44</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <strong>activesg.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多" data-activesg-menu-trigger>
+              <span></span>
+            </button>
+          </div>
+
+          <div class="activesg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="activesg-flow-hero activesg-bookings-hero">
+          <div class="activesg-flow-hero__top">
+            <a class="activesg-back-mini activesg-back-mini--dark" href="../index.html" aria-label="返回">
+              <span></span>
+            </a>
+            <button class="activesg-nav-button" type="button" aria-label="Open menu" data-activesg-menu-trigger>
+              <span class="activesg-nav-menu" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="activesg-bookings-bar">
+            <div class="activesg-bookings-title">
+              <div class="activesg-flow-icon activesg-flow-icon--bookings" aria-hidden="true"></div>
+              <h1>Bookings</h1>
+            </div>
+            <a class="activesg-bookings-cta" href="../index.html">Book now</a>
+          </div>
+        </section>
+
+        <section class="activesg-content activesg-content--flow activesg-content--bookings">
+          <div class="activesg-bookings-tabs">
+            <button class="is-active" type="button" data-bookings-tab="upcoming">Upcoming</button>
+            <button type="button" data-bookings-tab="past">Past</button>
+          </div>
+
+          <div class="activesg-bookings-panel is-active" data-bookings-panel="upcoming">
+            <div id="upcoming-bookings-root"></div>
+          </div>
+
+          <div class="activesg-bookings-panel" data-bookings-panel="past" hidden>
+            <div id="past-bookings-root"></div>
+          </div>
+        </section>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-booking.js"></script>
+    <script src="../activesg-menu.js"></script>
+    <script>
+      const tabs = Array.from(document.querySelectorAll("[data-bookings-tab]"));
+      const panels = Array.from(document.querySelectorAll("[data-bookings-panel]"));
+      const upcomingRoot = document.getElementById("upcoming-bookings-root");
+      const pastRoot = document.getElementById("past-bookings-root");
+      const urlParams = new URLSearchParams(window.location.search);
+      const highlightedBookingId = urlParams.get("bookingId");
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, (char) => {
+          const map = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          };
+          return map[char];
+        });
+      }
+
+      function renderEmptyState(root, title, detail, ctaHref, ctaLabel, history = false) {
+        root.innerHTML = `
+          <article class="activesg-bookings-empty">
+            <div class="activesg-bookings-empty__icon${history ? " activesg-bookings-empty__icon--history" : ""}" aria-hidden="true"></div>
+            <strong>${title}</strong>
+            <p>${detail}</p>
+            ${ctaHref ? `<a class="activesg-bookings-empty__cta" href="${ctaHref}">${ctaLabel}</a>` : ""}
+          </article>
+        `;
+      }
+
+      function buildBookingCard(booking, options = {}) {
+        const isPast = Boolean(options.isPast);
+        const isHighlighted = highlightedBookingId === booking.id;
+
+        return `
+          <article class="activesg-current-booking${isHighlighted ? " is-highlighted" : ""}">
+            <header class="activesg-current-booking__header">
+              <div>
+                <p>${isPast ? "Cancelled booking" : "Current booking"}</p>
+                <h2>${escapeHtml(booking.activityName)}</h2>
+              </div>
+              <div class="activesg-current-booking__header-side">
+                ${isPast ? '<span class="activesg-booking-chip">Cancelled</span>' : ""}
+                <span class="activesg-current-booking__price">${escapeHtml(booking.totalAmount || "S$0.00")}</span>
+              </div>
+            </header>
+
+            <div class="activesg-current-booking__meta">
+              <div class="activesg-current-booking__row">
+                <span>When</span>
+                <strong>${escapeHtml(booking.reviewDate)}</strong>
+              </div>
+              <div class="activesg-current-booking__row">
+                <span>Where</span>
+                <strong>${escapeHtml(booking.venueName)}</strong>
+              </div>
+              <div class="activesg-current-booking__row">
+                <span>Facility</span>
+                <strong>${escapeHtml(booking.facility)}</strong>
+              </div>
+            </div>
+
+            <div class="activesg-current-booking__address">
+              <small>${escapeHtml(booking.venueAddress?.line1 || "")}</small>
+              <small>${escapeHtml(booking.venueAddress?.line2 || "")}</small>
+              <small>${escapeHtml(booking.venueAddress?.line3 || "")}</small>
+            </div>
+
+            ${
+              isPast
+                ? ""
+                : `
+                  <div class="activesg-current-booking__actions">
+                    <button class="activesg-current-booking__button" type="button" data-booking-view="${escapeHtml(booking.id)}">View booking</button>
+                    <button class="activesg-current-booking__secondary" type="button" data-booking-modify="${escapeHtml(booking.id)}">Modify</button>
+                    <button class="activesg-current-booking__danger" type="button" data-booking-cancel="${escapeHtml(booking.id)}">Cancel</button>
+                  </div>
+                `
+            }
+          </article>
+        `;
+      }
+
+      function bindUpcomingActions() {
+        Array.from(upcomingRoot.querySelectorAll("[data-booking-view]")).forEach((button) => {
+          button.addEventListener("click", () => {
+            const draft = window.ActiveSGBooking.startModifyBooking(button.dataset.bookingView);
+            if (!draft) return;
+
+            window.location.href = "../review/index.html";
+          });
+        });
+
+        Array.from(upcomingRoot.querySelectorAll("[data-booking-modify]")).forEach((button) => {
+          button.addEventListener("click", () => {
+            const bookingId = button.dataset.bookingModify;
+            const draft = window.ActiveSGBooking.startModifyBooking(bookingId);
+            if (!draft) return;
+
+            window.location.href = `../time/index.html?activityId=${encodeURIComponent(draft.activityId)}&venueId=${encodeURIComponent(draft.venueId)}`;
+          });
+        });
+
+        Array.from(upcomingRoot.querySelectorAll("[data-booking-cancel]")).forEach((button) => {
+          button.addEventListener("click", () => {
+            window.ActiveSGBooking.cancelConfirmedBooking(button.dataset.bookingCancel);
+            renderAll();
+          });
+        });
+      }
+
+      function renderUpcoming() {
+        const bookings = window.ActiveSGBooking.getUpcomingBookings();
+        if (!bookings.length) {
+          renderEmptyState(upcomingRoot, "No upcoming bookings", "Start playing!", "../index.html", "Book a facility");
+          return;
+        }
+
+        upcomingRoot.innerHTML = bookings.map((booking) => buildBookingCard(booking)).join("");
+        bindUpcomingActions();
+      }
+
+      function renderPast() {
+        const bookings = window.ActiveSGBooking.getPastBookings();
+        if (!bookings.length) {
+          renderEmptyState(pastRoot, "No past bookings", "Your completed bookings will appear here.", "", "", true);
+          return;
+        }
+
+        pastRoot.innerHTML = bookings.map((booking) => buildBookingCard(booking, { isPast: true })).join("");
+      }
+
+      function renderAll() {
+        renderUpcoming();
+        renderPast();
+      }
+
+      tabs.forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.bookingsTab;
+
+          tabs.forEach((item) => {
+            item.classList.toggle("is-active", item === button);
+          });
+
+          panels.forEach((panel) => {
+            const isActive = panel.dataset.bookingsPanel === target;
+            panel.classList.toggle("is-active", isActive);
+            panel.hidden = !isActive;
+          });
+        });
+      });
+
+      renderAll();
+      window.ActiveSGMenu.mount();
+    </script>
+  </body>
+</html>

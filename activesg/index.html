@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ActiveSG</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="lifesg-body" data-activesg-page="home" data-activesg-root="./">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG booking">
+      <section class="activesg-page">
+        <header class="activesg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">12:04</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>4G</strong>
+              <span class="lifesg-battery lifesg-battery--warning"><b>32</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <strong>activesg.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多" data-activesg-menu-trigger>
+              <span></span>
+            </button>
+          </div>
+
+          <div class="activesg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="./index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="activesg-hero">
+          <div class="activesg-hero__top">
+            <a class="activesg-back-mini" href="../index.html" aria-label="返回应用列表">
+              <span></span>
+            </a>
+            <span class="activesg-share-icon" aria-hidden="true"></span>
+          </div>
+
+          <div class="activesg-hero__content">
+            <div class="activesg-hero__copy">
+              <h1>Book a facility</h1>
+              <p>Book or ballot for slots to play badminton, volleyball, and more.</p>
+            </div>
+            <div class="activesg-hero__art" aria-hidden="true">
+              <span class="disc"></span>
+              <span class="racket"></span>
+              <span class="player"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="activesg-content">
+          <label class="activesg-search" aria-label="搜索项目">
+            <span class="lifesg-search-icon" aria-hidden="true"></span>
+            <input id="activesg-sport-search" type="search" placeholder="Search sports (e.g. badminton)" />
+          </label>
+
+          <div class="activesg-group-list" id="activesg-groups"></div>
+        </section>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./activesg-mock-data.js"></script>
+    <script src="./activesg-booking.js"></script>
+    <script src="./activesg-menu.js"></script>
+    <script>
+      const searchInput = document.getElementById("activesg-sport-search");
+      const groupsRoot = document.getElementById("activesg-groups");
+      const groupedActivities = window.ActiveSGBooking.getGroupedActivities();
+
+      function buildCard(activity) {
+        return `
+          <a class="activesg-card activesg-card--link" href="./venues/index.html?activityId=${encodeURIComponent(activity.activityId)}">
+            <strong>${activity.activityName}</strong>
+            <small>${activity.venueCount} venues</small>
+          </a>
+        `;
+      }
+
+      function buildGroup(group, query) {
+        const filteredItems = group.items.filter((activity) =>
+          activity.activityName.toLowerCase().includes(query),
+        );
+
+        if (!filteredItems.length) {
+          return "";
+        }
+
+        if (group.title === "Core Sports") {
+          return `
+            <section class="activesg-group-block">
+              <div class="activesg-list">${filteredItems.map(buildCard).join("")}</div>
+            </section>
+          `;
+        }
+
+        return `
+          <section class="activesg-accordion is-open">
+            <button class="activesg-accordion__trigger" type="button">
+              <span>${group.title}</span>
+              <i></i>
+            </button>
+            <div class="activesg-accordion__panel">
+              ${filteredItems
+                .map(
+                  (activity) => `
+                    <a class="activesg-accordion__item activesg-accordion__item--link" href="./venues/index.html?activityId=${encodeURIComponent(activity.activityId)}">
+                      <b>${activity.activityName}</b>
+                      <small>${activity.venueCount} venues</small>
+                    </a>
+                  `,
+                )
+                .join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      function bindAccordions() {
+        Array.from(groupsRoot.querySelectorAll(".activesg-accordion")).forEach((section) => {
+          const trigger = section.querySelector(".activesg-accordion__trigger");
+          const panel = section.querySelector(".activesg-accordion__panel");
+
+          trigger.addEventListener("click", () => {
+            const nextOpen = !section.classList.contains("is-open");
+            section.classList.toggle("is-open", nextOpen);
+            panel.hidden = !nextOpen;
+          });
+        });
+      }
+
+      function render() {
+        const query = searchInput.value.trim().toLowerCase();
+        const markup = groupedActivities.map((group) => buildGroup(group, query)).filter(Boolean).join("");
+
+        groupsRoot.innerHTML =
+          markup ||
+          `
+            <section class="activesg-empty-state">
+              <strong>No sports found</strong>
+              <p>Try searching for badminton, tennis, basketball, or soccer.</p>
+            </section>
+          `;
+
+        bindAccordions();
+      }
+
+      searchInput.addEventListener("input", render);
+      render();
+      window.ActiveSGMenu.mount();
+    </script>
+  </body>
+</html>

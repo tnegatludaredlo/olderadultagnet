@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select facility</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body class="lifesg-body" data-activesg-root="../">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG select facility">
+      <section class="activesg-page activesg-page--flow">
+        <header class="activesg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">12:05</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>4G</strong>
+              <span class="lifesg-battery lifesg-battery--warning"><b>31</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <strong>activesg.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多" data-activesg-menu-trigger>
+              <span></span>
+            </button>
+          </div>
+
+          <div class="activesg-government">
+            <span class="onepa-government__crest" aria-hidden="true"></span>
+            <span>A Singapore Government Agency Website</span>
+            <a href="../index.html">How to identify</a>
+            <span class="activesg-government__chevron" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <section class="activesg-flow-hero">
+          <div class="activesg-flow-hero__top">
+            <a class="activesg-back-mini activesg-back-mini--dark" id="facility-back-link" href="../time/index.html" aria-label="返回">
+              <span></span>
+            </a>
+            <button class="activesg-nav-button" type="button" aria-label="Open menu" data-activesg-menu-trigger>
+              <span class="activesg-nav-menu" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="activesg-flow-hero__copy">
+            <div class="activesg-flow-icon activesg-flow-icon--facility" aria-hidden="true"></div>
+            <h1>Select facility</h1>
+            <p id="facility-subtitle"></p>
+          </div>
+        </section>
+
+        <section class="activesg-content activesg-content--flow">
+          <p class="activesg-time-heading" id="facility-time-heading"></p>
+          <div class="activesg-facility-list" id="facility-list"></div>
+        </section>
+
+        <div class="activesg-bottom-sheet">
+          <p id="facility-summary">Choose one facility to continue.</p>
+          <a class="activesg-primary-button activesg-primary-button--disabled" id="facility-continue" href="./index.html" aria-disabled="true">
+            Review booking
+          </a>
+        </div>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-mock-data.js"></script>
+    <script src="../activesg-booking.js"></script>
+    <script src="../activesg-menu.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const activityId = params.get("activityId");
+      const venueId = params.get("venueId");
+      const date = params.get("date");
+      const time = params.get("time");
+      const activity = window.ActiveSGBooking.findActivity(activityId);
+      const venue = window.ActiveSGBooking.findVenue(activityId, venueId);
+
+      if (!activity || !venue || !date || !time) {
+        window.location.href = "../index.html";
+        throw new Error("Missing ActiveSG booking context");
+      }
+
+      document.getElementById(
+        "facility-back-link",
+      ).href = `../time/index.html?activityId=${encodeURIComponent(activityId)}&venueId=${encodeURIComponent(venueId)}`;
+
+      document.getElementById("facility-subtitle").innerHTML = `Choose where you would like to exercise at <strong>${time}</strong>.`;
+      document.getElementById("facility-time-heading").textContent = time;
+
+      const facilityList = document.getElementById("facility-list");
+      const summary = document.getElementById("facility-summary");
+      const continueButton = document.getElementById("facility-continue");
+      const facilities = window.ActiveSGBooking.getFacilities(activity.activityName, venue.venueId, time);
+
+      if (!Array.isArray(facilities) || !facilities.length) {
+        window.location.href = `../time/index.html?activityId=${encodeURIComponent(activityId)}&venueId=${encodeURIComponent(venueId)}`;
+        throw new Error("No ActiveSG facilities available");
+      }
+
+      let selectedFacility = "";
+
+      function renderFacilities() {
+        facilityList.innerHTML = facilities
+          .map(
+            (facility) => `
+              <button class="activesg-facility-card${facility === selectedFacility ? " is-selected" : ""}" type="button" data-facility-value="${facility}">
+                ${facility}
+              </button>
+            `,
+          )
+          .join("");
+
+        Array.from(facilityList.querySelectorAll("[data-facility-value]")).forEach((button) => {
+          button.addEventListener("click", () => {
+            selectedFacility = button.dataset.facilityValue;
+            render();
+          });
+        });
+      }
+
+      function renderSummary() {
+        if (!selectedFacility) {
+          summary.textContent = "Choose one facility to continue.";
+          continueButton.classList.add("activesg-primary-button--disabled");
+          continueButton.setAttribute("aria-disabled", "true");
+          continueButton.href = "./index.html";
+          return;
+        }
+
+        summary.innerHTML = `${time}: <strong>${selectedFacility}</strong>`;
+        continueButton.classList.remove("activesg-primary-button--disabled");
+        continueButton.setAttribute("aria-disabled", "false");
+
+        window.ActiveSGBooking.saveBooking({
+          activityId,
+          activityName: activity.activityName,
+          venueId,
+          venueName: venue.venueName,
+          venueAddress: venue.address,
+          slotDate: date,
+          slotTime: time,
+          reviewDate: window.ActiveSGBooking.formatReviewDate(date, time),
+          facility: selectedFacility,
+          totalAmount: "S$0.00",
+        });
+
+        continueButton.href = `../review/index.html?activityId=${encodeURIComponent(activityId)}&venueId=${encodeURIComponent(venueId)}`;
+      }
+
+      function render() {
+        renderFacilities();
+        renderSummary();
+      }
+
+      render();
+      window.ActiveSGMenu.mount();
+    </script>
+  </body>
+</html>

@@ -12,6 +12,12 @@
       <section class="screen" id="categories-screen" aria-label="Categories"></section>
       <section class="screen" id="listing-screen" aria-label="Product list"></section>
       <section class="screen" id="detail-screen" aria-label="Product detail"></section>
+      <section class="screen" id="favourites-screen" aria-label="My Favourites"></section>
+      <section class="screen" id="cart-screen" aria-label="Cart"></section>
+      <section class="screen" id="search-screen" aria-label="Search products"></section>
+      <section class="screen" id="checkout-screen" aria-label="Checkout"></section>
+      <section class="screen" id="address-form-screen" aria-label="Add New Address"></section>
+      <section class="screen" id="payment-form-screen" aria-label="Add Payment Method"></section>
 
       <nav class="bottom-nav" aria-label="Primary navigation">
         <button class="nav-item is-active" data-view="home" type="button">
@@ -29,8 +35,9 @@
           <span class="nav-icon" data-icon="ticket"></span>
           <span>Vouchers</span>
         </button>
-        <button class="nav-item" type="button">
+        <button class="nav-item" data-view="cart" type="button">
           <span class="nav-icon" data-icon="bag"></span>
+          <span class="cart-badge" data-cart-count></span>
           <span>Cart</span>
         </button>
       </nav>

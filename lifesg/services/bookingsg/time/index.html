@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookingSG Time</title>
+    <link rel="stylesheet" href="../../../../styles.css" />
+  </head>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="BookingSG time selection">
+      <section class="bookingsg-page bookingsg-time-page">
+        <header class="bookingsg-browser">
+          <div class="lifesg-statusbar" aria-hidden="true">
+            <span class="lifesg-time">5:52</span>
+            <div class="lifesg-status-icons">
+              <span class="lifesg-signal">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <strong>5G</strong>
+              <span class="lifesg-battery"><b>96</b></span>
+            </div>
+          </div>
+
+          <div class="onepa-browser__top">
+            <a class="onepa-circle onepa-circle--close" href="../index.html" aria-label="关闭">
+              <span></span>
+            </a>
+            <strong>booking.gov.sg</strong>
+            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多">
+              <span></span>
+            </button>
+          </div>
+        </header>
+
+        <section class="bookingsg-content bookingsg-content--time">
+          <div class="bookingsg-steps bookingsg-steps--three">
+            <div class="bookingsg-step bookingsg-step--done">
+              <span class="bookingsg-step__line"></span>
+              <strong>Select service provider</strong>
+            </div>
+            <div class="bookingsg-step is-active">
+              <span class="bookingsg-step__line"></span>
+              <strong>Select date and time</strong>
+            </div>
+            <div class="bookingsg-step">
+              <span class="bookingsg-step__line"></span>
+              <strong>Personal data</strong>
+            </div>
+          </div>
+
+          <h1>IRAS Video Conferencing</h1>
+
+          <section class="bookingsg-selected-centre">
+            <h2 id="bookingsg-centre-name">IRAS VC @ ServiceSG Centre Woodlands</h2>
+            <p id="bookingsg-centre-address">900 Woodlands South Drive, Singapore 730900</p>
+          </section>
+
+          <section class="bookingsg-time-picker">
+            <h3>Select a date and time</h3>
+            <p>Use the calendar to select your preferred date and time.</p>
+
+            <button class="bookingsg-date-input" id="bookingsg-date-button" type="button" aria-haspopup="dialog" aria-expanded="false">
+              <span id="bookingsg-date-label">09 / 06 / 2026</span>
+            </button>
+
+            <div class="bookingsg-calendar" id="bookingsg-calendar" hidden>
+              <div class="bookingsg-calendar__header">
+                <button class="bookingsg-calendar__value" id="bookingsg-month-button" type="button">Jun <i></i></button>
+                <button class="bookingsg-calendar__value" id="bookingsg-year-button" type="button">2026 <i></i></button>
+                <div class="bookingsg-calendar__arrows">
+                  <button type="button" aria-label="上一页">‹</button>
+                  <button type="button" aria-label="下一页">›</button>
+                </div>
+              </div>
+
+              <div class="bookingsg-calendar__view is-active" id="bookingsg-date-view">
+                <div class="bookingsg-weekdays">
+                  <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                <div class="bookingsg-days" id="bookingsg-days"></div>
+              </div>
+
+              <div class="bookingsg-calendar__view" id="bookingsg-month-view" hidden>
+                <div class="bookingsg-month-grid" id="bookingsg-month-grid"></div>
+              </div>
+
+              <div class="bookingsg-calendar__view" id="bookingsg-year-view" hidden>
+                <div class="bookingsg-year-grid" id="bookingsg-year-grid"></div>
+              </div>
+
+              <div class="bookingsg-calendar__footer">
+                <button class="bookingsg-calendar__ghost" id="bookingsg-cancel-button" type="button">Cancel</button>
+                <button class="bookingsg-calendar__solid" id="bookingsg-done-button" type="button">Done</button>
+              </div>
+            </div>
+
+            <div class="bookingsg-slot-group">
+              <h4>Afternoon slots</h4>
+              <div class="bookingsg-slot-grid">
+                <button class="bookingsg-slot" type="button" data-slot="2:30pm">2:30pm</button>
+                <button class="bookingsg-slot" type="button" data-slot="3:30pm">3:30pm</button>
+              </div>
+            </div>
+
+            <p class="bookingsg-availability" id="bookingsg-availability" hidden>
+              <span aria-hidden="true">🗓</span>
+              <strong>1 available spot for this time slot</strong>
+            </p>
+
+            <div class="bookingsg-summary" id="bookingsg-summary" hidden>
+              <p>You’re making a booking for</p>
+              <strong>Tuesday 9 June 2026, from 3:30pm to 4:00pm</strong>
+            </div>
+
+            <button class="bookingsg-confirm" id="bookingsg-confirm" type="button" disabled>Confirm</button>
+            <a class="bookingsg-back-button" href="../index.html">Back</a>
+          </section>
+        </section>
+
+        <div class="bookingsg-floating-smile" aria-hidden="true"></div>
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions">
+            <span class="share"></span>
+            <span class="refresh"></span>
+            <span class="compass"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="../booking-data.js"></script>
+    <script>
+      const bookingStore = window.BookingSGData;
+      const params = new URLSearchParams(window.location.search);
+      const centreName = params.get("centre");
+      const centreAddress = params.get("address");
+      const centreNameNode = document.getElementById("bookingsg-centre-name");
+      const centreAddressNode = document.getElementById("bookingsg-centre-address");
+      const existingBooking = bookingStore.read();
+
+      const bookingState = bookingStore.save({
+        centre: centreName || existingBooking.centre,
+        address: centreAddress || existingBooking.address,
+      });
+
+      centreNameNode.textContent = bookingState.centre;
+      centreAddressNode.textContent = bookingState.address;
+
+      const dateButton = document.getElementById("bookingsg-date-button");
+      const dateLabel = document.getElementById("bookingsg-date-label");
+      const calendar = document.getElementById("bookingsg-calendar");
+      const monthButton = document.getElementById("bookingsg-month-button");
+      const yearButton = document.getElementById("bookingsg-year-button");
+      const cancelButton = document.getElementById("bookingsg-cancel-button");
+      const doneButton = document.getElementById("bookingsg-done-button");
+      const dateView = document.getElementById("bookingsg-date-view");
+      const monthView = document.getElementById("bookingsg-month-view");
+      const yearView = document.getElementById("bookingsg-year-view");
+      const daysGrid = document.getElementById("bookingsg-days");
+      const monthGrid = document.getElementById("bookingsg-month-grid");
+      const yearGrid = document.getElementById("bookingsg-year-grid");
+      const calendarArrows = Array.from(document.querySelectorAll(".bookingsg-calendar__arrows button"));
+      const slotButtons = Array.from(document.querySelectorAll("[data-slot]"));
+      const availability = document.getElementById("bookingsg-availability");
+      const summary = document.getElementById("bookingsg-summary");
+      const confirmButton = document.getElementById("bookingsg-confirm");
+      let selectedSlot = bookingState.slotStart;
+      let selectedEnd = bookingState.slotEnd;
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let selectedDate = new Date(`${bookingState.date}T12:00:00`);
+      let currentView = "date";
+
+      function syncDateState() {
+        const isoDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
+        const nextShort = bookingStore.formatDateShort(isoDate);
+        const nextLong = bookingStore.formatDateLong(isoDate);
+        dateLabel.textContent = nextShort;
+        monthButton.innerHTML = `${monthNames[selectedDate.getMonth()].slice(0, 3)} <i></i>`;
+        yearButton.innerHTML = `${selectedDate.getFullYear()} <i></i>`;
+        bookingStore.save({
+          date: isoDate,
+          dateShort: nextShort,
+          dateLong: nextLong,
+        });
+        if (selectedSlot) {
+          summary.querySelector("strong").textContent = `${nextLong}, from ${selectedSlot} to ${selectedEnd}`;
+        }
+      }
+
+      function renderMonthGrid() {
+        monthGrid.innerHTML = monthNames
+          .map((monthName, index) => {
+            const selectedClass = index === selectedDate.getMonth() ? ' class="is-selected"' : "";
+            return `<button type="button"${selectedClass} data-month="${index}">${monthName}</button>`;
+          })
+          .join("");
+        attachMonthHandlers();
+      }
+
+      function renderYearGrid() {
+        const years = Array.from({ length: 12 }, (_, index) => 2019 + index);
+        yearGrid.innerHTML = years
+          .map((year) => {
+            const selectedClass = year === selectedDate.getFullYear() ? ' class="is-selected"' : "";
+            return `<button type="button"${selectedClass} data-year="${year}">${year}</button>`;
+          })
+          .join("");
+        attachYearHandlers();
+      }
+
+      function renderDays() {
+        const year = selectedDate.getFullYear();
+        const month = selectedDate.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+        const cells = [];
+
+        for (let index = firstDay - 1; index >= 0; index -= 1) {
+          cells.push(`<span class="is-muted">${daysInPrevMonth - index}</span>`);
+        }
+
+        for (let day = 1; day <= daysInMonth; day += 1) {
+          const selectedClass = day === selectedDate.getDate() ? ' class="is-selected"' : "";
+          cells.push(`<button type="button"${selectedClass} data-day="${day}">${day}</button>`);
+        }
+
+        while (cells.length % 7 !== 0) {
+          cells.push(`<span class="is-muted">${cells.length % 7 + 1}</span>`);
+        }
+
+        daysGrid.innerHTML = cells.join("");
+
+        Array.from(daysGrid.querySelectorAll("button")).forEach((button) => {
+          button.addEventListener("click", () => {
+            selectedDate.setDate(Number(button.dataset.day));
+            syncDateState();
+            renderDays();
+          });
+        });
+      }
+
+      function attachMonthHandlers() {
+        Array.from(monthGrid.querySelectorAll("button")).forEach((button) => {
+          button.addEventListener("click", () => {
+            const day = Math.min(selectedDate.getDate(), new Date(selectedDate.getFullYear(), Number(button.dataset.month) + 1, 0).getDate());
+            selectedDate = new Date(selectedDate.getFullYear(), Number(button.dataset.month), day, 12);
+            syncDateState();
+            renderMonthGrid();
+            renderYearGrid();
+            renderDays();
+            setCalendarView("date");
+          });
+        });
+      }
+
+      function attachYearHandlers() {
+        Array.from(yearGrid.querySelectorAll("button")).forEach((button) => {
+          button.addEventListener("click", () => {
+            const nextYear = Number(button.dataset.year);
+            const day = Math.min(selectedDate.getDate(), new Date(nextYear, selectedDate.getMonth() + 1, 0).getDate());
+            selectedDate = new Date(nextYear, selectedDate.getMonth(), day, 12);
+            syncDateState();
+            renderMonthGrid();
+            renderYearGrid();
+            renderDays();
+            setCalendarView("date");
+          });
+        });
+      }
+
+      dateLabel.textContent = bookingState.dateShort;
+
+      function setCalendarView(view) {
+        currentView = view;
+        dateView.hidden = view !== "date";
+        monthView.hidden = view !== "month";
+        yearView.hidden = view !== "year";
+      }
+
+      dateButton.addEventListener("click", () => {
+        const isOpen = !calendar.hidden;
+        calendar.hidden = isOpen;
+        dateButton.setAttribute("aria-expanded", String(!isOpen));
+        if (isOpen) setCalendarView("date");
+      });
+
+      monthButton.addEventListener("click", () => setCalendarView("month"));
+      yearButton.addEventListener("click", () => setCalendarView("year"));
+      cancelButton.addEventListener("click", () => {
+        calendar.hidden = true;
+        dateButton.setAttribute("aria-expanded", "false");
+        setCalendarView("date");
+      });
+      doneButton.addEventListener("click", () => {
+        calendar.hidden = true;
+        dateButton.setAttribute("aria-expanded", "false");
+        setCalendarView("date");
+      });
+
+      calendarArrows[0].addEventListener("click", () => {
+        if (currentView === "date") {
+          selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, Math.min(selectedDate.getDate(), new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 0).getDate()), 12);
+          syncDateState();
+          renderMonthGrid();
+          renderYearGrid();
+          renderDays();
+        }
+      });
+
+      calendarArrows[1].addEventListener("click", () => {
+        if (currentView === "date") {
+          selectedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, Math.min(selectedDate.getDate(), new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 2, 0).getDate()), 12);
+          syncDateState();
+          renderMonthGrid();
+          renderYearGrid();
+          renderDays();
+        }
+      });
+
+      slotButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedSlot = button.dataset.slot;
+          selectedEnd = selectedSlot === "2:30pm" ? "3:00pm" : "4:00pm";
+          slotButtons.forEach((item) => item.classList.toggle("is-selected", item === button));
+          availability.hidden = false;
+          summary.hidden = false;
+          const latestBooking = bookingStore.save({
+            dateShort: dateLabel.textContent,
+            slotStart: selectedSlot,
+            slotEnd: selectedEnd,
+          });
+          summary.querySelector("strong").textContent = `${latestBooking.dateLong}, from ${selectedSlot} to ${selectedEnd}`;
+          confirmButton.disabled = false;
+        });
+      });
+
+      confirmButton.addEventListener("click", () => {
+        const latestBooking = bookingStore.save({
+          centre: centreNameNode.textContent.trim(),
+          address: centreAddressNode.textContent.trim(),
+          dateShort: dateLabel.textContent.trim(),
+          slotStart: selectedSlot || bookingStore.read().slotStart,
+          slotEnd: selectedEnd || bookingStore.read().slotEnd,
+        });
+        window.location.href = `../personal/index.html?${bookingStore.buildQuery(latestBooking)}`;
+      });
+
+      if (bookingState.slotStart) {
+        const matchingButton = slotButtons.find((button) => button.dataset.slot === bookingState.slotStart);
+        if (matchingButton) matchingButton.click();
+      }
+
+      syncDateState();
+      renderMonthGrid();
+      renderYearGrid();
+      renderDays();
+    </script>
+  </body>
+</html>

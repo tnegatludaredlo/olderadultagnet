@@ -69,15 +69,15 @@
         <div class="onepa-toolbar" aria-hidden="true">
           <span class="onepa-toolbar__back"></span>
           <div class="onepa-toolbar__actions">
-            <span class="share"></span>
-            <span class="refresh"></span>
-            <span class="compass"></span>
+            <button class="prototype-state-fab" type="button" aria-label="Open state shortcuts" aria-expanded="false" aria-controls="prototype-state-popup">
+              <span class="compass"></span>
+            </button>
           </div>
         </div>
       </section>
     </main>
 
-    <aside class="prototype-state-panel" aria-label="State shortcuts">
+    <aside class="prototype-state-popup" id="prototype-state-popup" aria-label="State shortcuts" hidden>
       <strong>State shortcuts</strong>
       <a href="./bookings/index.html?statePreset=badminton-farrer-park-update">ActiveSG badminton booking update</a>
     </aside>
@@ -170,6 +170,32 @@
       searchInput.addEventListener("input", render);
       render();
       window.ActiveSGMenu.mount();
+
+      const stateFab = document.querySelector(".prototype-state-fab");
+      const statePopup = document.getElementById("prototype-state-popup");
+
+      if (stateFab && statePopup) {
+        const setStatePopupOpen = (isOpen) => {
+          statePopup.hidden = !isOpen;
+          stateFab.setAttribute("aria-expanded", String(isOpen));
+        };
+
+        stateFab.addEventListener("click", () => {
+          setStatePopupOpen(statePopup.hidden);
+        });
+
+        document.addEventListener("click", (event) => {
+          if (statePopup.hidden) return;
+          if (statePopup.contains(event.target) || stateFab.contains(event.target)) return;
+          setStatePopupOpen(false);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            setStatePopupOpen(false);
+          }
+        });
+      }
     </script>
   </body>
 </html>

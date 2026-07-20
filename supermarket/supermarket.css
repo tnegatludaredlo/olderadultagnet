@@ -131,10 +131,24 @@ svg {
   text-align: right;
 }
 
-.avatar {
+.brand-tools,
+.page-head-actions {
   position: absolute;
-  top: 66px;
-  right: 24px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-tools {
+  top: 64px;
+}
+
+.page-head-actions {
+  top: 60px;
+}
+
+.avatar {
   width: 34px;
   height: 34px;
   border: 3px solid currentColor;
@@ -497,6 +511,11 @@ svg {
   gap: 10px;
 }
 
+.state-trigger {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .subtabs {
   display: flex;
   gap: 30px;
@@ -616,15 +635,34 @@ svg {
 }
 
 .state-shortcuts {
-  position: fixed;
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.state-shortcuts.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.state-shortcuts__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 24, 21, 0.32);
+}
+
+.state-shortcuts__panel {
+  position: absolute;
+  top: 92px;
   right: 18px;
-  bottom: 18px;
-  z-index: 20;
-  width: min(320px, calc(100vw - 36px));
+  width: min(284px, calc(100% - 36px));
   border: 1px solid rgba(16, 26, 22, 0.12);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 16px 40px rgba(20, 31, 28, 0.18);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 20px 40px rgba(20, 31, 28, 0.18);
   backdrop-filter: blur(10px);
 }
 
@@ -673,10 +711,6 @@ svg {
   color: #60706a;
   font-size: 12px;
   line-height: 1.4;
-}
-
-.state-shortcuts__hint {
-  margin: 0;
 }
 
 .weight {

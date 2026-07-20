@@ -148,19 +148,8 @@ const statePresets = {
     },
     view: "cart",
   },
-  "breakfast-checkout": {
-    label: "Breakfast checkout",
-    description: "Breakfast cart plus saved address and payment details.",
-    cart: {
-      "02da8659443f4b2891194d83": 1,
-      "0eebd56177c8506f0e4c4907": 1,
-      "9f3d2f5fafd42ccad9b26807": 1,
-    },
-    savedAddress: defaultSavedAddress,
-    savedPaymentMethod: defaultSavedPaymentMethod,
-    view: "cart",
-  },
 };
+const visibleStatePresetIds = ["breakfast-cart"];
 
 function cloneAddress(address) {
   return address ? { ...address } : null;
@@ -299,41 +288,30 @@ function renderStateShortcuts() {
   const shortcuts = document.createElement("aside");
   shortcuts.className = "state-shortcuts";
   shortcuts.innerHTML = `
-    <div class="state-shortcuts__head">
-      <strong>Experiment shortcuts</strong>
-      <button type="button" data-state-action="reset">Reset</button>
-    </div>
-    <div class="state-shortcuts__body">
-      ${Object.entries(statePresets).map(([presetId, preset]) => `
-        <button class="state-shortcuts__preset" type="button" data-state-preset="${presetId}">
-          <strong>${preset.label}</strong>
-          <span>${preset.description}</span>
-        </button>
-      `).join("")}
-      <p class="state-shortcuts__hint">You can also share the current setup by copying the URL after opening a preset link.</p>
+    <button class="state-shortcuts__backdrop" type="button" data-close-state-popup aria-label="Close cart shortcut popup"></button>
+    <div class="state-shortcuts__panel" role="dialog" aria-modal="true" aria-label="Cart shortcut">
+      <div class="state-shortcuts__head">
+        <strong>Cart shortcut</strong>
+        <button type="button" data-close-state-popup aria-label="Close cart shortcut popup">Close</button>
+      </div>
+      <div class="state-shortcuts__body">
+        ${visibleStatePresetIds.map((presetId) => {
+          const preset = statePresets[presetId];
+          return `
+            <button class="state-shortcuts__preset" type="button" data-state-preset="${presetId}">
+              <strong>${preset.label}</strong>
+              <span>${preset.description}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
     </div>
   `;
+  shell.appendChild(shortcuts);
+}
 
-  shortcuts.addEventListener("click", (event) => {
-    const presetButton = event.target.closest("[data-state-preset]");
-    if (presetButton) {
-      const presetId = presetButton.dataset.statePreset;
-      const url = new URL(window.location.href);
-      url.search = "";
-      url.searchParams.set("statePreset", presetId);
-      window.location.href = url.toString();
-      return;
-    }
-
-    const resetButton = event.target.closest("[data-state-action='reset']");
-    if (resetButton) {
-      const url = new URL(window.location.href);
-      url.search = "";
-      window.location.href = url.toString();
-    }
-  });
-
-  document.body.appendChild(shortcuts);
+function stateShortcutButton() {
+  return `<button class="head-button state-trigger" type="button" data-open-state-popup aria-label="Open cart shortcut">${icon("bag")}</button>`;
 }
 
 function icon(name) {
@@ -418,7 +396,10 @@ function header({ title = "", mode = "brand", backTarget = "categories", showSub
           <span class="brand-mark">S</span>
           <span class="brand-type">SHENGSIONG<small>... all for you!</small></span>
         </div>
-        <span class="avatar" aria-hidden="true"></span>
+        <div class="brand-tools">
+          ${stateShortcutButton()}
+          <span class="avatar" aria-hidden="true"></span>
+        </div>
       </header>
     `;
   }
@@ -427,6 +408,9 @@ function header({ title = "", mode = "brand", backTarget = "categories", showSub
     return `
       <header class="green-head">
         <div class="status-row"><span>7:11</span><span class="status-icons">||| WiFi 57</span></div>
+        <div class="page-head-actions">
+          ${stateShortcutButton()}
+        </div>
         <h1 class="page-title">${title}</h1>
       </header>
     `;
@@ -438,7 +422,10 @@ function header({ title = "", mode = "brand", backTarget = "categories", showSub
         <div class="status-row"><span>3:52</span><span class="status-icons">||| WiFi 83</span></div>
         <div class="cart-titlebar">
           <h1>Cart</h1>
-          <button class="head-button" type="button" data-clear-cart aria-label="Clear cart">${icon("trash")}</button>
+          <div class="head-group">
+            ${stateShortcutButton()}
+            <button class="head-button" type="button" data-clear-cart aria-label="Clear cart">${icon("trash")}</button>
+          </div>
         </div>
       </header>
     `;
@@ -464,6 +451,7 @@ function header({ title = "", mode = "brand", backTarget = "categories", showSub
           <button class="back-button" type="button" data-back="previous" aria-label="Back">${icon("back")}</button>
           <h1></h1>
           <div class="head-group">
+            ${stateShortcutButton()}
             <button class="head-button" type="button" aria-label="Share">${icon("share")}</button>
             <button class="head-button has-badge" type="button" data-go-cart aria-label="Cart">${icon("bag")}${cartBadge()}</button>
           </div>
@@ -479,6 +467,7 @@ function header({ title = "", mode = "brand", backTarget = "categories", showSub
         <button class="back-button" type="button" data-back="${backTarget}" aria-label="Back">${icon("back")}</button>
         <h1>${title}</h1>
         <div class="head-group">
+          ${stateShortcutButton()}
           <button class="head-button" type="button" aria-label="Search">${icon("search")}</button>
           <button class="head-button has-badge" type="button" data-go-cart aria-label="Cart">${icon("bag")}${cartBadge()}</button>
         </div>
@@ -992,6 +981,37 @@ function bindEvents() {
   });
 
   document.addEventListener("click", (event) => {
+    const openStatePopup = event.target.closest("[data-open-state-popup]");
+    if (openStatePopup) {
+      event.preventDefault();
+      const popup = document.querySelector(".state-shortcuts");
+      if (popup) {
+        popup.classList.add("is-open");
+      }
+      return;
+    }
+
+    const closeStatePopup = event.target.closest("[data-close-state-popup]");
+    if (closeStatePopup) {
+      event.preventDefault();
+      const popup = document.querySelector(".state-shortcuts");
+      if (popup) {
+        popup.classList.remove("is-open");
+      }
+      return;
+    }
+
+    const presetButton = event.target.closest("[data-state-preset]");
+    if (presetButton) {
+      event.preventDefault();
+      const presetId = presetButton.dataset.statePreset;
+      const url = new URL(window.location.href);
+      url.search = "";
+      url.searchParams.set("statePreset", presetId);
+      window.location.href = url.toString();
+      return;
+    }
+
     const cartAction = event.target.closest("[data-cart-action]");
     if (cartAction) {
       event.preventDefault();

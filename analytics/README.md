@@ -11,11 +11,32 @@
 | `pageview` | 用户打开了哪个页面 | `app`, `page`, `path`, `referrer` |
 | `click` | 点了哪个按钮 / 链接 | `target_text`（按钮文字）, `target_href`（跳转目标）, `target_selector`（位置）, `click_x/y` |
 | `screen_view` | supermarket 单页切到哪个屏（路径） | `page`（如 home / categories / cart / checkout） |
+| `scroll_depth` | 页面滚动首次达到某个深度阈值 | `scroll_depth`（25 / 50 / 75 / 100）, `scroll_y`, `doc_height` |
+| `page_leave` | 页面离开前的停留时长 | `dwell_ms`, `visible_ms`, `scroll_depth_max`, `leave_reason` |
 
-每条事件都带匿名 `user_id`（持久）和 `session_id`（30 分钟无操作后翻新），可用来还原
-「同一个人的点击路径」。
+每条事件都带 `participant`（参与者编号，见下）、`demandlevel`（同时兼容保留 `demand` 字段）、匿名 `user_id`（持久）和 `session_id`
+（30 分钟无操作后翻新），可用来还原「同一个人的点击路径」。
 
 > 隐私：脚本**从不记录用户输入的内容**。地址 / 支付表单等输入框只记录字段名和 placeholder，不记录填的值。
+
+## 入口弹窗：参与者编号 (participant) + 任务类型 (demand)
+
+用户第一次进入任意一个 app 时，会弹一个框：先输入**参与者编号**（如 `P01` / `Alice`），
+再点 **Low demand** 或 **High demand** 两个按钮之一开始。之后这个浏览器里所有事件都会带上
+`participant` 和 `demandlevel`（`low`/`high`）字段；为兼容旧分析，事件里也会继续保留
+同值的 `demand` 字段（存在 localStorage，跨三个 app 通用）。
+
+- 必须先填编号才能点 demand 按钮，否则会提示。
+- **换人 / 重新选**：在网址后加 `?resetp=1`（如 `.../activesg/index.html?resetp=1`），清掉旧的编号和 demand 并重新弹框。同一台设备给多个参与者做实验时用这个。
+- **免弹框、直接指定**：网址后加 `?p=编号&demandlevel=low`（或 `demandlevel=high`）即可；旧写法 `demand=low/high` 也兼容。你也可以给参与者发这种专属链接。
+
+## 汇总表：一个参与者的一次访问 = 一行
+
+原始 `events` 表是「一次点击一行」的明细。脚本还能生成一张 **`sessions` 汇总表**：
+按 `participant` + `session_id` 聚合，**每次访问一行**，列出完整路径（页面 → 点的按钮 → …）、
+起止时间、时长、事件数，以及该次访问里的**最大滚动深度**、**累计停留时长**和**累计可见时长**。
+
+生成方式：在 Google Sheet 顶部菜单点 **埋点 → 刷新汇总表 (sessions)**（第一次用需刷新一下表格页面让菜单出现）。每次想看最新汇总就点一下。
 
 ## 一次性配置（约 5 分钟）
 
@@ -49,6 +70,12 @@ git add -A && git commit -m "Add experiment analytics" && git push
 ```
 
 GitHub Actions 会自动重新部署。
+
+### 改了 Apps Script 代码后要「重新部署新版本」
+
+Web App 运行的是**部署时固定的那一份代码**。以后每次修改 [`apps-script.gs`](./apps-script.gs)，
+必须：**部署 → 管理部署 → ✏️编辑 → 版本选「新版本 (New version)」→ 部署**，URL 不变，
+但线上端点才会用上新代码。（只改代码不建新版本，线上跑的还是旧的。）
 
 ## 查看 / 导出数据
 

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="order-page-body">
+    <main class="order-page-shell" aria-label="Order summary">
+      <section class="order-page">
+        <header class="order-header">
+          <div class="food-statusbar" aria-hidden="true">
+            <span class="food-time">1:19</span>
+            <div class="food-status-icons">
+              <span class="food-signal"><i></i><i></i><i></i><i></i></span>
+              <span class="food-wifi"></span>
+              <span class="food-battery"><b>59</b></span>
+            </div>
+          </div>
+
+          <div class="order-topbar">
+            <a class="food-back" id="orderBackLink" href="./dominos.html" aria-label="Back"></a>
+            <div class="order-heading">
+              <strong id="orderStoreName">Domino's Pizza - Sims Avenue</strong>
+              <span>
+                Delivery fee calculated at 1:16:58 PM
+                <i class="order-info-icon" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <section class="order-summary-section">
+          <div class="order-section-head">
+            <h2>Order Summary</h2>
+            <a id="orderAddItemsLink" href="./dominos.html">Add Items</a>
+          </div>
+
+          <article class="order-item-card">
+            <img id="orderItemImage" class="order-item-card__image" src="./assets/store-crops/dominos-1.jpg" alt="" />
+            <div class="order-item-card__copy">
+              <div class="order-item-card__topline">
+                <h3 id="orderItemName">1-for-1 Large Pizzas</h3>
+                <div class="order-item-card__prices">
+                  <strong id="orderItemPrice">39.90</strong>
+                  <s id="orderItemOldPrice">79.80</s>
+                </div>
+              </div>
+
+              <p id="orderItemDetails" class="order-item-card__details"></p>
+              <a class="order-edit-link" href="./dominos.html">Edit</a>
+            </div>
+            <button class="order-qty-pill" type="button" aria-label="Quantity">
+              <span>1</span>
+            </button>
+          </article>
+        </section>
+
+        <section class="order-recommend-section">
+          <h2>People also ordered</h2>
+          <div id="orderRecommendGrid" class="order-recommend-grid"></div>
+        </section>
+
+        <section class="order-total-card">
+          <div class="order-total-card__glow" aria-hidden="true"></div>
+          <div class="order-total-card__topline">
+            <span>Total</span>
+            <div class="order-total-card__prices">
+              <strong id="orderTotalPrice">S$47.20</strong>
+              <s id="orderTotalOldPrice">S$87.10</s>
+            </div>
+          </div>
+          <p id="orderSavingsText">Yay, you've saved S$39.90 🎉!</p>
+          <button class="order-place-button" type="button">Place order</button>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const ORDER_DATA = {
+        dominos: {
+          storeName: "Domino's Pizza - Sims Avenue",
+          storePage: "./dominos.html",
+          feeNote: "Delivery fee calculated at 1:16:58 PM",
+          recommendations: [
+            { name: "Chilli Flakes", price: 0.2, image: "./assets/order-crops/chilli-flakes.jpg" },
+            { name: "Salsa Sauce", price: 0.5, image: "./assets/order-crops/salsa-sauce.jpg" },
+            { name: "Coca-Cola (1.5L)", price: 4.9, image: "./assets/order-crops/coca-cola.jpg" },
+            { name: "Golden Wings", price: 11.9, image: "./assets/order-crops/golden-wings.jpg" }
+          ],
+          items: {
+            "large-pizzas": {
+              name: "1-for-1 Large Pizzas",
+              price: 39.9,
+              oldPrice: 79.8,
+              image: "./assets/store-crops/dominos-1.jpg",
+              details: [
+                "L- Sambalicious Ikan Bilis",
+                "Classic Hand Tossed",
+                "No Extra Cheese",
+                "Smoky Pepperoni & Mushroom",
+                "Classic Hand Tossed",
+                "No Extra Cheese",
+                "No Thanks"
+              ],
+              extraTotal: 7.3
+            },
+            "regular-pizzas": {
+              name: "1-for-1 Regular Pizzas",
+              price: 29.9,
+              oldPrice: 59.8,
+              image: "./assets/store-crops/dominos-2.jpg",
+              details: [
+                "R- Ultimate Hawaiian",
+                "Classic Hand Tossed",
+                "No Extra Cheese",
+                "R- Meatasaurus",
+                "Classic Hand Tossed",
+                "No Extra Cheese",
+                "No Thanks"
+              ],
+              extraTotal: 6.8
+            },
+            "family-set": {
+              name: "Family Set (3-4pax)",
+              price: 48.9,
+              oldPrice: 86.5,
+              image: "./assets/store-crops/dominos-1.jpg",
+              details: [
+                "2 Regular Pizzas",
+                "1 Garlic Twist",
+                "1 Coca-Cola",
+                "No extra dipping sauce"
+              ],
+              extraTotal: 7.8
+            },
+            "party-8-10": {
+              name: "Party of 8-10",
+              price: 115.0,
+              oldPrice: 185.2,
+              image: "./assets/store-crops/dominos-2.jpg",
+              details: [
+                "2 Large Pizzas",
+                "2 Regular Pizzas",
+                "Mixed chicken sides",
+                "No extra dipping sauce"
+              ],
+              extraTotal: 10.5
+            },
+            "party-set": {
+              name: "Party Set (5-6pax)",
+              price: 69.9,
+              oldPrice: 112.5,
+              image: "./assets/store-crops/dominos-1.jpg",
+              details: [
+                "2 Regular Pizzas",
+                "1 side platter",
+                "1 drink",
+                "No extra seasoning"
+              ],
+              extraTotal: 8.2
+            },
+            "buddies-bundle": {
+              name: "Buddies Bundle (2-3pax)",
+              price: 39.9,
+              oldPrice: 62.8,
+              image: "./assets/store-crops/dominos-2.jpg",
+              details: [
+                "1 Regular Pizza",
+                "Chicken sides",
+                "Garlic bread",
+                "No extra dipping sauce"
+              ],
+              extraTotal: 6.4
+            }
+          }
+        },
+        jollibee: {
+          storeName: "Jollibee - Bugis Village",
+          storePage: "./jollibee.html",
+          feeNote: "Delivery fee calculated at 1:18:08 PM",
+          recommendations: [
+            { name: "Peach Mango Pie", price: 2.8, image: "./assets/store-crops/jolli-1.jpg" },
+            { name: "Jolly Crispy Fries", price: 3.2, image: "./assets/store-crops/jolli-2.jpg" },
+            { name: "Coke Zero", price: 3.5, image: "./assets/store-crops/jolli-1.jpg" },
+            { name: "Chickenjoy Add-on", price: 4.9, image: "./assets/store-crops/jolli-2.jpg" }
+          ],
+          items: {
+            "value-two-c": {
+              name: "Value for Two Meal C (D)",
+              price: 20.0,
+              oldPrice: 28.6,
+              image: "./assets/store-crops/jolli-1.jpg",
+              details: [
+                "2 Chickenjoy pieces",
+                "2 Yumburgers",
+                "2 regular fries",
+                "2 drinks",
+                "No thanks"
+              ],
+              extraTotal: 5.6
+            },
+            "group-meal-b": {
+              name: "Group Meal B (D)",
+              price: 39.9,
+              oldPrice: 54.0,
+              image: "./assets/store-crops/jolli-2.jpg",
+              details: [
+                "Bucket Chickenjoy",
+                "Jolly Spaghetti tray",
+                "2 regular fries",
+                "1.5L drink",
+                "No thanks"
+              ],
+              extraTotal: 6.9
+            },
+            "chickenjoy-spaghetti": {
+              name: "2pc Chickenjoy with Jolly Spaghetti Meal (D)",
+              price: 12.5,
+              oldPrice: 0,
+              image: "./assets/store-crops/jolli-1.jpg",
+              details: [
+                "2pc Chickenjoy",
+                "Jolly Spaghetti",
+                "1 regular drink",
+                "No add-ons"
+              ],
+              extraTotal: 4.6
+            },
+            "three-piece-meal": {
+              name: "3pc Chickenjoy Meal (D) 2 Sides with Drink",
+              price: 13.5,
+              oldPrice: 0,
+              image: "./assets/store-crops/jolli-2.jpg",
+              details: [
+                "3pc Chickenjoy",
+                "2 side dishes",
+                "1 regular drink",
+                "No add-ons"
+              ],
+              extraTotal: 4.8
+            },
+            "two-piece-meal": {
+              name: "2pc Chickenjoy Meal (D)",
+              price: 10.8,
+              oldPrice: 0,
+              image: "./assets/store-crops/jolli-1.jpg",
+              details: [
+                "2pc Chickenjoy",
+                "Steamed rice",
+                "1 regular drink",
+                "No add-ons"
+              ],
+              extraTotal: 4.3
+            },
+            "value-two-a": {
+              name: "Value for Two Meal A (D)",
+              price: 18.6,
+              oldPrice: 0,
+              image: "./assets/store-crops/jolli-2.jpg",
+              details: [
+                "2 Chickenjoy pieces",
+                "2 steamed rice",
+                "2 drinks",
+                "No add-ons"
+              ],
+              extraTotal: 5.2
+            }
+          }
+        }
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const storeKey = params.get("store") || "dominos";
+      const itemKey = params.get("item") || "large-pizzas";
+      const store = ORDER_DATA[storeKey] || ORDER_DATA.dominos;
+      const item = store.items[itemKey] || Object.values(store.items)[0];
+
+      const money = (value) => `S$${value.toFixed(2)}`;
+      const plainMoney = (value) => value.toFixed(2);
+
+      document.title = `${item.name} - Order Summary`;
+      document.getElementById("orderBackLink").href = store.storePage;
+      document.getElementById("orderAddItemsLink").href = store.storePage;
+      document.getElementById("orderStoreName").textContent = store.storeName;
+      document.querySelector(".order-heading span").childNodes[0].nodeValue = `${store.feeNote} `;
+      document.getElementById("orderItemImage").src = item.image;
+      document.getElementById("orderItemImage").alt = item.name;
+      document.getElementById("orderItemName").textContent = item.name;
+      document.getElementById("orderItemPrice").textContent = plainMoney(item.price);
+      document.getElementById("orderItemOldPrice").textContent = item.oldPrice ? plainMoney(item.oldPrice) : "";
+      document.getElementById("orderItemOldPrice").style.display = item.oldPrice ? "" : "none";
+      document.getElementById("orderItemDetails").innerHTML = item.details.join("<br />");
+      document.querySelector(".order-edit-link").href = store.storePage;
+
+      const total = item.price + item.extraTotal;
+      const oldTotal = item.oldPrice ? item.oldPrice + item.extraTotal : total;
+      const saved = oldTotal - total;
+      document.getElementById("orderTotalPrice").textContent = money(total);
+      document.getElementById("orderTotalOldPrice").textContent = item.oldPrice ? money(oldTotal) : "";
+      document.getElementById("orderTotalOldPrice").style.display = item.oldPrice ? "" : "none";
+      document.getElementById("orderSavingsText").textContent = item.oldPrice
+        ? `Yay, you've saved ${money(saved)} 🎉!`
+        : "Fresh pick. Ready when you are.";
+
+      const recommendGrid = document.getElementById("orderRecommendGrid");
+      store.recommendations.forEach((recommendation) => {
+        const card = document.createElement("article");
+        card.className = "order-recommend-card";
+        card.innerHTML = `
+          <div class="order-recommend-card__visual">
+            <img src="${recommendation.image}" alt="${recommendation.name}" />
+            <button type="button" aria-label="Add ${recommendation.name}"><span>+</span></button>
+          </div>
+          <h3>${recommendation.name}</h3>
+          <p>${plainMoney(recommendation.price)}</p>
+        `;
+        recommendGrid.appendChild(card);
+      });
+    </script>
+  </body>
+</html>

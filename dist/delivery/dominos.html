@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Domino's Pizza</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="store-page-body">
+    <main class="store-page-shell" aria-label="Domino's Pizza menu">
+      <section class="store-page">
+        <header class="store-header">
+          <div class="food-statusbar" aria-hidden="true">
+            <span class="food-time">1:18</span>
+            <div class="food-status-icons">
+              <span class="food-signal"><i></i><i></i><i></i><i></i></span>
+              <span class="food-wifi"></span>
+              <span class="food-battery"><b>59</b></span>
+            </div>
+          </div>
+
+          <div class="store-topbar">
+            <a class="food-back" href="./food.html" aria-label="Back"></a>
+            <div class="store-heading">
+              <strong>Domino's Pizza</strong>
+              <span>- Sims Avenue</span>
+            </div>
+            <button class="store-group-order" type="button">
+              <span class="store-group-order__icon"></span>
+              <span>Group Order</span>
+            </button>
+          </div>
+
+          <div class="store-filter-row">
+            <button class="store-chip store-chip--wide" type="button">
+              <span>For You</span>
+              <span class="food-caret"></span>
+            </button>
+            <button class="store-chip" type="button">
+              <span class="store-leaf-icon"></span>
+              <span>Vegetarian</span>
+            </button>
+            <button class="store-chip store-chip--icon" type="button" aria-label="Search">
+              <span class="store-search-icon"></span>
+            </button>
+          </div>
+        </header>
+
+        <section class="store-grid" aria-label="Domino's Pizza menu items">
+          <article class="store-item">
+            <div class="store-item__visual">
+              <span class="store-item__badge">Most ordered</span>
+              <img src="./assets/store-crops/dominos-1.jpg" alt="1-for-1 Large Pizzas" />
+              <a
+                class="store-item__add"
+                href="./order-summary.html?store=dominos&item=large-pizzas"
+                aria-label="Add 1-for-1 Large Pizzas"
+              >
+                <span>+</span>
+              </a>
+            </div>
+            <h3>1-for-1 Large Pizzas</h3>
+            <p class="store-item__price-row"><strong>39.90</strong><s>79.80</s><span class="store-tag-icon"></span></p>
+          </article>
+
+          <article class="store-item">
+            <div class="store-item__visual">
+              <span class="store-item__badge">Most ordered</span>
+              <img src="./assets/store-crops/dominos-2.jpg" alt="1-for-1 Regular Pizzas" />
+              <a
+                class="store-item__add"
+                href="./order-summary.html?store=dominos&item=regular-pizzas"
+                aria-label="Add 1-for-1 Regular Pizzas"
+              >
+                <span>+</span>
+              </a>
+            </div>
+            <h3>1-for-1 Regular Pizzas</h3>
+            <p class="store-item__price-row"><strong>29.90</strong><s>59.80</s><span class="store-tag-icon"></span></p>
+          </article>
+
+          <article class="store-item">
+            <div class="store-item__visual">
+              <img src="./assets/store-crops/dominos-1.jpg" alt="Family Set" />
+              <a class="store-item__add" href="./order-summary.html?store=dominos&item=family-set" aria-label="Add Family Set">
+                <span>+</span>
+              </a>
+            </div>
+            <h3>Family Set (3-4pax)</h3>
+            <p class="store-item__price-row"><strong>48.90</strong><s>86.50</s><span class="store-tag-icon"></span></p>
+          </article>
+
+          <article class="store-item">
+            <div class="store-item__visual">
+              <img src="./assets/store-crops/dominos-2.jpg" alt="Party of 8-10" />
+              <a class="store-item__add" href="./order-summary.html?store=dominos&item=party-8-10" aria-label="Add Party of 8-10">
+                <span>+</span>
+              </a>
+            </div>
+            <h3>Party of 8-10</h3>
+            <p class="store-item__price-row"><strong>115.00</strong><s>185.20</s><span class="store-tag-icon"></span></p>
+          </article>
+
+          <article class="store-item">
+            <div class="store-item__visual">
+              <img src="./assets/store-crops/dominos-1.jpg" alt="Party Set" />
+              <a class="store-item__add" href="./order-summary.html?store=dominos&item=party-set" aria-label="Add Party Set">
+                <span>+</span>
+              </a>
+            </div>
+            <h3>Party Set (5-6pax)</h3>
+            <p class="store-item__price-row"><strong>69.90</strong><s>112.50</s><span class="store-tag-icon"></span></p>
+          </article>
+
+          <article class="store-item">
+            <div class="store-item__visual">
+              <img src="./assets/store-crops/dominos-2.jpg" alt="Buddies Bundle" />
+              <a
+                class="store-item__add"
+                href="./order-summary.html?store=dominos&item=buddies-bundle"
+                aria-label="Add Buddies Bundle"
+              >
+                <span>+</span>
+              </a>
+            </div>
+            <h3>Buddies Bundle (2-3pax)</h3>
+            <p class="store-item__price-row"><strong>39.90</strong><s>62.80</s><span class="store-tag-icon"></span></p>
+          </article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

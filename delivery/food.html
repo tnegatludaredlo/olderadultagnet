@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="food-page-body">
+    <main class="food-page-shell" aria-label="Food delivery">
+      <section class="food-page">
+        <header class="food-header">
+          <div class="food-statusbar" aria-hidden="true">
+            <span class="food-time">1:16</span>
+            <div class="food-status-icons">
+              <span class="food-signal"><i></i><i></i><i></i><i></i></span>
+              <span class="food-wifi"></span>
+              <span class="food-battery"><b>60</b></span>
+            </div>
+          </div>
+
+          <div class="food-location-row">
+            <a class="food-back" href="./index.html" aria-label="Back"></a>
+            <div class="food-location-copy">
+              <p>Deliver now</p>
+              <button type="button">
+                <strong>Sunshine Plaza</strong>
+                <span class="food-caret"></span>
+              </button>
+            </div>
+          </div>
+
+          <button class="food-search" type="button" aria-label="Search food">
+            <span class="food-search__icon"></span>
+            <span>What shall we deliver?</span>
+          </button>
+
+          <div class="food-filter-row" aria-label="Filters">
+            <button class="food-filter-chip food-filter-chip--icon" type="button" aria-label="More filters">
+              <span class="food-filter-icon sliders"></span>
+            </button>
+            <button class="food-filter-chip" type="button">
+              <span class="food-filter-icon sort"></span>
+              <span>Sort By</span>
+              <span class="food-caret"></span>
+            </button>
+            <button class="food-filter-chip" type="button">
+              <span class="food-filter-icon bike"></span>
+              <span>Under S$3.00</span>
+            </button>
+            <button class="food-filter-chip food-filter-chip--icon" type="button" aria-label="Fast delivery">
+              <span class="food-filter-icon flash"></span>
+            </button>
+          </div>
+        </header>
+
+        <section class="food-section">
+          <div class="food-section-head">
+            <h2>Most popular</h2>
+          </div>
+          <div class="food-brand-grid" aria-label="Popular food brands">
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/mcd.jpg" alt="McDonald's" />
+              <strong>McDonald's</strong>
+            </button>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/kfc.jpg" alt="KFC" />
+              <strong>KFC</strong>
+            </button>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/wingstop.jpg" alt="Wingstop" />
+              <strong>Wingstop</strong>
+            </button>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/pizzahut.jpg" alt="Pizza Hut" />
+              <strong>Pizza Hut</strong>
+            </button>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/starbucks.jpg" alt="Starbucks" />
+              <strong>Starbucks</strong>
+            </button>
+            <a class="food-brand-card" href="./jollibee.html" aria-label="Jollibee">
+              <img class="food-brand-thumb" src="./assets/crops/jollibee-mini.jpg" alt="Jollibee" />
+              <strong>Jollibee</strong>
+            </a>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/burgerking.jpg" alt="Burger King" />
+              <strong>Burger King</strong>
+            </button>
+            <a class="food-brand-card" href="./dominos.html" aria-label="Domino's Pizza">
+              <img class="food-brand-thumb" src="./assets/crops/dominos-mini.jpg" alt="Domino's Pizza" />
+              <strong>Domino's Pizza</strong>
+            </a>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/subway.jpg" alt="Subway" />
+              <strong>Subway</strong>
+            </button>
+            <button class="food-brand-card" type="button">
+              <img class="food-brand-thumb" src="./assets/crops/chagee.jpg" alt="Chagee" />
+              <strong>Chagee</strong>
+            </button>
+          </div>
+          <div class="food-pager" aria-hidden="true">
+            <span class="is-active"></span>
+            <span></span>
+          </div>
+        </section>
+
+        <section class="food-ai-banner" aria-label="Grab AI recommendation">
+          <h2>Try a new way to search</h2>
+          <p>Can't find what you're looking for? Grab AI can help you navigate all the options.</p>
+          <button type="button">
+            <span class="food-ai-star"></span>
+            <span>Ask Grab AI: Lunch delivered in 30 minutes</span>
+          </button>
+        </section>
+
+        <section class="food-section">
+          <div class="food-section-head">
+            <h2>Popular Restaurants</h2>
+          </div>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./jollibee.html" aria-label="Jollibee">
+              <img class="food-restaurant-thumb" src="./assets/crops/jollibee-card.jpg" alt="Jollibee" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3><a class="food-restaurant-link" href="./jollibee.html">Jollibee</a></h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 3.8 (4K+) · $$$$ · Western</p>
+              <p class="food-price-line">S$1.80 <s>S$4.80</s> · From 36 mins</p>
+              <button class="food-offer-pill" type="button">
+                <img class="food-offer-thumb" src="./assets/crops/jollibee-offer.jpg" alt="" />
+                <span>
+                  <strong>S$14.10 off</strong>
+                  <small>Group Meal B (D)</small>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./dominos.html" aria-label="Domino's Pizza">
+              <img class="food-restaurant-thumb" src="./assets/crops/dominos-card.jpg" alt="Domino's Pizza" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3><a class="food-restaurant-link" href="./dominos.html">Domino's Pizza</a></h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.2 (184) · $$$$ · Halal · Western</p>
+              <p class="food-price-line">Free <s>S$1.90</s> · From 46 mins</p>
+              <button class="food-offer-pill" type="button">
+                <img class="food-offer-thumb" src="./assets/crops/dominos-offer.jpg" alt="" />
+                <span>
+                  <strong>S$73.21 off</strong>
+                  <small>Crunch for 5-6pax</small>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./food.html" aria-label="Maki-San">
+              <img class="food-restaurant-thumb" src="./assets/crops/makisan-card.jpg" alt="Maki-San" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3>Maki-San - Cineleisure</h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.7 (2K+) · $$$$ · Halal · Japanese</p>
+              <p class="food-price-line">S$1.20 <s>S$4.20</s> · From 41 mins</p>
+              <button class="food-offer-pill" type="button">
+                <img class="food-offer-thumb" src="./assets/crops/makisan-offer.jpg" alt="" />
+                <span>
+                  <strong>S$22.45 off</strong>
+                  <small>TASTY TWOSOME...</small>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./food.html" aria-label="Basil King">
+              <img class="food-restaurant-thumb" src="./assets/crops/basil-card.jpg" alt="Basil King" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <h3>Basil King - Waterloo Street</h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.5 (117) · $$$$ · Thai</p>
+              <p class="food-price-line">S$3.40 <s>S$6.40</s> · From 36 mins</p>
+              <button class="food-offer-pill" type="button">
+                <span class="food-filter-icon tag"></span>
+                <span>
+                  <strong>S$2.00 off Delivery</strong>
+                  <small>Min. spend S$50.00</small>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./food.html" aria-label="Telur Thai">
+              <img class="food-restaurant-thumb" src="./assets/crops/telurthai-card.jpg" alt="Telur Thai" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3>Telur Thai - Singapore Ge...</h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.0 (662) · $$$$ · Halal · Thai</p>
+              <p class="food-price-line">S$1.90 <s>S$4.90</s> · From 43 mins</p>
+              <button class="food-offer-pill" type="button">
+                <span class="food-filter-icon tag"></span>
+                <span>
+                  <strong>20% off</strong>
+                  <small>Min. spend S$35.00</small>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./food.html" aria-label="Shiok Burger">
+              <img class="food-restaurant-thumb" src="./assets/crops/shiokburger-card.jpg" alt="Shiok Burger" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3>Shiok Burger 新奇汉堡 - R...</h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.3 (162) · $$$$ · Halal · Western</p>
+              <p class="food-price-line">S$3.00 <s>S$6.00</s> · From 41 mins</p>
+              <button class="food-offer-pill" type="button">
+                <img class="food-offer-thumb" src="./assets/crops/shiok-offer.jpg" alt="" />
+                <span>
+                  <strong>S$2.89 off</strong>
+                  <small>2PC Shiok Slider Set</small>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./food.html" aria-label="PaperBakes">
+              <img class="food-restaurant-thumb" src="./assets/crops/paperbakes-card.jpg" alt="PaperBakes" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3>PaperBakes - Plaza Singa...</h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.5 (123) · $$$$ · Western</p>
+              <p class="food-price-line">S$3.00 <s>S$6.00</s> · From 43 mins</p>
+            </div>
+          </article>
+
+          <article class="food-restaurant-card">
+            <a class="food-restaurant-thumb-link" href="./food.html" aria-label="Mama Teh Tarik">
+              <img class="food-restaurant-thumb" src="./assets/crops/mamateh-card.jpg" alt="Mama Teh Tarik" />
+            </a>
+            <div class="food-restaurant-copy">
+              <div class="food-restaurant-topline">
+                <span class="food-ad-pill">Ad</span>
+                <h3>Mama Teh Tarik - Killiney...</h3>
+                <button type="button" aria-label="More"></button>
+              </div>
+              <p class="food-meta"><span>⭐</span> 4.1 (290) · $$$$ · Noodle</p>
+              <p class="food-price-line">S$0.90 <s>S$3.90</s> · From 41 mins</p>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

@@ -23,6 +23,11 @@ let savedAddress = null;
 let selectedDeliverySlot = "";
 let selectedRemark = "";
 let savedPaymentMethod = null;
+let currentListingCategoryId = "housebrands";
+let currentListingSubcategory = "All";
+let activeFilterSheet = "";
+let pendingListingFilters = createEmptyListingFilters();
+let appliedListingFilters = createEmptyListingFilters();
 
 const defaultSavedAddress = {
   name: "Zhiq",
@@ -39,6 +44,16 @@ const defaultSavedPaymentMethod = {
   last4: "4242",
   brand: "Visa",
 };
+
+function createEmptyListingFilters() {
+  return {
+    brands: [],
+    pricing: [],
+    dietary: [],
+    origin: [],
+    tags: [],
+  };
+}
 
 function svgUrl(markup) {
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(markup)}`;
@@ -151,12 +166,57 @@ const statePresets = {
 };
 const visibleStatePresetIds = ["breakfast-cart"];
 
+function getStoredExperimentDemand() {
+  try {
+    return (sessionStorage.getItem("exp_demand") || "").trim().toLowerCase();
+  } catch (error) {
+    return "";
+  }
+}
+
 function cloneAddress(address) {
   return address ? { ...address } : null;
 }
 
 function clonePaymentMethod(paymentMethod) {
   return paymentMethod ? { ...paymentMethod } : null;
+}
+
+function autoCartStateForDemand() {
+  const demand = getStoredExperimentDemand();
+  if (demand !== "high") {
+    return null;
+  }
+
+  const preset = statePresets["breakfast-cart"];
+  if (!preset || !preset.cart) {
+    return null;
+  }
+
+  return {
+    cart: { ...preset.cart },
+  };
+}
+
+function syncCartToExperimentDemand() {
+  const autoState = autoCartStateForDemand();
+  if (!autoState?.cart) {
+    return;
+  }
+
+  cartItems.clear();
+  Object.entries(autoState.cart).forEach(([productId, qty]) => {
+    if (!productById.has(productId)) {
+      return;
+    }
+
+    const safeQty = Number.parseInt(String(qty), 10);
+    if (Number.isFinite(safeQty) && safeQty > 0) {
+      cartItems.set(productId, safeQty);
+    }
+  });
+
+  refreshCurrentView();
 }
 
 function resetScenarioState({ keepSearch = false } = {}) {
@@ -240,6 +300,13 @@ function parseStateFromUrl() {
     state.selectedRemark = remark;
   }
 
+  if (!preset && !params.has("cart")) {
+    const autoState = autoCartStateForDemand();
+    if (autoState?.cart) {
+      state.cart = autoState.cart;
+    }
+  }
+
   return state;
 }
 
@@ -285,6 +352,9 @@ function applyStateConfig(state = {}) {
 }
 
 function renderStateShortcuts() {
+  if (!visibleStatePresetIds.length) {
+    return;
+  }
   const shortcuts = document.createElement("aside");
   shortcuts.className = "state-shortcuts";
   shortcuts.innerHTML = `
@@ -311,8 +381,19 @@ function renderStateShortcuts() {
 }
 
 function stateShortcutButton() {
-  return `<button class="head-button state-trigger" type="button" data-open-state-popup aria-label="Open cart shortcut">${icon("bag")}</button>`;
+  return "";
 }
+
+function goBackTo(target) {
+  if (target === "previous") {
+    goToView(previousView === "detail" ? "home" : previousView);
+    return;
+  }
+
+  goToView(target === "categories" ? "categories" : target === "home" ? "home" : "listing");
+}
+
+window.goBackTo = goBackTo;
 
 function icon(name) {
   const icons = {
@@ -464,7 +545,7 @@ function header({ title = "", mode = "brand", backTarget = "categories", showSub
     <header class="green-head listing-head">
       <div class="status-row"><span>7:13</span><span class="status-icons">||| WiFi 57</span></div>
       <div class="titlebar">
-        <button class="back-button" type="button" data-back="${backTarget}" aria-label="Back">${icon("back")}</button>
+        <button class="back-button" type="button" data-back="${backTarget}" onclick="window.goBackTo('${backTarget}')" aria-label="Back">${icon("back")}</button>
         <h1>${title}</h1>
         <div class="head-group">
           ${stateShortcutButton()}
@@ -499,6 +580,273 @@ function getProductImage(product) {
 
 function sortProductsByName(items) {
   return [...items].sort((a, b) => (a.name || "").localeCompare(b.name || "", "en", { sensitivity: "base", numeric: true }));
+}
+
+function cloneListingFilters(filters = createEmptyListingFilters()) {
+  return {
+    brands: [...(filters.brands || [])],
+    pricing: [...(filters.pricing || [])],
+    dietary: [...(filters.dietary || [])],
+    origin: [...(filters.origin || [])],
+    tags: [...(filters.tags || [])],
+  };
+}
+
+function listingFiltersCount(filters = appliedListingFilters) {
+  return Object.values(filters).reduce((sum, values) => sum + values.length, 0);
+}
+
+function deriveSubcategoryLabel(product, category) {
+  const raw = String(product.rawCategory || "").trim();
+  if (!raw) {
+    return "All";
+  }
+
+  const normalizedCategoryTokens = String(category.name || category.categoryName || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  const rawTokens = raw.split(/\s+/).filter(Boolean);
+  let index = 0;
+
+  while (index < rawTokens.length) {
+    const normalized = rawTokens[index].toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (!normalizedCategoryTokens.includes(normalized)) {
+      break;
+    }
+    index += 1;
+  }
+
+  const derived = rawTokens.slice(index).join(" ").trim();
+  return derived || raw;
+}
+
+function subcategoriesFor(category) {
+  const counts = new Map();
+  activeProducts
+    .filter((product) => product.category === category.id)
+    .forEach((product) => {
+      const label = deriveSubcategoryLabel(product, category);
+      if (!label || label === "All") {
+        return;
+      }
+      counts.set(label, (counts.get(label) || 0) + 1);
+    });
+
+  return [...counts.entries()]
+    .sort((a, b) => (b[1] - a[1]) || a[0].localeCompare(b[0], "en", { sensitivity: "base" }))
+    .slice(0, 10)
+    .map(([label]) => label);
+}
+
+function pricingBucket(product) {
+  const price = Number(product.price || 0);
+  if (price < 2) {
+    return "Under $2";
+  }
+  if (price < 5) {
+    return "$2 - $5";
+  }
+  if (price < 10) {
+    return "$5 - $10";
+  }
+  return "Above $10";
+}
+
+const knownOriginPrefixes = [
+  "Australia",
+  "Belgium",
+  "Brazil",
+  "Canada",
+  "Chile",
+  "China",
+  "Denmark",
+  "Ecuador",
+  "France",
+  "Germany",
+  "Holland",
+  "India",
+  "Indonesia",
+  "Italy",
+  "Japan",
+  "Korea",
+  "Malaysia",
+  "Myanmar",
+  "Netherlands",
+  "New Zealand",
+  "Norway",
+  "Pakistan",
+  "Philippines",
+  "Portugal",
+  "Scotland",
+  "Singapore",
+  "South Africa",
+  "Spain",
+  "Taiwan",
+  "Thailand",
+  "Turkey",
+  "UK",
+  "USA",
+  "Vietnam",
+];
+
+function inferOriginFromName(name = "") {
+  const text = String(name).trim();
+  if (!text) {
+    return "";
+  }
+
+  const matches = [];
+  let remainder = text;
+
+  while (remainder) {
+    const matchedPrefix = knownOriginPrefixes.find((prefix) => remainder.toLowerCase().startsWith(prefix.toLowerCase()));
+    if (!matchedPrefix) {
+      break;
+    }
+
+    matches.push(matchedPrefix);
+    remainder = remainder.slice(matchedPrefix.length).trimStart();
+
+    if (remainder.startsWith("/")) {
+      remainder = remainder.slice(1).trimStart();
+      continue;
+    }
+
+    break;
+  }
+
+  return matches.join(" / ");
+}
+
+function productOrigin(product) {
+  const directOrigin = (product.origin || "").trim();
+  if (directOrigin) {
+    return directOrigin;
+  }
+
+  return inferOriginFromName(product.name);
+}
+
+const listingFilterConfig = {
+  brands: {
+    label: "Brands",
+    valueForProduct: (product) => (product.brand || "").trim(),
+    sort: (a, b) => (b.count - a.count) || a.value.localeCompare(b.value, "en", { sensitivity: "base" }),
+  },
+  pricing: {
+    label: "Pricing",
+    valueForProduct: pricingBucket,
+    sort: (a, b) => ["Under $2", "$2 - $5", "$5 - $10", "Above $10"].indexOf(a.value) - ["Under $2", "$2 - $5", "$5 - $10", "Above $10"].indexOf(b.value),
+  },
+  dietary: {
+    label: "Dietary",
+    valuesForProduct: (product) => Array.isArray(product.dietary) ? product.dietary.filter(Boolean) : [],
+    sort: (a, b) => (b.count - a.count) || a.value.localeCompare(b.value, "en", { sensitivity: "base" }),
+  },
+  origin: {
+    label: "Origin",
+    valueForProduct: productOrigin,
+    sort: (a, b) => a.value.localeCompare(b.value, "en", { sensitivity: "base" }),
+  },
+  tags: {
+    label: "Tags",
+    valuesForProduct: (product) => Array.isArray(product.tags) ? product.tags.filter(Boolean) : [],
+    sort: (a, b) => (b.count - a.count) || a.value.localeCompare(b.value, "en", { sensitivity: "base" }),
+  },
+};
+
+function filterValuesForProduct(product, key) {
+  const config = listingFilterConfig[key];
+  if (!config) {
+    return [];
+  }
+
+  if (typeof config.valuesForProduct === "function") {
+    return config.valuesForProduct(product);
+  }
+
+  const singleValue = typeof config.valueForProduct === "function" ? config.valueForProduct(product) : "";
+  return singleValue ? [singleValue] : [];
+}
+
+function productMatchesFilters(product, filters, options = {}) {
+  const { omitKey = "" } = options;
+  return Object.entries(filters).every(([key, selectedValues]) => {
+    if (key === omitKey || !selectedValues.length) {
+      return true;
+    }
+
+    const values = filterValuesForProduct(product, key);
+    return selectedValues.some((value) => values.includes(value));
+  });
+}
+
+function categoryProducts(categoryId = currentListingCategoryId, { includeSubcategory = true } = {}) {
+  const category = activeCategories.find((item) => item.id === categoryId) || activeCategories[0];
+  return activeProducts.filter((product) => {
+    if (product.category !== category.id) {
+      return false;
+    }
+    if (!includeSubcategory || currentListingSubcategory === "All") {
+      return true;
+    }
+    return deriveSubcategoryLabel(product, category) === currentListingSubcategory;
+  });
+}
+
+function listingProducts(categoryId = currentListingCategoryId, filters = appliedListingFilters) {
+  return sortProductsByName(categoryProducts(categoryId).filter((product) => productMatchesFilters(product, filters)));
+}
+
+function listingFilterOptions(key, categoryId = currentListingCategoryId, filters = pendingListingFilters) {
+  const config = listingFilterConfig[key];
+  const counts = new Map();
+  const selected = filters[key] || [];
+
+  categoryProducts(categoryId).forEach((product) => {
+    if (!productMatchesFilters(product, filters, { omitKey: key })) {
+      return;
+    }
+
+    filterValuesForProduct(product, key).forEach((value) => {
+      if (!value) {
+        return;
+      }
+      counts.set(value, (counts.get(value) || 0) + 1);
+    });
+  });
+
+  selected.forEach((value) => {
+    if (!counts.has(value)) {
+      counts.set(value, 0);
+    }
+  });
+
+  return [...counts.entries()]
+    .map(([value, count]) => ({ value, count }))
+    .sort(config.sort);
+}
+
+function listingChipLabel(key) {
+  const count = appliedListingFilters[key]?.length || 0;
+  return `${listingFilterConfig[key].label}${count ? ` (${count})` : ""}`;
+}
+
+function togglePendingFilterValue(key, value) {
+  const currentValues = pendingListingFilters[key] || [];
+  pendingListingFilters[key] = currentValues.includes(value)
+    ? currentValues.filter((item) => item !== value)
+    : [...currentValues, value];
+}
+
+function closeListingFilterSheet({ syncPending = true } = {}) {
+  activeFilterSheet = "";
+  if (syncPending) {
+    pendingListingFilters = cloneListingFilters(appliedListingFilters);
+  }
 }
 
 function quantityControl(product, variant = "card") {
@@ -624,17 +972,79 @@ function renderCategories() {
   `;
 }
 
+function renderListingFilterSheet(categoryId = currentListingCategoryId) {
+  if (!activeFilterSheet || !listingFilterConfig[activeFilterSheet]) {
+    return "";
+  }
+
+  const options = listingFilterOptions(activeFilterSheet, categoryId, pendingListingFilters);
+  const selectedValues = pendingListingFilters[activeFilterSheet] || [];
+  const selectedCount = listingFiltersCount(pendingListingFilters);
+
+  return `
+    <div class="filter-sheet is-open" data-filter-sheet>
+      <button class="filter-sheet__backdrop" type="button" data-close-filter-sheet aria-label="Close filter panel"></button>
+      <section class="filter-sheet__panel" aria-label="${listingFilterConfig[activeFilterSheet].label} filter">
+        <span class="filter-sheet__handle" aria-hidden="true"></span>
+        <div class="filter-sheet__body">
+          <h2>${listingFilterConfig[activeFilterSheet].label}</h2>
+          ${options.length ? options.map((option) => `
+            <button
+              class="filter-option ${selectedValues.includes(option.value) ? "is-selected" : ""}"
+              type="button"
+              data-filter-option="${activeFilterSheet}"
+              data-filter-value="${option.value.replace(/"/g, "&quot;")}"
+            >
+              <span>${option.value} (${option.count})</span>
+              <i aria-hidden="true"></i>
+            </button>
+          `).join("") : '<div class="empty-state empty-state--sheet">No filter options available.</div>'}
+        </div>
+        <div class="filter-sheet__footer">
+          <button class="sheet-button sheet-button--ghost" type="button" data-reset-filters>Reset</button>
+          <button class="sheet-button sheet-button--primary" type="button" data-apply-filters>Apply${selectedCount ? ` (${selectedCount})` : ""}</button>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
 function renderListing(categoryId = "housebrands") {
+  if (categoryId !== currentListingCategoryId) {
+    currentListingCategoryId = categoryId;
+    currentListingSubcategory = "All";
+    activeFilterSheet = "";
+    pendingListingFilters = createEmptyListingFilters();
+    appliedListingFilters = createEmptyListingFilters();
+  }
+
   const category = activeCategories.find((item) => item.id === categoryId) || activeCategories[0];
-  const categoryProducts = productsFor(category.id);
+  const subcategories = subcategoriesFor(category);
+  if (currentListingSubcategory !== "All" && !subcategories.includes(currentListingSubcategory)) {
+    currentListingSubcategory = "All";
+  }
+  const filteredProducts = listingProducts(category.id, appliedListingFilters);
   screens.listing.innerHTML = `
-    ${header({ title: category.name, mode: "listing", backTarget: "categories" })}
+    ${header({ title: category.name, mode: "listing", backTarget: "categories", showSubtabs: false })}
+    <div class="subtabs">
+      <button class="subtab ${currentListingSubcategory === "All" ? "is-active" : ""}" type="button" data-listing-subcategory="All">All</button>
+      ${subcategories.map((label) => `
+        <button class="subtab ${currentListingSubcategory === label ? "is-active" : ""}" type="button" data-listing-subcategory="${label.replace(/"/g, "&quot;")}">${label}</button>
+      `).join("")}
+    </div>
     <div class="filters">
-      ${["Brands", "Pricing", "Dietary", "Origin", "Tags"].map((item) => `<button class="filter-chip" type="button">${item}⌄</button>`).join("")}
+      ${Object.keys(listingFilterConfig).map((key) => `
+        <button class="filter-chip ${appliedListingFilters[key].length ? "is-active" : ""}" type="button" data-open-filter-sheet="${key}">
+          ${listingChipLabel(key)} <span aria-hidden="true">⌄</span>
+        </button>
+      `).join("")}
     </div>
-    <div class="product-grid">
-      ${categoryProducts.map((product) => productCard(product)).join("")}
-    </div>
+    ${filteredProducts.length ? `
+      <div class="product-grid">
+        ${filteredProducts.map((product) => productCard(product)).join("")}
+      </div>
+    ` : '<div class="empty-state">No products match the selected filters.</div>'}
+    ${renderListingFilterSheet(category.id)}
   `;
   screens.listing.dataset.categoryId = category.id;
 }
@@ -926,6 +1336,10 @@ function refreshCurrentView(productId = null) {
 }
 
 function goToView(view) {
+  if (view !== "listing") {
+    closeListingFilterSheet();
+  }
+
   if (view === "listing") {
     renderListing(screens.listing.dataset.categoryId || "housebrands");
   } else if (view === "favourites") {
@@ -967,6 +1381,7 @@ function changeCartQuantity(productId, delta) {
 window.changeCartQuantity = changeCartQuantity;
 
 function openProductDetail(productId) {
+  closeListingFilterSheet();
   renderDetail(productId);
   setView("detail");
 }
@@ -1096,6 +1511,59 @@ function bindEvents() {
       return;
     }
 
+    const openFilterSheetButton = event.target.closest("[data-open-filter-sheet]");
+    if (openFilterSheetButton) {
+      event.preventDefault();
+      activeFilterSheet = openFilterSheetButton.dataset.openFilterSheet;
+      pendingListingFilters = cloneListingFilters(appliedListingFilters);
+      renderListing(currentListingCategoryId);
+      return;
+    }
+
+    const closeFilterSheetButton = event.target.closest("[data-close-filter-sheet]");
+    if (closeFilterSheetButton) {
+      event.preventDefault();
+      closeListingFilterSheet();
+      renderListing(currentListingCategoryId);
+      return;
+    }
+
+    const filterOption = event.target.closest("[data-filter-option]");
+    if (filterOption) {
+      event.preventDefault();
+      togglePendingFilterValue(filterOption.dataset.filterOption, filterOption.dataset.filterValue);
+      renderListing(currentListingCategoryId);
+      return;
+    }
+
+    const resetFiltersButton = event.target.closest("[data-reset-filters]");
+    if (resetFiltersButton) {
+      event.preventDefault();
+      pendingListingFilters = createEmptyListingFilters();
+      appliedListingFilters = createEmptyListingFilters();
+      closeListingFilterSheet({ syncPending: false });
+      renderListing(currentListingCategoryId);
+      return;
+    }
+
+    const applyFiltersButton = event.target.closest("[data-apply-filters]");
+    if (applyFiltersButton) {
+      event.preventDefault();
+      appliedListingFilters = cloneListingFilters(pendingListingFilters);
+      closeListingFilterSheet();
+      renderListing(currentListingCategoryId);
+      return;
+    }
+
+    const listingSubcategory = event.target.closest("[data-listing-subcategory]");
+    if (listingSubcategory) {
+      event.preventDefault();
+      currentListingSubcategory = listingSubcategory.dataset.listingSubcategory;
+      closeListingFilterSheet();
+      renderListing(currentListingCategoryId);
+      return;
+    }
+
     const checkoutBack = event.target.closest("[data-checkout-back]");
     if (checkoutBack) {
       event.preventDefault();
@@ -1142,12 +1610,8 @@ function bindEvents() {
 
     const back = event.target.closest("[data-back]");
     if (back) {
-      const target = back.dataset.back;
-      if (target === "previous") {
-        goToView(previousView === "detail" ? "home" : previousView);
-      } else {
-        goToView(target === "categories" ? "categories" : target === "home" ? "home" : "listing");
-      }
+      goBackTo(back.dataset.back);
+      return;
     }
   });
 
@@ -1241,6 +1705,9 @@ renderPaymentForm();
 bindEvents();
 updateCartBadges();
 renderStateShortcuts();
+window.addEventListener("experiment-entry-change", () => {
+  syncCartToExperimentDemand();
+});
 
 if (bootState.view && allowedViews.has(bootState.view)) {
   if (bootState.view === "listing") {

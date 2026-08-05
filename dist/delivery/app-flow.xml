@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appFlow app="Delivery Food Mock App" entryPage="food">
+  <pages>
+    <page id="food" screenId="food-screen" title="Food">
+      <button id="food-back" label="Back" selector=".food-back" targetPage="delivery-home" action="return to delivery home" />
+      <button id="food-location" label="Sunshine Plaza selector" selector=".food-location-copy button" targetPage="food" action="currently visual only" />
+      <button id="food-search" label="Search food" selector=".food-search" targetPage="food" action="currently visual only" />
+      <button id="food-filter-more" label="More filters" selector=".food-filter-chip--icon" targetPage="food" action="currently visual only" />
+      <button id="food-filter-sort" label="Sort By" selector=".food-filter-chip" targetPage="food" action="currently visual only" />
+      <button id="food-brand-jollibee" label="Jollibee brand shortcut" selector=".food-brand-card[href='./jollibee.html']" targetPage="jollibee-store" action="open Jollibee store page" />
+      <button id="food-brand-dominos" label="Domino's Pizza brand shortcut" selector=".food-brand-card[href='./dominos.html']" targetPage="dominos-store" action="open Domino's Pizza store page" />
+      <button id="food-jollibee-card-image" label="Jollibee restaurant image" selector=".food-restaurant-thumb-link[href='./jollibee.html']" targetPage="jollibee-store" action="open Jollibee store page" />
+      <button id="food-jollibee-card-title" label="Jollibee restaurant title" selector=".food-restaurant-link[href='./jollibee.html']" targetPage="jollibee-store" action="open Jollibee store page" />
+      <button id="food-dominos-card-image" label="Domino's Pizza restaurant image" selector=".food-restaurant-thumb-link[href='./dominos.html']" targetPage="dominos-store" action="open Domino's Pizza store page" />
+      <button id="food-dominos-card-title" label="Domino's Pizza restaurant title" selector=".food-restaurant-link[href='./dominos.html']" targetPage="dominos-store" action="open Domino's Pizza store page" />
+      <button id="food-other-restaurant-card" label="Other restaurant card" selector=".food-restaurant-thumb-link[href='./food.html']" targetPage="food" action="currently loops on same page placeholder" />
+    </page>
+
+    <page id="jollibee-store" screenId="store-screen" title="Jollibee">
+      <button id="jollibee-back" label="Back" selector=".food-back" targetPage="food" action="return to food page" />
+      <button id="jollibee-group-order" label="Group Order" selector=".store-group-order" targetPage="jollibee-store" action="currently visual only" />
+      <button id="jollibee-filter-for-you" label="For You filter" selector=".store-chip--wide" targetPage="jollibee-store" action="currently visual only" />
+      <button id="jollibee-filter-vegetarian" label="Vegetarian filter" selector=".store-chip:not(.store-chip--wide):not(.store-chip--icon)" targetPage="jollibee-store" action="currently visual only" />
+      <button id="jollibee-search" label="Search icon" selector=".store-chip--icon" targetPage="jollibee-store" action="currently visual only" />
+      <button id="jollibee-add-value-two-c" label="Add Value for Two Meal C" selector=".store-item__add[href*='store=jollibee&amp;item=value-two-c']" targetPage="order-summary" action="open order summary for Value for Two Meal C" />
+      <button id="jollibee-add-group-meal-b" label="Add Group Meal B" selector=".store-item__add[href*='store=jollibee&amp;item=group-meal-b']" targetPage="order-summary" action="open order summary for Group Meal B" />
+      <button id="jollibee-add-chickenjoy-spaghetti" label="Add 2pc Chickenjoy with Jolly Spaghetti Meal" selector=".store-item__add[href*='store=jollibee&amp;item=chickenjoy-spaghetti']" targetPage="order-summary" action="open order summary for 2pc Chickenjoy with Jolly Spaghetti Meal" />
+      <button id="jollibee-add-three-piece-meal" label="Add 3pc Chickenjoy Meal" selector=".store-item__add[href*='store=jollibee&amp;item=three-piece-meal']" targetPage="order-summary" action="open order summary for 3pc Chickenjoy Meal" />
+      <button id="jollibee-add-two-piece-meal" label="Add 2pc Chickenjoy Meal" selector=".store-item__add[href*='store=jollibee&amp;item=two-piece-meal']" targetPage="order-summary" action="open order summary for 2pc Chickenjoy Meal" />
+      <button id="jollibee-add-value-two-a" label="Add Value for Two Meal A" selector=".store-item__add[href*='store=jollibee&amp;item=value-two-a']" targetPage="order-summary" action="open order summary for Value for Two Meal A" />
+    </page>
+
+    <page id="dominos-store" screenId="store-screen" title="Domino's Pizza">
+      <button id="dominos-back" label="Back" selector=".food-back" targetPage="food" action="return to food page" />
+      <button id="dominos-group-order" label="Group Order" selector=".store-group-order" targetPage="dominos-store" action="currently visual only" />
+      <button id="dominos-filter-for-you" label="For You filter" selector=".store-chip--wide" targetPage="dominos-store" action="currently visual only" />
+      <button id="dominos-filter-vegetarian" label="Vegetarian filter" selector=".store-chip:not(.store-chip--wide):not(.store-chip--icon)" targetPage="dominos-store" action="currently visual only" />
+      <button id="dominos-search" label="Search icon" selector=".store-chip--icon" targetPage="dominos-store" action="currently visual only" />
+      <button id="dominos-add-large-pizzas" label="Add 1-for-1 Large Pizzas" selector=".store-item__add[href*='store=dominos&amp;item=large-pizzas']" targetPage="order-summary" action="open order summary for 1-for-1 Large Pizzas" />
+      <button id="dominos-add-regular-pizzas" label="Add 1-for-1 Regular Pizzas" selector=".store-item__add[href*='store=dominos&amp;item=regular-pizzas']" targetPage="order-summary" action="open order summary for 1-for-1 Regular Pizzas" />
+      <button id="dominos-add-family-set" label="Add Family Set" selector=".store-item__add[href*='store=dominos&amp;item=family-set']" targetPage="order-summary" action="open order summary for Family Set" />
+      <button id="dominos-add-party-8-10" label="Add Party of 8-10" selector=".store-item__add[href*='store=dominos&amp;item=party-8-10']" targetPage="order-summary" action="open order summary for Party of 8-10" />
+      <button id="dominos-add-party-set" label="Add Party Set" selector=".store-item__add[href*='store=dominos&amp;item=party-set']" targetPage="order-summary" action="open order summary for Party Set" />
+      <button id="dominos-add-buddies-bundle" label="Add Buddies Bundle" selector=".store-item__add[href*='store=dominos&amp;item=buddies-bundle']" targetPage="order-summary" action="open order summary for Buddies Bundle" />
+    </page>
+
+    <page id="order-summary" screenId="order-summary-screen" title="Order Summary" dynamic="true">
+      <button id="order-back" label="Back" selector="#orderBackLink" targetPage="previousStorePage" action="return to originating store page" />
+      <button id="order-add-items" label="Add Items" selector="#orderAddItemsLink" targetPage="previousStorePage" action="return to originating store page to add more items" />
+      <button id="order-edit" label="Edit selected item" selector=".order-edit-link" targetPage="previousStorePage" action="return to originating store page to edit current selection" />
+      <button id="order-quantity" label="Quantity pill" selector=".order-qty-pill" targetPage="order-summary" action="currently visual only" />
+      <button id="order-recommend-add" label="People also ordered plus button" selector=".order-recommend-card__visual button" targetPage="order-summary" action="currently visual only" dynamicTargetData="recommendationName" />
+      <button id="order-place" label="Place order" selector=".order-place-button" targetPage="order-summary" action="currently visual only" />
+    </page>
+  </pages>
+
+  <dynamicStates>
+    <state pageId="order-summary" store="dominos" item="large-pizzas" title="1-for-1 Large Pizzas">
+      <sourcePage id="dominos-store" file="dominos.html" />
+      <item name="1-for-1 Large Pizzas" price="39.90" oldPrice="79.80" image="./assets/store-crops/dominos-1.jpg" total="47.20" oldTotal="87.10" saved="39.90">
+        <detail>L- Sambalicious Ikan Bilis</detail>
+        <detail>Classic Hand Tossed</detail>
+        <detail>No Extra Cheese</detail>
+        <detail>Smoky Pepperoni &amp; Mushroom</detail>
+        <detail>Classic Hand Tossed</detail>
+        <detail>No Extra Cheese</detail>
+        <detail>No Thanks</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="dominos" item="regular-pizzas" title="1-for-1 Regular Pizzas">
+      <sourcePage id="dominos-store" file="dominos.html" />
+      <item name="1-for-1 Regular Pizzas" price="29.90" oldPrice="59.80" image="./assets/store-crops/dominos-2.jpg" total="36.70" oldTotal="66.60" saved="29.90">
+        <detail>R- Ultimate Hawaiian</detail>
+        <detail>Classic Hand Tossed</detail>
+        <detail>No Extra Cheese</detail>
+        <detail>R- Meatasaurus</detail>
+        <detail>Classic Hand Tossed</detail>
+        <detail>No Extra Cheese</detail>
+        <detail>No Thanks</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="dominos" item="family-set" title="Family Set (3-4pax)">
+      <sourcePage id="dominos-store" file="dominos.html" />
+      <item name="Family Set (3-4pax)" price="48.90" oldPrice="86.50" image="./assets/store-crops/dominos-1.jpg" total="56.70" oldTotal="94.30" saved="37.60">
+        <detail>2 Regular Pizzas</detail>
+        <detail>1 Garlic Twist</detail>
+        <detail>1 Coca-Cola</detail>
+        <detail>No extra dipping sauce</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="dominos" item="party-8-10" title="Party of 8-10">
+      <sourcePage id="dominos-store" file="dominos.html" />
+      <item name="Party of 8-10" price="115.00" oldPrice="185.20" image="./assets/store-crops/dominos-2.jpg" total="125.50" oldTotal="195.70" saved="70.20">
+        <detail>2 Large Pizzas</detail>
+        <detail>2 Regular Pizzas</detail>
+        <detail>Mixed chicken sides</detail>
+        <detail>No extra dipping sauce</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="dominos" item="party-set" title="Party Set (5-6pax)">
+      <sourcePage id="dominos-store" file="dominos.html" />
+      <item name="Party Set (5-6pax)" price="69.90" oldPrice="112.50" image="./assets/store-crops/dominos-1.jpg" total="78.10" oldTotal="120.70" saved="42.60">
+        <detail>2 Regular Pizzas</detail>
+        <detail>1 side platter</detail>
+        <detail>1 drink</detail>
+        <detail>No extra seasoning</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="dominos" item="buddies-bundle" title="Buddies Bundle (2-3pax)">
+      <sourcePage id="dominos-store" file="dominos.html" />
+      <item name="Buddies Bundle (2-3pax)" price="39.90" oldPrice="62.80" image="./assets/store-crops/dominos-2.jpg" total="46.30" oldTotal="69.20" saved="22.90">
+        <detail>1 Regular Pizza</detail>
+        <detail>Chicken sides</detail>
+        <detail>Garlic bread</detail>
+        <detail>No extra dipping sauce</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="jollibee" item="value-two-c" title="Value for Two Meal C (D)">
+      <sourcePage id="jollibee-store" file="jollibee.html" />
+      <item name="Value for Two Meal C (D)" price="20.00" oldPrice="28.60" image="./assets/store-crops/jolli-1.jpg" total="25.60" oldTotal="34.20" saved="8.60">
+        <detail>2 Chickenjoy pieces</detail>
+        <detail>2 Yumburgers</detail>
+        <detail>2 regular fries</detail>
+        <detail>2 drinks</detail>
+        <detail>No thanks</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="jollibee" item="group-meal-b" title="Group Meal B (D)">
+      <sourcePage id="jollibee-store" file="jollibee.html" />
+      <item name="Group Meal B (D)" price="39.90" oldPrice="54.00" image="./assets/store-crops/jolli-2.jpg" total="46.80" oldTotal="60.90" saved="14.10">
+        <detail>Bucket Chickenjoy</detail>
+        <detail>Jolly Spaghetti tray</detail>
+        <detail>2 regular fries</detail>
+        <detail>1.5L drink</detail>
+        <detail>No thanks</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="jollibee" item="chickenjoy-spaghetti" title="2pc Chickenjoy with Jolly Spaghetti Meal (D)">
+      <sourcePage id="jollibee-store" file="jollibee.html" />
+      <item name="2pc Chickenjoy with Jolly Spaghetti Meal (D)" price="12.50" oldPrice="" image="./assets/store-crops/jolli-1.jpg" total="17.10" oldTotal="" saved="">
+        <detail>2pc Chickenjoy</detail>
+        <detail>Jolly Spaghetti</detail>
+        <detail>1 regular drink</detail>
+        <detail>No add-ons</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="jollibee" item="three-piece-meal" title="3pc Chickenjoy Meal (D) 2 Sides with Drink">
+      <sourcePage id="jollibee-store" file="jollibee.html" />
+      <item name="3pc Chickenjoy Meal (D) 2 Sides with Drink" price="13.50" oldPrice="" image="./assets/store-crops/jolli-2.jpg" total="18.30" oldTotal="" saved="">
+        <detail>3pc Chickenjoy</detail>
+        <detail>2 side dishes</detail>
+        <detail>1 regular drink</detail>
+        <detail>No add-ons</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="jollibee" item="two-piece-meal" title="2pc Chickenjoy Meal (D)">
+      <sourcePage id="jollibee-store" file="jollibee.html" />
+      <item name="2pc Chickenjoy Meal (D)" price="10.80" oldPrice="" image="./assets/store-crops/jolli-1.jpg" total="15.10" oldTotal="" saved="">
+        <detail>2pc Chickenjoy</detail>
+        <detail>Steamed rice</detail>
+        <detail>1 regular drink</detail>
+        <detail>No add-ons</detail>
+      </item>
+    </state>
+
+    <state pageId="order-summary" store="jollibee" item="value-two-a" title="Value for Two Meal A (D)">
+      <sourcePage id="jollibee-store" file="jollibee.html" />
+      <item name="Value for Two Meal A (D)" price="18.60" oldPrice="" image="./assets/store-crops/jolli-2.jpg" total="23.80" oldTotal="" saved="">
+        <detail>2 Chickenjoy pieces</detail>
+        <detail>2 steamed rice</detail>
+        <detail>2 drinks</detail>
+        <detail>No add-ons</detail>
+      </item>
+    </state>
+  </dynamicStates>
+
+  <recommendations>
+    <group store="dominos" pageId="order-summary">
+      <item name="Chilli Flakes" price="0.20" image="./assets/order-crops/chilli-flakes.jpg" />
+      <item name="Salsa Sauce" price="0.50" image="./assets/order-crops/salsa-sauce.jpg" />
+      <item name="Coca-Cola (1.5L)" price="4.90" image="./assets/order-crops/coca-cola.jpg" />
+      <item name="Golden Wings" price="11.90" image="./assets/order-crops/golden-wings.jpg" />
+    </group>
+    <group store="jollibee" pageId="order-summary">
+      <item name="Peach Mango Pie" price="2.80" image="./assets/store-crops/jolli-1.jpg" />
+      <item name="Jolly Crispy Fries" price="3.20" image="./assets/store-crops/jolli-2.jpg" />
+      <item name="Coke Zero" price="3.50" image="./assets/store-crops/jolli-1.jpg" />
+      <item name="Chickenjoy Add-on" price="4.90" image="./assets/store-crops/jolli-2.jpg" />
+    </group>
+  </recommendations>
+</appFlow>

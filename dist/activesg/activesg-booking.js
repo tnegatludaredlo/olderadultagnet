@@ -88,6 +88,20 @@ const ACTIVESG_GROUPS = [
   },
 ];
 
+function getStoredExperimentDemand() {
+  try {
+    return (sessionStorage.getItem("exp_demand") || "").trim().toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function autoPresetIdForDemand() {
+  return getStoredExperimentDemand() === "high"
+    ? "badminton-farrer-park-update"
+    : "";
+}
+
 function hashString(value) {
   let hash = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -171,6 +185,21 @@ function applyStatePreset(presetId) {
   return booking;
 }
 
+function syncBookingToExperimentDemand() {
+  const presetId = autoPresetIdForDemand();
+  if (!presetId) {
+    return null;
+  }
+
+  const preset = ACTIVESG_STATE_PRESETS[presetId];
+  const existing = readBookings()[0];
+  if (existing?.id === preset?.id && readBooking()?.id === preset?.id) {
+    return existing;
+  }
+
+  return applyStatePreset(presetId);
+}
+
 function isReloadNavigation() {
   const navigationEntry = performance.getEntriesByType?.("navigation")?.[0];
   if (navigationEntry && navigationEntry.type) {
@@ -187,6 +216,12 @@ function isReloadNavigation() {
 if (isReloadNavigation()) {
   clearAllBookingState();
 }
+
+syncBookingToExperimentDemand();
+
+window.addEventListener("experiment-entry-change", () => {
+  syncBookingToExperimentDemand();
+});
 
 function createBookingId() {
   return `asg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -443,6 +478,7 @@ function getGroupedActivities() {
 
 window.ActiveSGBooking = {
   applyStatePreset,
+  autoPresetIdForDemand,
   profile: ACTIVESG_PROFILE,
   cancelConfirmedBooking,
   clearAllBookingState,
@@ -465,5 +501,6 @@ window.ActiveSGBooking = {
   readBooking,
   readBookings,
   saveBooking,
+  syncBookingToExperimentDemand,
   startModifyBooking,
 };

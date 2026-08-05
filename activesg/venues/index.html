@@ -39,7 +39,7 @@
 
         <section class="activesg-flow-hero">
           <div class="activesg-flow-hero__top">
-            <a class="activesg-back-mini activesg-back-mini--dark" href="../index.html" aria-label="返回">
+            <a class="activesg-back-mini activesg-back-mini--dark" href="../book-facility/index.html" aria-label="返回">
               <span></span>
             </a>
             <button class="activesg-nav-button" type="button" aria-label="Open menu" data-activesg-menu-trigger>
@@ -84,7 +84,7 @@
       const activity = window.ActiveSGBooking.findActivity(activityId);
 
       if (!activity) {
-        window.location.href = "../index.html";
+        window.location.href = "../book-facility/index.html";
         throw new Error("Missing ActiveSG activity");
       }
 

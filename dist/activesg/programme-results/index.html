@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programme results</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../track.js"></script>
+  </head>
+  <body class="lifesg-body" data-activesg-page="programmes" data-activesg-root="../">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG programme results">
+      <section class="activesg-page activesg-page--programme-results">
+        <div class="lifesg-statusbar" aria-hidden="true">
+          <span class="lifesg-time">9:51</span>
+          <div class="lifesg-status-icons">
+            <span class="lifesg-signal">
+              <i></i><i></i><i></i><i></i>
+            </span>
+            <strong>WiFi</strong>
+            <span class="lifesg-battery"><b>85</b></span>
+          </div>
+        </div>
+
+        <div class="activesg-passes-government">
+          <span class="onepa-government__crest" aria-hidden="true"></span>
+          <span>A Singapore Government Agency Website</span>
+          <a href="../index.html">How to identify</a>
+          <span class="activesg-government__chevron" aria-hidden="true"></span>
+        </div>
+
+        <a class="activesg-language-pill" href="./index.html" aria-label="Language switcher">
+          <span aria-hidden="true">🌐</span>
+          <strong>EN</strong>
+        </a>
+
+        <section class="activesg-passes-alert">
+          <div class="activesg-passes-alert__icon" aria-hidden="true">!</div>
+          <p>
+            Free all-day pool and gym admission on Sat, 8 Aug 2026 at Hougang, Jurong East, Woodlands,
+            Queenstown and Heartbeat @ Bedok Sport Centres.
+          </p>
+        </section>
+
+        <section class="activesg-programmes-redbar">
+          <div class="activesg-programmes-hero__top">
+            <a class="activesg-back-mini" href="../join-programme/index.html" aria-label="返回活动列表">
+              <span></span>
+            </a>
+            <a class="activesg-passes-hero__action" href="../index.html" aria-label="返回首页">
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+        </section>
+
+        <section class="activesg-programmes-results-panel">
+          <div class="activesg-programmes-results-panel__searchrow">
+            <label class="activesg-search activesg-search--programmes activesg-search--results" aria-label="Search activity">
+              <span class="lifesg-search-icon" aria-hidden="true"></span>
+              <input id="results-search" type="search" placeholder="Search by activity" />
+            </label>
+            <button class="activesg-filter-button" type="button" aria-label="Filter">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="activesg-results-filters">
+            <button class="activesg-filter-chip is-selected" type="button">
+              <span aria-hidden="true">✓</span>
+              Show available only
+            </button>
+            <button class="activesg-filter-chip" id="results-activity-chip" type="button">
+              <span id="results-activity-label">Badminton</span>
+              <i aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
+
+        <section class="activesg-programmes-results-content">
+          <h2 class="activesg-results-count" id="results-count"></h2>
+          <div class="activesg-programme-results-list" id="programme-results-list"></div>
+        </section>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-menu.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const requestedActivity = (params.get("activity") || "Badminton").trim();
+      const isBadminton = requestedActivity.toLowerCase() === "badminton";
+
+      const badmintonResults = [
+        {
+          title: "[SG61] Advance Badminton Training (Children & Youth), Sunday 10am Court 1 & 2 By Synchro Badminton Academy",
+          activity: "Badminton",
+          price: "$100.00",
+          sessions: "4 sessions",
+          available: "3 / 16 available",
+          intensity: "Vigorous intensity",
+          venue: "Bishan Clubhouse",
+          start: "Starts Sun, 16 Aug",
+          time: "10:00 am - 12:00 pm",
+        },
+        {
+          title: "[SG61] Advanced Badminton Training (Children & Youth) by Synchro Badminton Academy (Court 3 & 4)",
+          activity: "Badminton",
+          price: "$100.00",
+          sessions: "4 sessions",
+          available: "13 / 16 available",
+          intensity: "Moderate intensity",
+          venue: "Yishun Sport Hall",
+          start: "Starts Fri, 21 Aug",
+          time: "4:00 pm - 6:00 pm",
+        },
+        {
+          title: "[SG61] Badminton for Kids and Youth with Attitude Sports (4 Sessions)",
+          activity: "Badminton",
+          price: "$88.00",
+          sessions: "4 sessions",
+          available: "1 / 16 available",
+          intensity: "Moderate intensity",
+          venue: "Delta Sport Hall",
+          start: "Starts Sun, 16 Aug",
+          time: "9:00 am - 11:00 am",
+        },
+        {
+          title: "[SG61] Badminton for Kids and Youth with RallyOne Academy",
+          activity: "Badminton",
+          price: "$92.00",
+          sessions: "4 sessions",
+          available: "6 / 16 available",
+          intensity: "Moderate intensity",
+          venue: "Heartbeat @ Bedok",
+          start: "Starts Wed, 19 Aug",
+          time: "3:00 pm - 5:00 pm",
+        },
+        {
+          title: "[SG61] Junior Badminton Development with ShuttlePro",
+          activity: "Badminton",
+          price: "$96.00",
+          sessions: "4 sessions",
+          available: "9 / 16 available",
+          intensity: "Vigorous intensity",
+          venue: "Hougang Sport Hall",
+          start: "Starts Sat, 22 Aug",
+          time: "1:00 pm - 3:00 pm",
+        },
+      ];
+
+      function titleCase(value) {
+        return String(value)
+          .toLowerCase()
+          .replace(/\b\w/g, (char) => char.toUpperCase());
+      }
+
+      function buildMockResults(activity) {
+        const clean = titleCase(activity);
+        return [
+          {
+            title: `${clean} Fundamentals by ActiveSG Coaches`,
+            activity: clean,
+            price: "$24.00",
+            sessions: "6 sessions",
+            available: "12 / 20 available",
+            intensity: "Moderate intensity",
+            venue: "Jurong East Sport Centre",
+            start: "Starts Mon, 17 Aug",
+            time: "7:00 pm - 8:00 pm",
+          },
+          {
+            title: `${clean} Basics for Beginners`,
+            activity: clean,
+            price: "$18.00",
+            sessions: "4 sessions",
+            available: "5 / 15 available",
+            intensity: "Low intensity",
+            venue: "Woodlands Sport Centre",
+            start: "Starts Tue, 18 Aug",
+            time: "6:30 pm - 7:30 pm",
+          },
+          {
+            title: `${clean} Weekend Community Programme`,
+            activity: clean,
+            price: "$30.00",
+            sessions: "8 sessions",
+            available: "8 / 18 available",
+            intensity: "Moderate intensity",
+            venue: "Queenstown Sport Centre",
+            start: "Starts Sat, 22 Aug",
+            time: "9:00 am - 10:30 am",
+          },
+        ];
+      }
+
+      const allResults = isBadminton ? badmintonResults : buildMockResults(requestedActivity);
+      const resultsCountLabel = isBadminton ? "55 results" : `${allResults.length} results`;
+
+      const searchInput = document.getElementById("results-search");
+      const countLabel = document.getElementById("results-count");
+      const resultsRoot = document.getElementById("programme-results-list");
+      const activityLabel = document.getElementById("results-activity-label");
+
+      activityLabel.textContent = titleCase(requestedActivity);
+      searchInput.value = isBadminton ? "" : titleCase(requestedActivity);
+      countLabel.textContent = resultsCountLabel;
+
+      function renderResults() {
+        const query = searchInput.value.trim().toLowerCase();
+        const filtered = allResults.filter((item) => {
+          return (
+            item.title.toLowerCase().includes(query) ||
+            item.activity.toLowerCase().includes(query) ||
+            item.venue.toLowerCase().includes(query)
+          );
+        });
+
+        resultsRoot.innerHTML =
+          filtered
+            .map(
+              (item) => `
+                <article class="activesg-programme-result-card">
+                  <h3>${item.title}</h3>
+                  <p class="activesg-programme-result-card__meta">${item.activity} <span>•</span> From ${item.price} <span>•</span> ${item.sessions}</p>
+                  <div class="activesg-programme-result-card__chips">
+                    <span class="activesg-programme-badge activesg-programme-badge--availability">${item.available}</span>
+                    <span class="activesg-programme-badge activesg-programme-badge--intensity">${item.intensity}</span>
+                  </div>
+                  <div class="activesg-programme-result-card__detail">
+                    <span class="activesg-programme-result-card__icon activesg-programme-result-card__icon--location" aria-hidden="true"></span>
+                    <strong>${item.venue}</strong>
+                  </div>
+                  <div class="activesg-programme-result-card__detail">
+                    <span class="activesg-programme-result-card__icon activesg-programme-result-card__icon--calendar" aria-hidden="true"></span>
+                    <span>${item.start}</span>
+                  </div>
+                  <div class="activesg-programme-result-card__detail">
+                    <span class="activesg-programme-result-card__icon activesg-programme-result-card__icon--clock" aria-hidden="true"></span>
+                    <span>${item.time}</span>
+                  </div>
+                </article>
+              `,
+            )
+            .join("") ||
+          `
+            <section class="activesg-empty-state">
+              <strong>No programmes found</strong>
+              <p>Try another activity keyword.</p>
+            </section>
+          `;
+      }
+
+      searchInput.addEventListener("input", renderResults);
+      renderResults();
+      window.ActiveSGMenu.mount();
+    </script>
+  </body>
+</html>

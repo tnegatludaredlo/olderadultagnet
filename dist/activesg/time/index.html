@@ -92,7 +92,7 @@
       const venue = window.ActiveSGBooking.findVenue(activityId, venueId);
 
       if (!activity || !venue) {
-        window.location.href = "../index.html";
+        window.location.href = "../book-facility/index.html";
         throw new Error("Missing ActiveSG activity or venue");
       }
 

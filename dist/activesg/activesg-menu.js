@@ -3,7 +3,8 @@ function buildActiveSGMenu(currentPage) {
   const items = [
     { id: "home", label: "Home", href: `${rootPrefix}index.html`, icon: "home" },
     { id: "bookings", label: "Bookings", href: `${rootPrefix}bookings/index.html`, icon: "bookings" },
-    { id: "programmes", label: "Programmes", href: null, icon: "programmes" },
+    { id: "book-facility", label: "Book facility", href: `${rootPrefix}book-facility/index.html`, icon: "programmes" },
+    { id: "programmes", label: "Programmes", href: `${rootPrefix}join-programme/index.html`, icon: "programmes" },
     { id: "passes", label: "Passes", href: null, icon: "passes" },
     { id: "profile", label: "Profile", href: null, icon: "profile" },
     { id: "linked", label: "Linked accounts", href: null, icon: "linked" },

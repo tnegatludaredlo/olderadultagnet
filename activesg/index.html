@@ -7,161 +7,158 @@
     <link rel="stylesheet" href="../styles.css" />
     <script defer src="../track.js"></script>
   </head>
-  <body class="lifesg-body" data-activesg-page="home" data-activesg-root="./">
-    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG booking">
-      <section class="activesg-page">
-        <header class="activesg-browser">
-          <div class="lifesg-statusbar" aria-hidden="true">
-            <span class="lifesg-time">12:04</span>
-            <div class="lifesg-status-icons">
-              <span class="lifesg-signal">
-                <i></i><i></i><i></i><i></i>
-              </span>
-              <strong>4G</strong>
-              <span class="lifesg-battery lifesg-battery--warning"><b>32</b></span>
-            </div>
+  <body class="lifesg-body">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG home">
+      <section class="activesg-page activesg-page--landing">
+        <div class="lifesg-statusbar" aria-hidden="true">
+          <span class="lifesg-time">9:32</span>
+          <div class="lifesg-status-icons">
+            <span class="lifesg-signal">
+              <i></i><i></i><i></i><i></i>
+            </span>
+            <strong>WiFi</strong>
+            <span class="lifesg-battery"><b>86</b></span>
           </div>
-
-          <div class="onepa-browser__top">
-            <strong>activesg.gov.sg</strong>
-            <button class="onepa-circle onepa-circle--menu" type="button" aria-label="更多" data-activesg-menu-trigger>
-              <span></span>
-            </button>
-          </div>
-
-          <div class="activesg-government">
-            <span class="onepa-government__crest" aria-hidden="true"></span>
-            <span>A Singapore Government Agency Website</span>
-            <a href="./index.html">How to identify</a>
-            <span class="activesg-government__chevron" aria-hidden="true"></span>
-          </div>
-        </header>
-
-        <section class="activesg-hero">
-          <div class="activesg-hero__top">
-            <a class="activesg-back-mini" href="../index.html" aria-label="返回应用列表">
-              <span></span>
-            </a>
-            <span class="activesg-share-icon" aria-hidden="true"></span>
-          </div>
-
-          <div class="activesg-hero__content">
-            <div class="activesg-hero__copy">
-              <h1>Book a facility</h1>
-              <p>Book or ballot for slots to play badminton, volleyball, and more.</p>
-            </div>
-            <div class="activesg-hero__art" aria-hidden="true">
-              <span class="disc"></span>
-              <span class="racket"></span>
-              <span class="player"></span>
-            </div>
-          </div>
-        </section>
-
-        <section class="activesg-content">
-          <label class="activesg-search" aria-label="搜索项目">
-            <span class="lifesg-search-icon" aria-hidden="true"></span>
-            <input id="activesg-sport-search" type="search" placeholder="Search sports (e.g. badminton)" />
-          </label>
-
-          <div class="activesg-group-list" id="activesg-groups"></div>
-        </section>
-
-        <div class="onepa-toolbar" aria-hidden="true">
-          <span class="onepa-toolbar__back"></span>
-          <div class="onepa-toolbar__actions"></div>
         </div>
+
+        <section class="activesg-landing-hero">
+          <div class="activesg-landing-hero__bar">
+            <a class="activesg-landing-logo" href="../index.html" aria-label="返回应用列表">
+              <span class="activesg-landing-logo__mark" aria-hidden="true"></span>
+              <strong>ActiveSG</strong>
+            </a>
+            <button class="activesg-landing-login" type="button">Log in</button>
+          </div>
+
+          <div class="activesg-landing-hero__body">
+            <div class="activesg-landing-copy">
+              <h1>Book facilities, join programmes, and stay active with your kakis</h1>
+            </div>
+            <div class="activesg-landing-illustration" aria-hidden="true">
+              <span class="activesg-landing-orbit"></span>
+              <span class="activesg-landing-player activesg-landing-player--left"></span>
+              <span class="activesg-landing-player activesg-landing-player--right"></span>
+              <span class="activesg-landing-ball activesg-landing-ball--basketball"></span>
+              <span class="activesg-landing-ball activesg-landing-ball--football"></span>
+            </div>
+          </div>
+
+          <a class="activesg-language-pill" href="./index.html" aria-label="Language switcher">
+            <span aria-hidden="true">🌐</span>
+            <strong>EN</strong>
+          </a>
+        </section>
+
+        <section class="activesg-landing-content">
+          <div class="activesg-landing-cards">
+            <a class="activesg-landing-card" href="./buy-passes/index.html">
+              <div class="activesg-landing-card__copy">
+                <strong>Buy swim or gym passes</strong>
+                <p>Buy single and multi-entry passes.</p>
+              </div>
+              <div class="activesg-landing-card__art activesg-landing-card__art--blue" aria-hidden="true"></div>
+            </a>
+
+            <a class="activesg-landing-card" href="./book-facility/index.html">
+              <div class="activesg-landing-card__copy">
+                <strong>Book a facility</strong>
+                <p>Book or ballot for slots to play sports.</p>
+              </div>
+              <div class="activesg-landing-card__art activesg-landing-card__art--yellow" aria-hidden="true"></div>
+            </a>
+
+            <a class="activesg-landing-card" href="./join-programme/index.html">
+              <div class="activesg-landing-card__copy">
+                <strong>Join a programme</strong>
+                <p>Try a new activity, from yoga to fitness classes.</p>
+              </div>
+              <div class="activesg-landing-card__art activesg-landing-card__art--pink" aria-hidden="true"></div>
+            </a>
+          </div>
+
+          <section class="activesg-info-block">
+            <div class="activesg-info-block__icon" aria-hidden="true">i</div>
+            <h2>Frequently asked questions</h2>
+            <div class="activesg-faq-list">
+              <details class="activesg-faq-item">
+                <summary>What should I know about the new pool gantries?</summary>
+                <ul>
+                  <li>We&apos;re progressively reintroducing gantries at all ActiveSG pools for entry and exit in the long term.</li>
+                  <li>Scan in the way you did before, and scan out with the same method.</li>
+                  <li>Find pools with gantries at <u>go.gov.sg/activesg-gantries</u>.</li>
+                </ul>
+              </details>
+              <details class="activesg-faq-item">
+                <summary>Will gym entry and exit be changing?</summary>
+                <ul>
+                  <li>We&apos;re introducing gantries across all ActiveSG pools first.</li>
+                  <li>Entry for gyms will remain the same for now, but we&apos;ll post updates when it changes.</li>
+                </ul>
+              </details>
+              <details class="activesg-faq-item">
+                <summary>How do I swim at the arena pool used for the World Aquatics Championships (WCH)?</summary>
+                <ul>
+                  <li>From 31 Oct to 31 Dec 2025, individuals aged 16 and above can enter with a feature pool pass.</li>
+                  <li>The new 3-metre competition pool was used for the World Aquatics Championships.</li>
+                </ul>
+              </details>
+              <details class="activesg-faq-item">
+                <summary>What are SG60 ActiveSG credits, and when do they expire?</summary>
+                <p>Credits can be used on eligible ActiveSG services, and expiry details will be shown in your wallet and service notices.</p>
+              </details>
+            </div>
+            <p class="activesg-info-block__link">Have other questions? <a href="./index.html">See all FAQ</a></p>
+          </section>
+
+          <section class="activesg-info-block activesg-info-block--issue">
+            <div class="activesg-info-block__icon activesg-info-block__icon--alert" aria-hidden="true">!</div>
+            <h2>Experiencing issues?</h2>
+            <p><a href="./index.html">Report</a> any bugs or errors to us.</p>
+          </section>
+
+          <section class="activesg-scam-block">
+            <div class="activesg-info-block__icon" aria-hidden="true">i</div>
+            <h2>Beware of government impersonation scams</h2>
+            <p>
+              All official government SMS will show “gov.sg” as the sender. You will never be asked for money or your
+              details over the phone. If they do, hang up and call ScamShield at 1799.
+            </p>
+          </section>
+
+          <footer class="activesg-landing-footer">
+            <div class="activesg-landing-footer__brand">
+              <div class="activesg-landing-logo activesg-landing-logo--footer">
+                <span class="activesg-landing-logo__mark" aria-hidden="true"></span>
+                <strong>ActiveSG</strong>
+              </div>
+              <nav class="activesg-landing-footer__links" aria-label="Footer links">
+                <a href="./index.html">Get Active Questionnaire</a>
+                <a href="./index.html">Guide</a>
+                <a href="./index.html">Privacy</a>
+                <a href="./index.html">Terms of Use</a>
+                <a href="./index.html">Report Vulnerability</a>
+              </nav>
+            </div>
+
+            <div class="activesg-landing-footer__partners">
+              <div>
+                <span>Built by</span>
+                <strong>Open Government Products</strong>
+              </div>
+              <div>
+                <span>In partnership with</span>
+                <strong>People&apos;s Association</strong>
+              </div>
+            </div>
+
+            <div class="activesg-landing-footer__social" aria-label="Social links">
+              <a href="./index.html">in</a>
+              <a href="./index.html">f</a>
+              <a href="./index.html">◎</a>
+            </div>
+          </footer>
+        </section>
       </section>
     </main>
-
-    <script src="./activesg-mock-data.js"></script>
-    <script src="./activesg-booking.js"></script>
-    <script src="./activesg-menu.js"></script>
-    <script>
-      const searchInput = document.getElementById("activesg-sport-search");
-      const groupsRoot = document.getElementById("activesg-groups");
-      const groupedActivities = window.ActiveSGBooking.getGroupedActivities();
-
-      function buildCard(activity) {
-        return `
-          <a class="activesg-card activesg-card--link" href="./venues/index.html?activityId=${encodeURIComponent(activity.activityId)}">
-            <strong>${activity.activityName}</strong>
-            <small>${activity.venueCount} venues</small>
-          </a>
-        `;
-      }
-
-      function buildGroup(group, query) {
-        const filteredItems = group.items.filter((activity) =>
-          activity.activityName.toLowerCase().includes(query),
-        );
-
-        if (!filteredItems.length) {
-          return "";
-        }
-
-        if (group.title === "Core Sports") {
-          return `
-            <section class="activesg-group-block">
-              <div class="activesg-list">${filteredItems.map(buildCard).join("")}</div>
-            </section>
-          `;
-        }
-
-        return `
-          <section class="activesg-accordion is-open">
-            <button class="activesg-accordion__trigger" type="button">
-              <span>${group.title}</span>
-              <i></i>
-            </button>
-            <div class="activesg-accordion__panel">
-              ${filteredItems
-                .map(
-                  (activity) => `
-                    <a class="activesg-accordion__item activesg-accordion__item--link" href="./venues/index.html?activityId=${encodeURIComponent(activity.activityId)}">
-                      <b>${activity.activityName}</b>
-                      <small>${activity.venueCount} venues</small>
-                    </a>
-                  `,
-                )
-                .join("")}
-            </div>
-          </section>
-        `;
-      }
-
-      function bindAccordions() {
-        Array.from(groupsRoot.querySelectorAll(".activesg-accordion")).forEach((section) => {
-          const trigger = section.querySelector(".activesg-accordion__trigger");
-          const panel = section.querySelector(".activesg-accordion__panel");
-
-          trigger.addEventListener("click", () => {
-            const nextOpen = !section.classList.contains("is-open");
-            section.classList.toggle("is-open", nextOpen);
-            panel.hidden = !nextOpen;
-          });
-        });
-      }
-
-      function render() {
-        const query = searchInput.value.trim().toLowerCase();
-        const markup = groupedActivities.map((group) => buildGroup(group, query)).filter(Boolean).join("");
-
-        groupsRoot.innerHTML =
-          markup ||
-          `
-            <section class="activesg-empty-state">
-              <strong>No sports found</strong>
-              <p>Try searching for badminton, tennis, basketball, or soccer.</p>
-            </section>
-          `;
-
-        bindAccordions();
-      }
-
-      searchInput.addEventListener("input", render);
-      render();
-      window.ActiveSGMenu.mount();
-    </script>
   </body>
 </html>

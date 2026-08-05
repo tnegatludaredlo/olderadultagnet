@@ -39,7 +39,7 @@
 
         <section class="activesg-flow-hero activesg-bookings-hero">
           <div class="activesg-flow-hero__top">
-            <a class="activesg-back-mini activesg-back-mini--dark" href="../index.html" aria-label="返回">
+            <a class="activesg-back-mini activesg-back-mini--dark" href="../book-facility/index.html" aria-label="返回">
               <span></span>
             </a>
             <button class="activesg-nav-button" type="button" aria-label="Open menu" data-activesg-menu-trigger>
@@ -52,7 +52,7 @@
               <div class="activesg-flow-icon activesg-flow-icon--bookings" aria-hidden="true"></div>
               <h1>Bookings</h1>
             </div>
-            <a class="activesg-bookings-cta" href="../index.html">Book now</a>
+            <a class="activesg-bookings-cta" href="../book-facility/index.html">Book now</a>
           </div>
         </section>
 
@@ -201,7 +201,7 @@
       function renderUpcoming() {
         const bookings = window.ActiveSGBooking.getUpcomingBookings();
         if (!bookings.length) {
-          renderEmptyState(upcomingRoot, "No upcoming bookings", "Start playing!", "../index.html", "Book a facility");
+          renderEmptyState(upcomingRoot, "No upcoming bookings", "Start playing!", "../book-facility/index.html", "Book a facility");
           return;
         }
 

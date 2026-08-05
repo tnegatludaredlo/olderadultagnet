@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join a programme</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../track.js"></script>
+  </head>
+  <body class="lifesg-body" data-activesg-page="programmes" data-activesg-root="../">
+    <main class="lifesg-shell lifesg-shell--browser" aria-label="ActiveSG programmes">
+      <section class="activesg-page activesg-page--programmes">
+        <div class="lifesg-statusbar" aria-hidden="true">
+          <span class="lifesg-time">9:50</span>
+          <div class="lifesg-status-icons">
+            <span class="lifesg-signal">
+              <i></i><i></i><i></i><i></i>
+            </span>
+            <strong>WiFi</strong>
+            <span class="lifesg-battery"><b>85</b></span>
+          </div>
+        </div>
+
+        <section class="activesg-programmes-hero">
+          <div class="activesg-programmes-hero__top">
+            <a class="activesg-back-mini" href="../index.html" aria-label="返回首页">
+              <span></span>
+            </a>
+            <a class="activesg-passes-hero__action" href="../index.html" aria-label="返回首页">
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <div class="activesg-programmes-hero__content">
+            <div class="activesg-programmes-hero__copy">
+              <h1>Join a programme</h1>
+            </div>
+            <div class="activesg-programmes-hero__art" aria-hidden="true">
+              <span class="activesg-programmes-hero__bubble"></span>
+              <span class="activesg-programmes-hero__person"></span>
+              <span class="activesg-programmes-hero__ball"></span>
+            </div>
+          </div>
+
+          <a class="activesg-language-pill" href="./index.html" aria-label="Language switcher">
+            <span aria-hidden="true">🌐</span>
+            <strong>EN</strong>
+          </a>
+        </section>
+
+        <section class="activesg-programmes-content">
+          <label class="activesg-search activesg-search--programmes" aria-label="Search programme">
+            <span class="lifesg-search-icon" aria-hidden="true"></span>
+            <input id="programme-search" type="search" placeholder="Search by activity or location" />
+          </label>
+
+          <div class="activesg-programme-list" id="programme-list"></div>
+        </section>
+
+        <div class="onepa-toolbar" aria-hidden="true">
+          <span class="onepa-toolbar__back"></span>
+          <div class="onepa-toolbar__actions"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../activesg-menu.js"></script>
+    <script>
+      const programmeNames = [
+        "Abs, Buns And Thighs",
+        "Active Health",
+        "Aerobics",
+        "Aikido",
+        "Aqua Aerobics",
+        "Aqua Drum Vibes",
+        "Aquafit",
+        "Aqua Fitness",
+        "Aqua Spinning",
+        "Aqua Tabata",
+        "Aqua Zumba",
+        "Archery",
+        "Badminton",
+        "Barre",
+        "Basketball",
+        "Belly Dance",
+        "Body Sculpt",
+        "Boogie Bounce Xtreme",
+        "Boxing",
+        "Cardio Dance",
+        "Cardiomix",
+        "Dance",
+        "Dance Fitness",
+        "Dance Sport",
+      ];
+
+      const searchInput = document.getElementById("programme-search");
+      const listRoot = document.getElementById("programme-list");
+
+      function renderList() {
+        const query = searchInput.value.trim().toLowerCase();
+        const filtered = programmeNames.filter((name) => name.toLowerCase().includes(query));
+
+        listRoot.innerHTML =
+          filtered
+            .map((name) => {
+              return `
+                <a class="activesg-programme-tile" href="../programme-results/index.html?activity=${encodeURIComponent(name)}">
+                  <strong>${name}</strong>
+                </a>
+              `;
+            })
+            .join("") ||
+          `
+            <section class="activesg-empty-state">
+              <strong>No programmes found</strong>
+              <p>Try another activity or location.</p>
+            </section>
+          `;
+      }
+
+      searchInput.addEventListener("input", renderList);
+      renderList();
+      window.ActiveSGMenu.mount();
+    </script>
+  </body>
+</html>
